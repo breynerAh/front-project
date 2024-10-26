@@ -1,0 +1,26 @@
+trigger: none
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm install -g typescript
+    displayName: 'install typescript'
+
+  - script: |
+      npm install -g ts-node
+    displayName: 'install ts-node'
+    
+  - script: |
+      npm install -g pnpm
+    displayName: 'install pnpm'
+
+  - script: |
+      pnpm install
+      pnpm build
+    displayName: 'pnpm install and build'

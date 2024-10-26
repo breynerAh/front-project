@@ -1,0 +1,43 @@
+# Pipeline for deploying the backend to the test environment
+# This pipeline is triggered when a commit is made to the stage branch
+trigger:
+  branches:
+    include:
+      - stage
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: FRONT_STAGE_VARS
+  - name: FRONT_STAGE_VARS
+
+steps:
+  - task: Docker@2
+    displayName: 'Docker Build'
+    inputs:
+      containerRegistry: 'DockerHubRegistry'
+      repository: '$(DOCKER_REPOSITORY_NAME)'
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+      tags: |
+        $(Build.BuildId)
+        latest
+
+  - task: Docker@2
+    displayName: 'Docker Push'
+    name: 'Docker_Push'
+    inputs:
+      containerRegistry: 'DockerHubRegistry'
+      repository: '$(DOCKER_REPOSITORY_NAME)'
+      command: 'push'
+      tags: |
+        $(Build.BuildId)
+        latest
+  
+  - task: SSH@0
+    inputs:
+      sshEndpoint: 'SSH_CONNECTION'
+      runOptions: 'commands'
+      commands: |
+        bash /home/ubuntu/wow/stage/front/script.sh
+      failOnStdErr: false
