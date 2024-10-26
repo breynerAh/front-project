@@ -1,20 +1,23 @@
-import { resolver, translate, validator } from "@/common/utils";
+import { resolver, validator } from "@/common/utils";
+import { CommonText } from "@/presentation/locale/commonText";
 import useModal from "@/presentation/shared/hooks/useModal";
 import { useTodoStore } from "@/presentation/store/todo/todoStore";
 import { Close } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import {
-  ModalUI,
   BoxUI,
-  TypographyUI,
-  ControlledTextFieldUI,
   ButtonActionUI,
+  ControlledTextFieldUI,
+  ModalUI,
+  TypographyUI,
 } from "@repo/ui";
 import { useForm } from "react-hook-form";
 
 export default function AddTodoContainer() {
+  const message = CommonText();
+
   const schema = validator.object().shape({
-    title: validator.string().required(translate("errors.required")),
+    title: validator.string().required(message.errors.required),
   });
 
   const { addTodo } = useTodoStore();
@@ -56,7 +59,7 @@ export default function AddTodoContainer() {
             }}
           >
             <TypographyUI variant="h5" sx={{ alignSelf: "flex-start" }}>
-              {translate("todo.create.titleModal")}
+              {message.todo.create.titleModal}
             </TypographyUI>
             <IconButton onClick={close}>
               <Close color="error" />
@@ -65,13 +68,13 @@ export default function AddTodoContainer() {
           <ControlledTextFieldUI
             control={control}
             name="title"
-            label={translate("todo.create.form.title")}
+            label={message.todo.create.form.title}
             error={!!errors.title}
             helperText={errors?.title?.message}
             sx={{ width: "90%", marginTop: "10px" }}
           />
           <ButtonActionUI
-            text={translate("words.save")}
+            text={message.words.save}
             actionType="save"
             sx={{ marginTop: "10px", width: "90%" }}
             variant="outlined"
@@ -80,7 +83,7 @@ export default function AddTodoContainer() {
         </BoxUI>
       </ModalUI>
       <ButtonActionUI
-        text={translate("words.create")}
+        text={message.words.create}
         actionType="add"
         fullWidth={false}
         variant="outlined"

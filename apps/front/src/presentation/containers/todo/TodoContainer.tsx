@@ -1,33 +1,35 @@
-import { translate } from "@/common/utils";
 import { Todo } from "@/domain/entities/todo/todo.entity";
+import { CommonText } from "@/presentation/locale/commonText";
 import { createTableActions } from "@/presentation/shared/utils";
 import { useTodoStore } from "@/presentation/store/todo/todoStore";
 import { GridColDef } from "@mui/x-data-grid";
 import { BoxUI, CustomToolbarUI, SwitchUI, TableProUI } from "@repo/ui";
-import EditTodoContainer from "./EditTodoContainer";
 import AddTodoContainer from "./AddTodoContainer";
+import EditTodoContainer from "./EditTodoContainer";
 
 export function TodoContainer() {
+  const message = CommonText();
+
   const { todos, removeTodo, openModalEdit, handleCompleted } = useTodoStore();
 
   const cols: GridColDef<Todo>[] = [
     {
       field: "id",
-      headerName: translate("todo.list.id"),
+      headerName: message.todo.list.id,
       align: "center",
       headerAlign: "center",
       flex: 1,
     },
     {
       field: "title",
-      headerName: translate("todo.list.title"),
+      headerName: message.todo.list.title,
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
     {
       field: "completed",
-      headerName: translate("todo.list.completed"),
+      headerName: message.todo.list.completed,
       flex: 1,
       align: "center",
       headerAlign: "center",
@@ -42,7 +44,7 @@ export function TodoContainer() {
     },
     {
       field: "actions",
-      headerName: translate("todo.list.actions"),
+      headerName: message.todo.list.actions,
       flex: 1,
       type: "actions",
       getActions: ({ row }: { row: Todo }) =>

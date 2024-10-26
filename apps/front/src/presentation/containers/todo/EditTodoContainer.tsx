@@ -1,14 +1,22 @@
-import { resolver, translate, validator } from "@/common/utils";
+import { resolver, validator } from "@/common/utils";
+import { CommonText } from "@/presentation/locale/commonText";
 import { useTodoStore } from "@/presentation/store/todo/todoStore";
 import { Close } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import { ModalUI, BoxUI, TypographyUI, ControlledTextFieldUI, ButtonActionUI } from "@repo/ui";
+import {
+  BoxUI,
+  ButtonActionUI,
+  ControlledTextFieldUI,
+  ModalUI,
+  TypographyUI,
+} from "@repo/ui";
 import { useForm } from "react-hook-form";
 
-
 export default function EditTodoContainer() {
+  const message = CommonText();
+
   const schema = validator.object().shape({
-    title: validator.string().required(translate("errors.required")),
+    title: validator.string().required(message.errors.required),
   });
 
   const { updateTodo, todoToEdit, closeModalEdit, isOpenModalEdit } =
@@ -50,7 +58,7 @@ export default function EditTodoContainer() {
           }}
         >
           <TypographyUI variant="h5" sx={{ alignSelf: "flex-start" }}>
-            {translate("todo.edit.titleModal")}
+            {message.todo.edit.titleModal}
           </TypographyUI>
           <IconButton onClick={closeModalEdit}>
             <Close color="error" />
@@ -59,13 +67,13 @@ export default function EditTodoContainer() {
         <ControlledTextFieldUI
           control={control}
           name="title"
-          label={translate("todo.edit.form.title")}
+          label={message.todo.edit.form.title}
           error={!!errors.title}
           helperText={errors.title?.message}
           sx={{ width: "90%", marginTop: "10px" }}
         />
         <ButtonActionUI
-          text={translate("words.save")}
+          text={message.words.save}
           actionType="edit"
           sx={{ marginTop: "10px", width: "90%" }}
           variant="outlined"

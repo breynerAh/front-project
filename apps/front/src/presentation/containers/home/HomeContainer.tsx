@@ -1,9 +1,11 @@
-import { translate } from "@/common/utils";
+import { CommonText } from "@/presentation/locale/commonText";
 import { ArrowForward } from "@mui/icons-material";
 import { BoxUI, ButtonUI, TypographyUI } from "@repo/ui";
 import { useNavigate } from "react-router-dom";
 
 export const HomeContainer = () => {
+  const message = CommonText();
+
   const navigate = useNavigate();
   return (
     <BoxUI
@@ -20,10 +22,10 @@ export const HomeContainer = () => {
         Bienvenido a la nueva plantilla con arquitectura limpia.
       </TypographyUI>
       <ButtonUI onClick={() => navigate("/app/todo")}>
-        {translate("home.zustand")} <ArrowForward />
+        {message.home.zustand} <ArrowForward />
       </ButtonUI>
       <ButtonUI onClick={() => navigate("/app/pokemon")}>
-        {translate("home.api")} <ArrowForward />
+        {message.home.api} <ArrowForward />
       </ButtonUI>
     </BoxUI>
   );
