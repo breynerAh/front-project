@@ -5,8 +5,12 @@ import { Layout } from "../providers/layout/layout";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: lazy(() => import("@/presentation/pages/home/HomePage")),
+    Component: lazy(() => import("@/presentation/pages/security/login")),
   },
+  // {
+  //   path: "/",
+  //   Component: lazy(() => import("@/presentation/pages/home/HomePage")),
+  // },
   {
     path: "/app",
     element: <Layout />,
