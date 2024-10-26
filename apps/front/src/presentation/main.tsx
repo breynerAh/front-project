@@ -6,7 +6,6 @@ import { RouterProvider } from "react-router-dom";
 import "./main.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./locale/i18n.ts";
 import { ThinLineLoading } from "./components/ui/loading/thinLineLoading";
 import { CustomThemeProvider } from "./providers/theme";
 import { router } from "./router";

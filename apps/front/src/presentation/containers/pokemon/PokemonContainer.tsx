@@ -1,5 +1,5 @@
-import { translate } from "@/common/utils";
 import { useGetPokemon } from "@/presentation/hooks/pokemon/usetGetPokemon";
+import { CommonText } from "@/presentation/locale/commonText";
 import { Search } from "@mui/icons-material";
 import { CardContent, CardMedia } from "@mui/material";
 import { BoxUI, CardUI, PaperUI, TextFieldUI, TypographyUI } from "@repo/ui";
@@ -8,6 +8,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 export const PokemonContainer = () => {
   const [pokemon, setPokemon] = useState<string>("");
+  const message = CommonText();
 
   const { data } = useGetPokemon(pokemon);
 
@@ -36,7 +37,7 @@ export const PokemonContainer = () => {
         }}
       >
         <TextFieldUI
-          label={translate("pokemon.form.input")}
+          label={message.pokemon.form.input}
           onChange={useDebouncedCallback(handleChange, 500)}
           InputProps={{
             endAdornment: <Search color="primary" />,
@@ -64,7 +65,7 @@ export const PokemonContainer = () => {
               component="div"
               sx={{ textTransform: "capitalize" }}
             >
-              {translate("pokemon.card.id")}: {data.id}
+              {message.pokemon.card.id}: {data.id}
             </TypographyUI>
             <TypographyUI
               gutterBottom
@@ -72,7 +73,7 @@ export const PokemonContainer = () => {
               component="div"
               sx={{ textTransform: "capitalize" }}
             >
-              {translate("pokemon.card.name")}: {data.name}
+              {message.pokemon.card.name}: {data.name}
             </TypographyUI>
           </CardContent>
         </CardUI>
@@ -87,7 +88,7 @@ export const PokemonContainer = () => {
           }}
         >
           <TypographyUI variant="h6" component="div">
-            {translate("pokemon.card.notFound")}
+            {message.pokemon.card.notFound}
           </TypographyUI>
         </PaperUI>
       )}

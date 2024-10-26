@@ -1,6 +1,5 @@
 import { Menu } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import ChangeLangBtn from "./changeLang";
 
 export function Header({
   handleAsideToggle,
@@ -12,9 +11,6 @@ export function Header({
       <IconButton onClick={handleAsideToggle}>
         <Menu sx={{ color: "primary.main" }} />
       </IconButton>
-      <div className="flex items-center">
-        <ChangeLangBtn />
-      </div>
     </div>
   );
 }
