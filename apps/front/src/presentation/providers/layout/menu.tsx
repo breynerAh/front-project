@@ -18,8 +18,11 @@ import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBook
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { useContext } from "react";
+import { AuthContext } from "@/presentation/providers/context/authContext";
 
 export function MenuLayout() {
+  const { logout } = useContext(AuthContext);
   const {
     control,
     anchorEls,
@@ -207,7 +210,10 @@ export function MenuLayout() {
             </ListItem>
             <Divider component="li" />
 
-            <ListItem sx={{ margin: "5px 0" }}>
+            <ListItem
+              sx={{ margin: "5px 0", cursor: "pointer" }}
+              onClick={() => logout()}
+            >
               <LogoutOutlinedIcon />
               <TypographyUI sx={{ marginLeft: "10px" }}>
                 Cerrar sesión

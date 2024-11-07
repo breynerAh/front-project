@@ -3,7 +3,9 @@ import { resolver, validator } from "@/common/utils";
 import { LoginRequest } from "@/domain/interfaces/security/login/loginApiResponses";
 import { CommonText } from "@/presentation/locale/commonText";
 import { useLoginStore } from "@/presentation/store/security/loginStore";
+import { toastInvoker } from "@repo/ui";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 
 export function useLogin() {
@@ -37,6 +39,13 @@ export function useLogin() {
       onSuccess: (response) => {
         console.log("Success", response);
         setToken(response.token);
+      },
+      onError: (error) => {
+        console.log(error, "💕💕💕💕");
+        if (error instanceof AxiosError) {
+          const message = error?.response?.data?.message || "Error interno.";
+          toastInvoker(message, "error");
+        }
       },
     });
   });

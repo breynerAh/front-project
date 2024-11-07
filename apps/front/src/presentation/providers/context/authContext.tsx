@@ -1,17 +1,20 @@
 import { useLoginStore } from "@/presentation/store/security/loginStore";
 import { FC, createContext, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-const defaultState: { token: string | null } = {
+const defaultState: { token: string | null; logout: () => void } = {
   token: "",
+  logout: () => {},
 };
 
-const AuthContext = createContext(defaultState);
+export const AuthContext = createContext(defaultState);
 
 const AuthProvider: FC = () => {
-  const { token } = useLoginStore();
+  const { token, setToken } = useLoginStore();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const logout = () => {
+    setToken("");
+  };
   useEffect(() => {
     switch (pathname) {
       case "/":
@@ -27,7 +30,7 @@ const AuthProvider: FC = () => {
   }, [pathname, navigate, token]);
 
   return (
-    <AuthContext.Provider value={{ token }}>
+    <AuthContext.Provider value={{ token, logout }}>
       <Outlet />
     </AuthContext.Provider>
   );
