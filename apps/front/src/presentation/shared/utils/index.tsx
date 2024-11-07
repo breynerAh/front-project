@@ -25,7 +25,7 @@ export const createTableActions = ({
 
 export const brandVars = {
   local: {
-    bk: "http://localhost:5173/api",
+    bk: "http://localhost:3001/api",
   },
   stage: {
     bk: "https://arisqa.www.com/api",

@@ -2,17 +2,18 @@ import { Login } from "@/application/use-cases/security";
 import { resolver, validator } from "@/common/utils";
 import { LoginRequest } from "@/domain/interfaces/security/login/loginApiResponses";
 import { CommonText } from "@/presentation/locale/commonText";
+import { useLoginStore } from "@/presentation/store/security/loginStore";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 export function useLogin() {
   const message = CommonText();
+  const { setToken } = useLoginStore();
 
   const schema = validator.object().shape({
     email: validator.string().required(message?.errors?.required),
     password: validator.string().required(message?.errors?.required),
   });
-
   const {
     control,
     handleSubmit: onSubmit,
@@ -35,6 +36,7 @@ export function useLogin() {
     mutation.mutate(data, {
       onSuccess: (response) => {
         console.log("Success", response);
+        setToken(response.token);
       },
     });
   });

@@ -6,7 +6,9 @@ export const generalAxios = () => {
     baseURL: selectBackendEnvironment() || "http://localhost:3001/api",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem("iuaTK")}`,
+      authorization: `Bearer ${
+        JSON?.parse(localStorage?.getItem("LoginTK") || "")?.state?.token
+      }`,
     },
   });
 };
