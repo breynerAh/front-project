@@ -129,7 +129,7 @@ export default function LoginContainer() {
             }}
           >
             <ImageUI
-              src="/images/Logo_aris.svg"
+              src="/images/fondo_aris_dark.svg"
               alt="Logo"
               style={{ maxWidth: "80%" }}
             />
