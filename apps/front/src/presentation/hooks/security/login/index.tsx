@@ -13,7 +13,12 @@ export function useLogin() {
   const { setToken } = useLoginStore();
 
   const schema = validator.object().shape({
-    email: validator.string().required(message?.errors?.required),
+    // email: validator.string().required(message?.errors?.required),
+    // password: validator.string().required(message?.errors?.required),
+    email: validator
+      .string()
+      .email("El email no es válido")
+      .required(message?.errors?.required),
     password: validator.string().required(message?.errors?.required),
   });
   const {
@@ -37,11 +42,9 @@ export function useLogin() {
     console.log(data);
     mutation.mutate(data, {
       onSuccess: (response) => {
-        console.log("Success", response);
         setToken(response.token);
       },
       onError: (error) => {
-        console.log(error, "💕💕💕💕");
         if (error instanceof AxiosError) {
           const message = error?.response?.data?.message || "Error interno.";
           toastInvoker(message, "error");

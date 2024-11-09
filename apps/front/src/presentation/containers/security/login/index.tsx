@@ -5,7 +5,7 @@ import {
   ButtonUI,
   ControlledTextFieldUI,
   GridUI,
-  ImageUI
+  ImageUI,
 } from "@repo/ui";
 
 export default function LoginContainer() {
@@ -13,8 +13,19 @@ export default function LoginContainer() {
   const { control, errors, handleSubmit } = useLogin();
 
   return (
-    <GridUI container columnSpacing={2} rowGap={2} sx={{height: "100vh"}} columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-     <GridUI item xs={12} sm={8} md={9} lg={9}
+    <GridUI
+      container
+      columnSpacing={2}
+      rowGap={2}
+      sx={{ height: "100vh" }}
+      columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+    >
+      <GridUI
+        item
+        xs={12}
+        sm={8}
+        md={9}
+        lg={9}
         sx={{
           display: { xs: "none", sm: "flex" },
           justifyContent: "center",
@@ -31,7 +42,7 @@ export default function LoginContainer() {
             width: "100%",
             height: "100%",
             zIndex: 6,
-            backgroundColor:"#1e3e62",
+            backgroundColor: "#1e3e62",
             overflow: "hidden",
           }}
         >
@@ -108,17 +119,29 @@ export default function LoginContainer() {
       </GridUI>
 
       {/* Panel derecho con formulario */}
-      <GridUI item xs={12} sm={4} md={3} lg={3}
+      <GridUI
+        item
+        xs={12}
+        sm={4}
+        md={3}
+        lg={3}
         sx={{
           width: "25%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding:"9px",
+          padding: "9px",
           boxShadow: "-10px 0 20px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <BoxUI sx={{ width: "100%", display: "flex", flexDirection: "column", gap: "32px"}}>
+        <BoxUI
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "32px",
+          }}
+        >
           <BoxUI
             sx={{
               width: "100%",
@@ -134,7 +157,12 @@ export default function LoginContainer() {
               style={{ maxWidth: "80%" }}
             />
           </BoxUI>
-          <GridUI container columnSpacing={2} rowGap={2} justifyContent="center">
+          <GridUI
+            container
+            columnSpacing={2}
+            rowGap={2}
+            justifyContent="center"
+          >
             <GridUI item xs={11}>
               <ControlledTextFieldUI
                 name="email"
@@ -149,10 +177,10 @@ export default function LoginContainer() {
               <ControlledTextFieldUI
                 name="password"
                 label="password"
+                type="password"
                 error={!!errors?.password}
                 helperText={errors?.password?.message}
                 control={control}
-                type="text"
               />
             </GridUI>
             <GridUI item xs={11}>
