@@ -14,7 +14,6 @@ export class LoginApiRepository {
    * @returns Promise<ConsecutivoResponse>
    */
   static async Login(request: LoginRequest): Promise<LoginResponse> {
-    console.log(request, "👻👻👻");
     const response = await generalAxios().post<LoginResponse, LoginRequest>(
       "/login",
       request

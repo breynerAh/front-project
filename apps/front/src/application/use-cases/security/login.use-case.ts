@@ -9,11 +9,6 @@ import { LoginApiRepository } from "@/infrastructure/repositories/security/login
  * @returns Promise<LoginResponse>
  */
 export async function Login(request: LoginRequest): Promise<LoginResponse> {
-  try {
-    const responde = await LoginApiRepository.Login(request);
-
-    return responde;
-  } catch (error) {
-    throw new Error("Error fetching login: " + error);
-  }
+  const responde = await LoginApiRepository.Login(request);
+  return responde;
 }

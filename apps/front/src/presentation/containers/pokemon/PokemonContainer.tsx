@@ -16,8 +16,6 @@ export const PokemonContainer = () => {
     setPokemon(event.target.value);
   };
 
-  console.log(data, 88);
-
   return (
     <BoxUI
       sx={{

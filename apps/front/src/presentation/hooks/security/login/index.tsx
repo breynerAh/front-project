@@ -34,14 +34,11 @@ export function useLogin() {
   });
 
   const handleSubmit = onSubmit((data) => {
-    console.log(data);
     mutation.mutate(data, {
       onSuccess: (response) => {
-        console.log("Success", response);
         setToken(response.token);
       },
       onError: (error) => {
-        console.log(error, "💕💕💕💕");
         if (error instanceof AxiosError) {
           const message = error?.response?.data?.message || "Error interno.";
           toastInvoker(message, "error");
