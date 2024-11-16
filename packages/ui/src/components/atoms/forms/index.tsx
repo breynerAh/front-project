@@ -16,7 +16,7 @@ export {
   SwitchUI,
 } from "./switch";
 export { ControlledTextFieldUI, TextFieldUI } from "./input";
-
+export { ContentUI } from "../content/content";
 export type {
   ControlledAutoCompleteProps,
   ControlledCheckboxUIProps,

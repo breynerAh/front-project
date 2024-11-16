@@ -177,10 +177,10 @@ export default function LoginContainer() {
               <ControlledTextFieldUI
                 name="password"
                 label="password"
+                type="password"
                 error={!!errors?.password}
                 helperText={errors?.password?.message}
                 control={control}
-                type="password"
               />
             </GridUI>
             <GridUI item xs={11}>

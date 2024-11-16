@@ -13,7 +13,12 @@ export function useLogin() {
   const { setToken } = useLoginStore();
 
   const schema = validator.object().shape({
-    email: validator.string().required(message?.errors?.required),
+    // email: validator.string().required(message?.errors?.required),
+    // password: validator.string().required(message?.errors?.required),
+    email: validator
+      .string()
+      .email("El email no es válido")
+      .required(message?.errors?.required),
     password: validator.string().required(message?.errors?.required),
   });
   const {
