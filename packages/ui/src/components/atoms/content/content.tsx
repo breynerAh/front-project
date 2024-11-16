@@ -14,6 +14,7 @@ type ContentUIProps = {
   iconoButton: SvgIconComponent;
   sx?: object;
   children: ReactNode;
+  isMediaQuery?: boolean;
 } & ButtonProps;
 
 export const ContentUI = (props: ContentUIProps) => {
@@ -25,6 +26,7 @@ export const ContentUI = (props: ContentUIProps) => {
     children,
     titleButton,
     iconoButton: IconButton,
+    isMediaQuery,
     ...rest
   } = props;
 
@@ -79,6 +81,7 @@ export const ContentUI = (props: ContentUIProps) => {
             startIcon={<IconButton />}
             size="small"
             sx={{ height: "30px" }}
+            isMediaQuery={isMediaQuery}
           />
         )}
       </BoxUI>
