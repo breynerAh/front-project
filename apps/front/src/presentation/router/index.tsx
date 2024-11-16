@@ -27,6 +27,12 @@ export const router = createBrowserRouter([
             path: "todo",
             Component: lazy(() => import("@/presentation/pages/todo/TodoPage")),
           },
+          {
+            path: "user",
+            Component: lazy(
+              () => import("@/presentation/pages/security/users")
+            ),
+          },
         ],
       },
     ],

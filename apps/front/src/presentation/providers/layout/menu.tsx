@@ -45,7 +45,7 @@ export function MenuLayout() {
           width: "100%",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 100px",
+          padding: "0 180px",
         }}
       >
         <BoxUI>

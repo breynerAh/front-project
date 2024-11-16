@@ -1,25 +1,25 @@
-import clsx from "clsx";
-import { motion } from "framer-motion";
+import { BoxUI } from "@repo/ui";
 import { Outlet } from "react-router-dom";
 import { Header } from "./header";
 
 export function Layout() {
+  const style = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    body: {
+      padding: "40px 180px 0px",
+    },
+  };
   return (
-    <div className="w-[100dvw] h-[100dvh] flex">
-      {/* <DrawerComponent open={isDrawerOpen} openChange={handleAsideToggle} /> */}
-      {/* <Aside isMenuOpen={isMenuOpen} /> */}
-      <motion.div
-        className="w-full flex flex-col"
-        // animate={{ marginLeft: isMenuOpen ? 0 : "-350px" }}
-        // transition={{ duration: 0.3 }}
-      >
+    <BoxUI sx={style.container}>
+      <BoxUI>
         <Header />
-        <div className="flex flex-1 p-2 bg-muted/40 justify-center overflow-y-scroll">
-          <div className={clsx("w-[98%] h-full")}>
-            <Outlet />
-          </div>
-        </div>
-      </motion.div>
-    </div>
+      </BoxUI>
+      <BoxUI sx={style.body}>
+        <Outlet />
+      </BoxUI>
+    </BoxUI>
   );
 }
