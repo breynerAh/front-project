@@ -1,3 +1,7 @@
+import { ThemeColor } from "@/presentation/providers/theme/theme";
+
 export default function useUser() {
-  return {};
+  const theme = ThemeColor();
+
+  return { theme };
 }

@@ -23,5 +23,9 @@ export const ThemeColor = () => {
     disabled: {
       main: "#8A8A8A",
     },
+    button: {
+      create: "#03A685",
+      hover: "#026e59"
+    }
   };
 };
