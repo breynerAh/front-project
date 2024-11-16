@@ -17,6 +17,7 @@ type ContentUIProps = {
   hoverColorBoton?: string;
   sx?: object;
   children: ReactNode;
+  isMediaQuery?: boolean;
 } & ButtonProps;
 
 export const ContentUI = (props: ContentUIProps) => {
