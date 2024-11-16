@@ -9,6 +9,7 @@ export { GridUI } from "./components/atoms/grid/grid";
 export { TableUI } from "./components/atoms/table/table";
 export { ModalUI } from "./components/atoms/modal/modal";
 export { PaperUI } from "./components/atoms/paper/paper";
+export { ContentUI } from "./components/atoms/content/content";
 
 //forms
 export {
@@ -55,6 +56,7 @@ export type {
 
 // MOLECULES
 export { ButtonActionUI } from "./components/molecules/buttonAction/buttonAction";
+export { ButtonActionResponseUI } from "./components/molecules/buttonActionNew/buttonAction";
 export { CustomCard } from "./components/molecules/customCard/customCard";
 export { TransitionsModalAlert } from "./components/molecules/modalCofirm/modalConfirm";
 export { TableProUI } from "./components/molecules/tablePro/tablePro";

@@ -1,20 +1,13 @@
-import { Menu } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-import ChangeLangBtn from "./changeLang";
+import { BoxUI } from "@repo/ui";
+import { ThemeColor } from "../theme/theme";
+import { MenuLayout } from "./menu";
 
-export function Header({
-  handleAsideToggle,
-}: {
-  handleAsideToggle: () => void;
-}) {
+export function Header() {
+  const theme = ThemeColor();
+
   return (
-    <div className="h-[3rem] border-b px-4 py-2 flex items-center justify-between">
-      <IconButton onClick={handleAsideToggle}>
-        <Menu sx={{ color: "primary.main" }} />
-      </IconButton>
-      <div className="flex items-center">
-        <ChangeLangBtn />
-      </div>
-    </div>
+    <BoxUI sx={{ height: "80px", background: theme.primary.dark }}>
+      <MenuLayout />
+    </BoxUI>
   );
 }

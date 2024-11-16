@@ -32,12 +32,8 @@ export class AxiosAdapter implements HttpAdapter {
    * @template T type of the response data.
    */
   async get<T>(url: string, options?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await this._axiosInstance.get(url, options);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching get: " + error);
-    }
+    const response = await this._axiosInstance.get(url, options);
+    return response.data;
   }
 
   /**
@@ -54,12 +50,8 @@ export class AxiosAdapter implements HttpAdapter {
     body: R,
     options?: AxiosRequestConfig
   ): Promise<T> {
-    try {
-      const response = await this._axiosInstance.post(url, body, options);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching get: " + error);
-    }
+    const response = await this._axiosInstance.post(url, body, options);
+    return response.data;
   }
 
   /**
@@ -76,12 +68,8 @@ export class AxiosAdapter implements HttpAdapter {
     body: R,
     options?: AxiosRequestConfig
   ): Promise<T> {
-    try {
-      const response = await this._axiosInstance.put(url, body, options);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching get: " + error);
-    }
+    const response = await this._axiosInstance.put(url, body, options);
+    return response.data;
   }
 
   /**
@@ -93,11 +81,7 @@ export class AxiosAdapter implements HttpAdapter {
    * @template T type of the response data.
    */
   async delete<T>(url: string, options?: AxiosRequestConfig): Promise<T> {
-    try {
-      const response = await this._axiosInstance.delete(url, options);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error fetching get: " + error);
-    }
+    const response = await this._axiosInstance.delete(url, options);
+    return response.data;
   }
 }

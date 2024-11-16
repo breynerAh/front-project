@@ -5,21 +5,35 @@ import { Layout } from "../providers/layout/layout";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: lazy(() => import("@/presentation/pages/home/HomePage")),
-  },
-  {
-    path: "/app",
-    element: <Layout />,
+    Component: lazy(
+      () => import("@/presentation/providers/context/authContext")
+    ),
     children: [
       {
-        path: "pokemon",
-        Component: lazy(
-          () => import("@/presentation/pages/pokemon/PokemonPage")
-        ),
+        path: "/login",
+        Component: lazy(() => import("@/presentation/pages/security/login")),
       },
       {
-        path: "todo",
-        Component: lazy(() => import("@/presentation/pages/todo/TodoPage")),
+        path: "/app",
+        element: <Layout />,
+        children: [
+          {
+            path: "pokemon",
+            Component: lazy(
+              () => import("@/presentation/pages/pokemon/PokemonPage")
+            ),
+          },
+          {
+            path: "todo",
+            Component: lazy(() => import("@/presentation/pages/todo/TodoPage")),
+          },
+          {
+            path: "create/company",
+            Component: lazy(
+              () => import("@/presentation/pages/administration/company")
+            ),
+          },
+        ],
       },
     ],
   },
