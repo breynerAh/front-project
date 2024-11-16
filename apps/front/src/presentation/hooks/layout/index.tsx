@@ -25,7 +25,6 @@ export function useLayout() {
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     menuId: number
   ) => {
-    console.log(menuId, 888);
     setAnchorEls((prev) => ({ ...prev, [menuId]: event.currentTarget }));
   };
 

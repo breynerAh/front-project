@@ -39,7 +39,6 @@ export function useLogin() {
   });
 
   const handleSubmit = onSubmit((data) => {
-    console.log(data);
     mutation.mutate(data, {
       onSuccess: (response) => {
         setToken(response.token);
