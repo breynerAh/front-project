@@ -64,6 +64,7 @@ export { TableProUI } from "./components/molecules/tablePro/tablePro";
 export { CustomToolbarUI } from "./components/molecules/customToolbar/customToolbar";
 export { CustomSwitchUI } from "./components/molecules/customSwitch/customSwitch";
 export { QuickSearchToolbar } from "./components/atoms/table/quickSearchToolbar";
+export { StateButton } from "./components/molecules/stateButton/stateButton";
 
 // UTILS
 export { createAutoCompleteOptions } from "./utils";
