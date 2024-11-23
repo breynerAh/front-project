@@ -75,7 +75,7 @@ export const ContentUI = (props: ContentUIProps) => {
               fontSize: "11px",
               paddingLeft: "35px",
               paddingBottom: "10px",
-              color: theme?.disabled.main,
+              color: theme?.text.secondary,
             }}
           >
             {subtitulo}

@@ -4,6 +4,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { ThemeColor } from "../../../../../../apps/front/src/presentation/providers/theme/theme";
 import { TypographyUI } from "../typography/typography";
 import CloseIcon from "@mui/icons-material/Close";
+import { SvgIconComponent } from "@mui/icons-material";
 
 interface ModalUIProps extends ModalProps {
   variant?: "sm" | "md" | "lg" | "xl";
@@ -28,6 +29,7 @@ export type TModal = {
   Border?: number | "none";
   borderRadius?: number | "none";
   handleCloseModal: (value: boolean) => void;
+  iconoTituloModal: SvgIconComponent;
 };
 
 export const ModalUI = React.forwardRef<HTMLDivElement, ModalUIProps>(
@@ -73,6 +75,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
   marginTitle,
   handleCloseModal,
   componentTitle,
+  iconoTituloModal: IconTitle,
 }) => {
   const theme = ThemeColor();
   const [open, setOpen] = useState(state);
@@ -88,10 +91,9 @@ export const TransitionsModalUI: React.FC<TModal> = ({
   const styles = {
     title: {
       fontWeight: 500,
-      fontSize: "18px",
+      fontSize: "16px",
       fontFamily: "Poppins",
       textAlign: "left",
-      color: theme.primary.dark,
     },
     modal: {
       position: "absolute",
@@ -103,6 +105,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       p,
       border: "none",
       outline: "none",
+      padding: "0px",
     },
     header: {
       width: "100%",
@@ -111,10 +114,13 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       marginBottom: "10px",
       justifyContent: "space-between",
       alignItems: "center",
+      padding: "20px 20px 0px 20px",
     },
     body: {
       width: "100%",
       height: "auto",
+      borderTop: `1px ${theme.system.hover} solid`,
+      padding: "0px 20px 20px 20px",
     },
     iconButton: {
       color: "gray",
@@ -147,7 +153,16 @@ export const TransitionsModalUI: React.FC<TModal> = ({
               {...(componentTitle && { gap: "20px" })}
             >
               {title ? (
-                <TypographyUI sx={styles.title}>{title}</TypographyUI>
+                <BoxUI
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: theme.text.principal,
+                  }}
+                >
+                  <IconTitle sx={{ marginRight: "10px" }} />
+                  <TypographyUI sx={styles.title}>{title}</TypographyUI>
+                </BoxUI>
               ) : null}
               {componentTitle ? componentTitle : null}
             </BoxUI>
@@ -158,7 +173,9 @@ export const TransitionsModalUI: React.FC<TModal> = ({
               <CloseIcon fontSize="small" />
             </IconButton>
           </BoxUI>
-          <BoxUI sx={{ ...styles.body, overflow }}>{children}</BoxUI>
+          <BoxUI>
+            <BoxUI sx={{ ...styles.body, overflow }}>{children}</BoxUI>
+          </BoxUI>
         </BoxUI>
       </Fade>
     </ModalUI>

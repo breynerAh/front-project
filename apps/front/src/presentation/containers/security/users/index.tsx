@@ -1,11 +1,13 @@
 import useUser from "@/presentation/hooks/security/users";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import { BoxUI, ContentUI } from "@repo/ui";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import { BoxUI, ContentUI, TransitionsModalUI } from "@repo/ui";
 import UserList from "./list";
+import CreateUser from "./modal/createUser";
 
 export default function UserContainer() {
-  const { theme } = useUser();
+  const { theme, open, setOpen, handleOpen } = useUser();
 
   return (
     <BoxUI sx={{ height: "100%" }}>
@@ -15,10 +17,21 @@ export default function UserContainer() {
         subtitulo="Aquí podrás crear y dar accesos a todos los usuarios de tu empresa"
         tituloBoton="Crear usuario"
         iconoBoton={AddOutlinedIcon}
-        backgroundColorBoton={theme.button.create}
-        hoverColorBoton={theme.button.hover}
+        backgroundColorBoton={theme.secondary.main}
+        hoverColorBoton={theme.secondary.dark}
         children={<UserList />}
+        onClick={handleOpen}
       />
+      <TransitionsModalUI
+        state={open}
+        title="Nuevo usuario"
+        iconoTituloModal={PersonAddAltOutlinedIcon}
+        handleCloseModal={() => setOpen(false)}
+        // width="50%"
+        // height="100%"
+      >
+        <CreateUser />
+      </TransitionsModalUI>
     </BoxUI>
   );
 }

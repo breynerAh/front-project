@@ -39,3 +39,35 @@ export const selectBackendEnvironment = (): string => {
 
   return brandVars?.local?.bk;
 };
+
+export const regex = {
+  // alphanumeric: {
+  //   execute: /^[a-zA-Z0-9\s]*$/,
+  //   message: "Por favor, introduce un email válido",
+  // },
+  noSpaces: {
+    execute: /^[^\s]*$/,
+    message: "El valor no puede llevar espacios",
+  },
+  trim: {
+    execute: /^(?!\s)[\w\s\S]*(?<!\s)$/,
+    message: "Sin espacios de principio y final",
+  },
+  onlyLetters: {
+    execute: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]*$/,
+    message: "Por favor, solo introduzca letras validas",
+  },
+  email: {
+    execute:
+      /^(?!.*\.\.)[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}$/,
+    message: "Por favor, introduce un email válido",
+  },
+  onlyNumbers: {
+    execute: /^[0-9]*$/,
+    message: "Por favor, introduce un número válido",
+  },
+  onlyPositiveNumbers: {
+    execute: /^[1-9]\d*$/,
+    message: "Por favor, introduce un número positivos",
+  },
+};
