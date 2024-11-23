@@ -23,8 +23,8 @@ export function useCompany() {
   } = useForm({
     resolver: resolver(schema),
     values: {
-      id_banco: 0,
-      cod_banco: "",
+      idTypeCompany: 0,
+      business_name: "",
       descripcion: "",
       id_tipo_cuenta: 0,
       cuenta: "",
