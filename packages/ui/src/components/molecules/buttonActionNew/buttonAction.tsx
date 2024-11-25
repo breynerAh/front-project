@@ -35,7 +35,7 @@ export function ButtonActionResponseUI(props: ButtonActionProps) {
           padding: rest?.size === "small" ? "4px 10px" : "6px 12px",
           backgroundColor: !rest?.disabled
             ? backgroundColor
-            : themeProvider.disabled.main,
+            : themeProvider.text.disable,
           ...(isMediaQuery && {
             padding: 0,
             minWidth: "35px",

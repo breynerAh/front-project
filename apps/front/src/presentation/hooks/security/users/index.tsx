@@ -2,6 +2,7 @@ import { resolver } from "@/common/utils";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { schema } from "./schema";
 
 export default function useUser() {
   const theme = ThemeColor();
@@ -11,43 +12,24 @@ export default function useUser() {
     control,
     handleSubmit: onSubmit,
     formState: { errors },
-    watch,
-    resetField,
-    setValue,
-    reset,
+    // watch,
+    // resetField,
+    // setValue,
+    // reset,
   } = useForm({
     resolver: resolver(schema),
     values: {
-      classLevel: "",
-      className: "",
-      groupLevel: "",
-      groupName: "",
-      majorAccountLevel: "",
-      majorAccountName: "",
-      submajorAccountLevel: "",
-      submajorAccountName: "",
-      ppto_mensual: "",
-      activa: true,
-      ccosto: false,
-      subccosto: false,
-      terceros: false,
-      impuesto: false,
-      documento_cruce: false,
-      fuente: false,
-      flujo: false,
-      id_estado_financiero: 0,
-      id_naturaleza: 0,
-      id_empresa: 0,
-      id_usuario: 0,
-
-      cod_cta: "",
-      niv_cta: 0,
-      nom_cta: "",
-      cod_cta_cierre: "",
-      nom_cta_cierre: "",
-      cuenta_cierre: false,
-      grupo_estado_fin: false,
-      vr_busqueda: "",
+      idIdentificationType: 0,
+      documentNumber: "",
+      name: "",
+      firstSurname: "",
+      dateBirth: "",
+      email: "",
+      phone: "",
+      userName: "",
+      idCargo: 0,
+      idRol: 0,
+      idEmpresa: 0,
     },
   });
 
@@ -55,5 +37,9 @@ export default function useUser() {
     setOpen(true);
   };
 
-  return { theme, open, handleOpen, setOpen };
+  const handleSubmit = onSubmit((dataValues) => {
+    console.log(111, dataValues);
+  });
+
+  return { theme, open, handleOpen, setOpen, control, errors, handleSubmit };
 }

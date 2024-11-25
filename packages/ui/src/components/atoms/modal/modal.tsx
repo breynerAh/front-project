@@ -120,7 +120,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       width: "100%",
       height: "auto",
       borderTop: `1px ${theme.system.hover} solid`,
-      padding: "0px 20px 20px 20px",
+      padding: "20px",
     },
     iconButton: {
       color: "gray",

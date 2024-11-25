@@ -7,7 +7,8 @@ import UserList from "./list";
 import CreateUser from "./modal/createUser";
 
 export default function UserContainer() {
-  const { theme, open, setOpen, handleOpen } = useUser();
+  const { theme, open, setOpen, handleOpen, control, errors, handleSubmit } =
+    useUser();
 
   return (
     <BoxUI sx={{ height: "100%" }}>
@@ -27,10 +28,16 @@ export default function UserContainer() {
         title="Nuevo usuario"
         iconoTituloModal={PersonAddAltOutlinedIcon}
         handleCloseModal={() => setOpen(false)}
-        // width="50%"
-        // height="100%"
+        width="30vw"
+        minWidth="300px"
+        height="auto"
       >
-        <CreateUser />
+        <CreateUser
+          control={control}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          theme={theme}
+        />
       </TransitionsModalUI>
     </BoxUI>
   );
