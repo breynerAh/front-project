@@ -10,8 +10,8 @@ export function CompanyContainer() {
       icono={GroupOutlined}
       titulo="Empresas"
       subtitulo="Aquí podrás crear una empresa"
-      titleButton="Crear empresa"
-      iconoButton={AddOutlined}
+      tituloBoton="Crear empresa"
+      iconoBoton={AddOutlined}
       onClick={handleOpen}
       isMediaQuery={useMediaQuery("(max-width:980px)")}
     >

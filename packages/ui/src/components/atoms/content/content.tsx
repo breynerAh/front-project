@@ -5,13 +5,16 @@ import { BoxUI } from "../box/box";
 import { CardContentUI } from "../card/card";
 import { TypographyUI } from "../typography/typography";
 import { ButtonProps } from "@mui/material";
+import { ThemeColor } from "../../../../../../apps/front/src/presentation/providers/theme/theme";
 
 type ContentUIProps = {
   titulo: string;
-  titleButton: string;
+  tituloBoton: string;
   subtitulo: string;
   icono: SvgIconComponent;
-  iconoButton: SvgIconComponent;
+  iconoBoton: SvgIconComponent;
+  backgroundColorBoton?: string;
+  hoverColorBoton?: string;
   sx?: object;
   children: ReactNode;
   isMediaQuery?: boolean;
@@ -24,11 +27,13 @@ export const ContentUI = (props: ContentUIProps) => {
     icono: Icono,
     sx,
     children,
-    titleButton,
-    iconoButton: IconButton,
-    isMediaQuery,
+    tituloBoton,
+    iconoBoton: IconButton,
+    backgroundColorBoton,
+    hoverColorBoton,
     ...rest
   } = props;
+  const theme = ThemeColor();
 
   return (
     <CardContentUI
@@ -56,9 +61,10 @@ export const ContentUI = (props: ContentUIProps) => {
             <Icono />
             <TypographyUI
               sx={{
-                fontSize: "18px",
+                fontSize: "20px",
                 fontWeight: "500",
                 paddingLeft: "12px",
+                color: theme?.primary.dark,
               }}
             >
               {titulo}
@@ -69,19 +75,21 @@ export const ContentUI = (props: ContentUIProps) => {
               fontSize: "11px",
               paddingLeft: "35px",
               paddingBottom: "10px",
+              color: theme?.text.secondary,
             }}
           >
             {subtitulo}
           </TypographyUI>
         </BoxUI>
-        {titleButton && (
+        {tituloBoton && (
           <ButtonActionResponseUI
             {...rest}
-            text={titleButton}
+            text={tituloBoton}
             startIcon={<IconButton />}
             size="small"
             sx={{ height: "30px" }}
-            isMediaQuery={isMediaQuery}
+            backgroundColor={backgroundColorBoton}
+            backgroundHover={hoverColorBoton}
           />
         )}
       </BoxUI>
