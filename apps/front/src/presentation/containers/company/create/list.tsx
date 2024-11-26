@@ -84,6 +84,7 @@ export const ListCompany: FC<any> = ({ setOpen, open, data }) => {
       <TransitionsModalUI
         width="80%"
         // height="100%"
+        // minWidth="800px"
         state={open}
         title="Nueva empresa"
         handleCloseModal={() => setOpen(false)}
