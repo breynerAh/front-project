@@ -149,7 +149,7 @@ export type DatePickerUIProps = {
 } & DatePickerProps<PickerValidDate, TEnableAccessibleFieldDOMStructure>;
 
 export type ControlledDatePickerUIProps = {
-  control: Control;
+  control: Control<FieldValues<T>>;
 } & DatePickerUIProps;
 
 export type SearchInputProps = {
