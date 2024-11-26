@@ -11,7 +11,9 @@ export const schema = validator.object().shape({
   documentNumber: validator
     .string()
     .required(message.errors.required)
-    .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
+    .min(6, "El número de documento debe tener al menos 6 dígitos")
+    .max(10, "El número de documento debe tener como máximo 10 dígitos")
+    .matches(regex.onlyNumbers.execute, regex.onlyNumbers.message)
     .matches(regex.trim.execute, regex.trim.message),
   name: validator
     .string()

@@ -7,8 +7,19 @@ import UserList from "./list";
 import CreateUser from "./modal/createUser";
 
 export default function UserContainer() {
-  const { theme, open, setOpen, handleOpen, control, errors, handleSubmit } =
-    useUser();
+  const {
+    theme,
+    open,
+    setOpen,
+    handleOpen,
+    control,
+    errors,
+    handleSubmit,
+    dataGetAllCompany,
+    dataGetAllRol,
+    dataGetAllCargo,
+    dataGetAllIdentificationType,
+  } = useUser();
 
   return (
     <BoxUI sx={{ height: "100%" }}>
@@ -37,6 +48,10 @@ export default function UserContainer() {
           errors={errors}
           handleSubmit={handleSubmit}
           theme={theme}
+          dataGetAllCompany={dataGetAllCompany}
+          dataGetAllRol={dataGetAllRol}
+          dataGetAllCargo={dataGetAllCargo}
+          dataGetAllIdentificationType={dataGetAllIdentificationType}
         />
       </TransitionsModalUI>
     </BoxUI>

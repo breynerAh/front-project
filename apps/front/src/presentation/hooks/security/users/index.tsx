@@ -3,6 +3,11 @@ import { ThemeColor } from "@/presentation/providers/theme/theme";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
+import { useQuery } from "@tanstack/react-query";
+import { GetAllCompany } from "@/application/use-cases/administration/company/company.use-case";
+import { GetAllRol } from "@/application/use-cases/security/rol/rol.use-case";
+import { GetAllCargo } from "@/application/use-cases/utilitaria/cargo/cargo.use-case";
+import { GetAllIdentificationType } from "@/application/use-cases/utilitaria/identificationType/identificationType.use-case";
 
 export default function useUser() {
   const theme = ThemeColor();
@@ -33,6 +38,27 @@ export default function useUser() {
     },
   });
 
+  // Get all companies
+  const { data: dataGetAllCompany } = useQuery({
+    queryKey: ["GetAllCompany"],
+    queryFn: () => GetAllCompany(),
+  });
+  // Get all roles
+  const { data: dataGetAllRol } = useQuery({
+    queryKey: ["GetAllRol"],
+    queryFn: () => GetAllRol(),
+  });
+  // Get all cargos
+  const { data: dataGetAllCargo } = useQuery({
+    queryKey: ["GetAllCargo"],
+    queryFn: () => GetAllCargo(),
+  });
+  // Get all identificationType
+  const { data: dataGetAllIdentificationType } = useQuery({
+    queryKey: ["GetAllIdentificationType"],
+    queryFn: () => GetAllIdentificationType(),
+  });
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -41,5 +67,17 @@ export default function useUser() {
     console.log(111, dataValues);
   });
 
-  return { theme, open, handleOpen, setOpen, control, errors, handleSubmit };
+  return {
+    theme,
+    open,
+    handleOpen,
+    setOpen,
+    control,
+    errors,
+    handleSubmit,
+    dataGetAllCompany,
+    dataGetAllRol,
+    dataGetAllCargo,
+    dataGetAllIdentificationType,
+  };
 }

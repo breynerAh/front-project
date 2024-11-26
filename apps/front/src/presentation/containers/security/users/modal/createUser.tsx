@@ -14,6 +14,10 @@ export default function CreateUser({
   errors,
   handleSubmit,
   theme,
+  dataGetAllCompany,
+  dataGetAllRol,
+  dataGetAllCargo,
+  dataGetAllIdentificationType,
 }: TUser) {
   return (
     <>
@@ -25,7 +29,14 @@ export default function CreateUser({
             label="Tipo de documento"
             error={!!errors?.idIdentificationType}
             helperText={errors?.idIdentificationType?.message}
-            options={[]}
+            options={
+              dataGetAllIdentificationType?.map((identificationType) => {
+                return {
+                  value: identificationType?.id,
+                  label: identificationType?.name?.toUpperCase(),
+                };
+              }) || []
+            }
           />
         </GridUI>
         <GridUI item xs={12} sm={12} md={12} lg={6}>
@@ -112,7 +123,14 @@ export default function CreateUser({
             label="Cargo"
             error={!!errors?.idCargo}
             helperText={errors?.idCargo?.message}
-            options={[]}
+            options={
+              dataGetAllCargo?.map((cargo) => {
+                return {
+                  value: cargo?.id,
+                  label: cargo?.name?.toUpperCase(),
+                };
+              }) || []
+            }
           />
         </GridUI>
         <GridUI item xs={12} sm={12} md={12} lg={6}>
@@ -122,7 +140,14 @@ export default function CreateUser({
             label="Rol"
             error={!!errors?.idRol}
             helperText={errors?.idRol?.message}
-            options={[]}
+            options={
+              dataGetAllRol?.map((rol) => {
+                return {
+                  value: rol?.id,
+                  label: rol?.name?.toUpperCase(),
+                };
+              }) || []
+            }
           />
         </GridUI>
         <GridUI item xs={12} sm={12} md={12} lg={12}>
@@ -132,7 +157,14 @@ export default function CreateUser({
             label="Empresa"
             error={!!errors?.idEmpresa}
             helperText={errors?.idEmpresa?.message}
-            options={[]}
+            options={
+              dataGetAllCompany?.map((company) => {
+                return {
+                  value: company?.id,
+                  label: company?.business_name?.toUpperCase(),
+                };
+              }) || []
+            }
           />
         </GridUI>
       </GridUI>
