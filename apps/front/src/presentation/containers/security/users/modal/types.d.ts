@@ -1,4 +1,4 @@
-import { CompanyResponse } from "@/domain/interfaces/administration/company/companyResponse";
+import { CompanyResponse } from "@/domain/interfaces/administration/company";
 import { RolResponse } from "@/domain/interfaces/security/rol/rolResponse";
 import { CargoResponse } from "@/domain/interfaces/utilitaria/cargo/cargoResponse";
 import { IdentificationTypeResponse } from "@/domain/interfaces/utilitaria/identificationType/identificationTypeResponse";

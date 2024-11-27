@@ -4,7 +4,7 @@ import { AddOutlined, GroupOutlined } from "@mui/icons-material";
 import { useMediaQuery } from "@mui/material";
 import { CardUI, ContentUI } from "@repo/ui";
 export function CompanyContainer() {
-  const { handleOpen, setOpen, open, data } = useCompany();
+  const { handleOpen } = useCompany();
   return (
     <ContentUI
       icono={GroupOutlined}
@@ -18,7 +18,7 @@ export function CompanyContainer() {
       <CardUI
         sx={{ paddingTop: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}
       >
-        <ListCompany setOpen={setOpen} open={open} data={data} />
+        <ListCompany />
       </CardUI>
     </ContentUI>
   );

@@ -41,10 +41,10 @@ export const selectBackendEnvironment = (): string => {
 };
 
 export const regex = {
-  // alphanumeric: {
-  //   execute: /^[a-zA-Z0-9\s]*$/,
-  //   message: "Por favor, introduce un email válido",
-  // },
+  alphanumeric: {
+    execute: /^[a-zA-Z0-9\s]*$/,
+    message: "Por favor, Valide el campo",
+  },
   noSpaces: {
     execute: /^[^\s]*$/,
     message: "El valor no puede llevar espacios",
@@ -69,5 +69,9 @@ export const regex = {
   onlyPositiveNumbers: {
     execute: /^[1-9]\d*$/,
     message: "Por favor, introduce un número positivos",
+  },
+  allCharactersTrimmed: {
+    execute: /^(?!\s)[\s\S]*(?<!\s)$/,
+    message: "El valor no puede tener espacios al principio ni al final",
   },
 };

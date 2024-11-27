@@ -1,5 +1,6 @@
 import { FormCompany } from "@/presentation/containers/company/create/form";
-import { AddOutlined } from "@mui/icons-material";
+import { useCompany } from "@/presentation/hooks/administration/company/create";
+import { BusinessOutlined } from "@mui/icons-material";
 import { GridRenderCellParams } from "@mui/x-data-grid";
 import {
   GridColDef,
@@ -11,7 +12,9 @@ import {
 } from "@repo/ui";
 import { FC } from "react";
 
-export const ListCompany: FC<any> = ({ setOpen, open, data }) => {
+export const ListCompany: FC = () => {
+  const { setOpen, open, data } = useCompany();
+
   const columns: GridColDef[] = [
     {
       field: "idIdentificationType",
@@ -82,9 +85,10 @@ export const ListCompany: FC<any> = ({ setOpen, open, data }) => {
         <>asdasd</>
       </ModalUI> */}
       <TransitionsModalUI
-        width="80%"
-        // height="100%"
-        // minWidth="800px"
+        width="70%"
+        height="500px"
+        // minHeight="500px"
+        iconoTituloModal={BusinessOutlined}
         state={open}
         title="Nueva empresa"
         handleCloseModal={() => setOpen(false)}

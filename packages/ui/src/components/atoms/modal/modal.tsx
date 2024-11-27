@@ -144,7 +144,17 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       }}
     >
       <Fade in={open}>
-        <BoxUI sx={{ ...styles.modal, width, height, minWidth, minHeight, p }}>
+        <BoxUI
+          sx={{
+            ...styles.modal,
+            width,
+            height,
+            minWidth,
+            minHeight,
+            p,
+            overflow: "auto",
+          }}
+        >
           <BoxUI sx={styles.header}>
             <BoxUI
               display="flex"
