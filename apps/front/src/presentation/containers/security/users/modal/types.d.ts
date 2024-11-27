@@ -26,4 +26,5 @@ export type TUser = {
   dataGetAllRol?: RolResponse[];
   dataGetAllCargo?: CargoResponse[];
   dataGetAllIdentificationType?: IdentificationTypeResponse[];
+  isPending: boolean;
 };

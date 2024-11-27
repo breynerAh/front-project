@@ -7,6 +7,7 @@ import {
   GridUI,
 } from "@repo/ui";
 import { ControlledTextFieldDateUI } from "../../../../../../../../packages/ui/src/components/atoms/forms/input";
+import { CircularProgress } from "@mui/material";
 import { TUser } from "./types.d";
 
 export default function CreateUser({
@@ -18,6 +19,7 @@ export default function CreateUser({
   dataGetAllRol,
   dataGetAllCargo,
   dataGetAllIdentificationType,
+  isPending,
 }: TUser) {
   return (
     <>
@@ -51,9 +53,9 @@ export default function CreateUser({
         <GridUI item xs={12} sm={12} md={12} lg={6}>
           <ControlledTextFieldUI
             control={control}
-            name="name"
-            error={!!errors?.name}
-            helperText={errors?.name?.message}
+            name="firstName"
+            error={!!errors?.firstName}
+            helperText={errors?.firstName?.message}
             label="Primer nombre"
           />
         </GridUI>
@@ -67,16 +69,16 @@ export default function CreateUser({
         <GridUI item xs={12} sm={12} md={12} lg={6}>
           <ControlledTextFieldUI
             control={control}
-            name="firstSurname"
-            error={!!errors?.firstSurname}
-            helperText={errors?.firstSurname?.message}
+            name="firstLastName"
+            error={!!errors?.firstLastName}
+            helperText={errors?.firstLastName?.message}
             label="Primer apellido"
           />
         </GridUI>
         <GridUI item xs={12} sm={12} md={12} lg={6}>
           <ControlledTextFieldUI
             control={control}
-            name="secondSurname"
+            name="middleLastName"
             label="Segundo apellido"
           />
         </GridUI>
@@ -153,15 +155,15 @@ export default function CreateUser({
         <GridUI item xs={12} sm={12} md={12} lg={12}>
           <ControlledAutoCompleteUI
             control={control}
-            name="idEmpresa"
+            name="idCompany"
             label="Empresa"
-            error={!!errors?.idEmpresa}
-            helperText={errors?.idEmpresa?.message}
+            error={!!errors?.idCompany}
+            helperText={errors?.idCompany?.message}
             options={
               dataGetAllCompany?.map((company) => {
                 return {
                   value: company?.id,
-                  label: company?.business_name?.toUpperCase(),
+                  label: company?.fullName?.toUpperCase(),
                 };
               }) || []
             }
@@ -173,8 +175,15 @@ export default function CreateUser({
       >
         <ButtonActionResponseUI
           onClick={handleSubmit}
-          startIcon={<SaveOutlinedIcon />}
+          startIcon={
+            !isPending ? (
+              <SaveOutlinedIcon />
+            ) : (
+              <CircularProgress size={20} sx={{ color: "white" }} />
+            )
+          }
           text="Crear"
+          disabled={isPending}
           sx={{
             backgroundColor: theme.secondary.main,
             color: "white",

@@ -19,6 +19,7 @@ export default function UserContainer() {
     dataGetAllRol,
     dataGetAllCargo,
     dataGetAllIdentificationType,
+    isPending,
   } = useUser();
 
   return (
@@ -52,6 +53,7 @@ export default function UserContainer() {
           dataGetAllRol={dataGetAllRol}
           dataGetAllCargo={dataGetAllCargo}
           dataGetAllIdentificationType={dataGetAllIdentificationType}
+          isPending={isPending}
         />
       </TransitionsModalUI>
     </BoxUI>

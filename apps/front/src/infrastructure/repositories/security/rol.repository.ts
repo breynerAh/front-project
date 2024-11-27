@@ -8,7 +8,7 @@ export class RolRepository {
   /**
    * Get all Rol
    * @param request - Rol is required
-   * @returns Promise<ConsecutivoResponse>
+   * @returns Promise<RolResponse>
    */
   static async Rol(): Promise<RolResponse[]> {
     const response = await generalAxios().get<RolResponse[]>("/roles");

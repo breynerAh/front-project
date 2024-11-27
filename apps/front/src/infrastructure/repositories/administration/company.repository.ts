@@ -8,7 +8,7 @@ export class CompanyRepository {
   /**
    * Get all Company
    * @param request - Company is required
-   * @returns Promise<ConsecutivoResponse>
+   * @returns Promise<CompanyResponse>
    */
   static async Company(): Promise<CompanyResponse[]> {
     const response = await generalAxios().get<CompanyResponse[]>("/companies");
