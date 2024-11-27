@@ -19,6 +19,7 @@ export default function UserContainer() {
     dataGetAllRol,
     dataGetAllCargo,
     dataGetAllIdentificationType,
+    isPending,
   } = useUser();
 
   return (
@@ -41,7 +42,7 @@ export default function UserContainer() {
         handleCloseModal={() => setOpen(false)}
         width="30vw"
         minWidth="300px"
-        height="auto"
+        height="490px"
       >
         <CreateUser
           control={control}
@@ -52,6 +53,7 @@ export default function UserContainer() {
           dataGetAllRol={dataGetAllRol}
           dataGetAllCargo={dataGetAllCargo}
           dataGetAllIdentificationType={dataGetAllIdentificationType}
+          isPending={isPending}
         />
       </TransitionsModalUI>
     </BoxUI>

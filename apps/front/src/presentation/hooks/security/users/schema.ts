@@ -15,7 +15,7 @@ export const schema = validator.object().shape({
     .max(10, "El número de documento debe tener como máximo 10 dígitos")
     .matches(regex.onlyNumbers.execute, regex.onlyNumbers.message)
     .matches(regex.trim.execute, regex.trim.message),
-  name: validator
+  firstName: validator
     .string()
     .required(message.errors.required)
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
@@ -25,12 +25,12 @@ export const schema = validator.object().shape({
     .optional()
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
     .matches(regex.trim.execute, regex.trim.message),
-  firstSurname: validator
+  firstLastName: validator
     .string()
     .required(message.errors.required)
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
     .matches(regex.trim.execute, regex.trim.message),
-  secondSurname: validator
+  middleLastName: validator
     .string()
     .optional()
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
@@ -61,7 +61,7 @@ export const schema = validator.object().shape({
     .number()
     .required(message.errors.required)
     .min(1, message.errors.required),
-  idEmpresa: validator
+  idCompany: validator
     .number()
     .required(message.errors.required)
     .min(1, message.errors.required),

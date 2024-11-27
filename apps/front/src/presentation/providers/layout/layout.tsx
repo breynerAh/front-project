@@ -9,10 +9,12 @@ export function Layout() {
     container: {
       display: "flex",
       flexDirection: "column",
+      height: "100vh",
     },
     body: {
       padding: "40px 180px 0px",
       backgroundColor: theme.system.background,
+      height: "100%",
     },
   };
   return (
