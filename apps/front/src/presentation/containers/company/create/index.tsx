@@ -16,7 +16,11 @@ export function CompanyContainer() {
       isMediaQuery={useMediaQuery("(max-width:980px)")}
     >
       <CardUI
-        sx={{ paddingTop: "10px", boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}
+        sx={{
+          paddingTop: "10px",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+          borderRadius: "10px",
+        }}
       >
         <ListCompany />
       </CardUI>

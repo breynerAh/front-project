@@ -13,6 +13,22 @@ export const TextFieldUI = React.forwardRef<HTMLInputElement, TextFieldProps>(
         fullWidth
         {...props}
         ref={ref}
+        sx={{
+          ...props.sx,
+          "& .MuiInputLabel-root": {
+            fontSize: "14px",
+            top: "-1px",
+            "&.Mui-focused, &.MuiInputLabel-shrink": {
+              fontSize: "15px",
+            },
+          },
+          "& .MuiInputBase-input": {
+            fontSize: "14px",
+          },
+          "& .MuiInputBase-root": {
+            height: "36px",
+          },
+        }}
       />
     );
   }

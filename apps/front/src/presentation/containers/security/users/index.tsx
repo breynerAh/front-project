@@ -42,7 +42,7 @@ export default function UserContainer() {
         handleCloseModal={() => setOpen(false)}
         width="30vw"
         minWidth="300px"
-        height="auto"
+        height="490px"
       >
         <CreateUser
           control={control}
