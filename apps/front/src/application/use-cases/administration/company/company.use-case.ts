@@ -1,4 +1,4 @@
-import { CompanyResponse } from "@/domain/interfaces/administration/company/companyResponse";
+import { CompanyResponse } from "@/domain/interfaces/administration/company";
 import { CompanyRepository } from "@/infrastructure/repositories/administration/company.repository";
 
 /**

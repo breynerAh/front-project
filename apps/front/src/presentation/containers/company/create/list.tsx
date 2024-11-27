@@ -1,33 +1,41 @@
+import { FormCompany } from "@/presentation/containers/company/create/form";
+import { useCompany } from "@/presentation/hooks/administration/company/create";
+import { BusinessOutlined } from "@mui/icons-material";
+import { GridRenderCellParams } from "@mui/x-data-grid";
 import {
   GridColDef,
   GridUI,
   QuickSearchToolbar,
+  StateButton,
   TableUI,
   TransitionsModalUI,
 } from "@repo/ui";
 import { FC } from "react";
 
-export const ListCompany: FC<any> = ({ setOpen, open }) => {
+export const ListCompany: FC = () => {
+  const { setOpen, open, data } = useCompany();
+
   const columns: GridColDef[] = [
     {
-      field: "tipoComprobante",
+      field: "idIdentificationType",
       headerName: "Tipo de Documento",
-      headerAlign: "left",
-      flex: 2,
-    },
-    {
-      field: "nom_fuente",
-      headerName: "No. Documento",
       headerAlign: "left",
       align: "left",
       flex: 2,
     },
     {
-      field: "cod_fuente",
+      field: "identificationNumber",
+      headerName: "No. Documento",
+      headerAlign: "right",
+      align: "right",
+      flex: 2,
+    },
+    {
+      field: "fullName",
       headerName: "Nombre",
       headerAlign: "left",
       align: "left",
-      flex: 2,
+      flex: 3,
     },
     {
       field: "email",
@@ -35,7 +43,7 @@ export const ListCompany: FC<any> = ({ setOpen, open }) => {
       headerAlign: "center",
       align: "center",
       sortable: true,
-      flex: 0.8,
+      flex: 3,
     },
     {
       field: "estado",
@@ -43,7 +51,22 @@ export const ListCompany: FC<any> = ({ setOpen, open }) => {
       headerAlign: "center",
       align: "center",
       sortable: true,
-      flex: 0.8,
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <StateButton
+            state={params?.row?.state === "Activo" ? true : false}
+            label={params?.row?.state}
+          />
+        </div>
+      ),
     },
   ];
   return (
@@ -52,7 +75,7 @@ export const ListCompany: FC<any> = ({ setOpen, open }) => {
         <TableUI
           columns={columns}
           getRowId={(row) => row?.id}
-          rows={[]}
+          rows={data || []}
           //   loading={isLoading}
           slots={{ toolbar: QuickSearchToolbar }}
           checkboxSelection
@@ -62,11 +85,15 @@ export const ListCompany: FC<any> = ({ setOpen, open }) => {
         <>asdasd</>
       </ModalUI> */}
       <TransitionsModalUI
+        width="70%"
+        height="500px"
+        // minHeight="500px"
+        iconoTituloModal={BusinessOutlined}
         state={open}
-        title="asdad"
+        title="Nueva empresa"
         handleCloseModal={() => setOpen(false)}
       >
-        <>asdasd</>
+        <FormCompany />
       </TransitionsModalUI>
     </div>
   );
