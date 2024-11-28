@@ -1,7 +1,13 @@
 import { FormCompany } from "@/presentation/containers/company/create/form";
 import { useCompany } from "@/presentation/hooks/administration/company/create";
-import { BusinessOutlined } from "@mui/icons-material";
-import { GridRenderCellParams } from "@mui/x-data-grid";
+import { ThemeColor } from "@/presentation/providers/theme/theme";
+import {
+  BusinessOutlined,
+  ModeEditOutlined,
+  ToggleOffOutlined,
+  ToggleOnOutlined,
+} from "@mui/icons-material";
+import { GridActionsCellItem, GridRenderCellParams } from "@mui/x-data-grid";
 import {
   GridColDef,
   GridUI,
@@ -13,8 +19,8 @@ import {
 import { FC } from "react";
 
 export const ListCompany: FC = () => {
-  const { setOpen, open, data } = useCompany();
-
+  const { setOpen, open, data, isLoading } = useCompany();
+  const theme = ThemeColor();
   const columns: GridColDef[] = [
     {
       field: "idIdentificationType",
@@ -68,6 +74,36 @@ export const ListCompany: FC = () => {
         </div>
       ),
     },
+    // import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+    {
+      field: "actions",
+      // headerName: "Acciones",
+      headerAlign: "center",
+      align: "center",
+      type: "actions",
+      sortable: true,
+      flex: 0.5,
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<ModeEditOutlined sx={{ color: theme.primary.main }} />}
+          label="Edit"
+          onClick={() => console.log("el chamo")}
+          showInMenu={true}
+        />,
+        <GridActionsCellItem
+          icon={
+            params?.row?.estado ? (
+              <ToggleOnOutlined sx={{ color: theme.success.main }} />
+            ) : (
+              <ToggleOffOutlined sx={{ color: theme.error.main }} />
+            )
+          }
+          label={params?.row?.estado ? "Activar" : "Desactivar"}
+          onClick={() => console.log("el chamo")}
+          showInMenu={true}
+        />,
+      ],
+    },
   ];
   return (
     <div>
@@ -76,18 +112,15 @@ export const ListCompany: FC = () => {
           columns={columns}
           getRowId={(row) => row?.id}
           rows={data || []}
-          //   loading={isLoading}
+          loading={isLoading}
           slots={{ toolbar: QuickSearchToolbar }}
-          checkboxSelection
+          // checkboxSelection
         />
       </GridUI>
-      {/* <ModalUI open={true}>
-        <>asdasd</>
-      </ModalUI> */}
       <TransitionsModalUI
         width="70%"
-        height="500px"
-        // minHeight="500px"
+        height="auto"
+        overflow="auto"
         iconoTituloModal={BusinessOutlined}
         state={open}
         title="Nueva empresa"

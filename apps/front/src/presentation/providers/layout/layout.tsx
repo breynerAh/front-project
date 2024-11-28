@@ -12,7 +12,7 @@ export function Layout() {
       height: "100vh",
     },
     body: {
-      padding: "40px 180px 0px",
+      padding: "5px 180px 0px",
       backgroundColor: theme.system.background,
       height: "100%",
     },

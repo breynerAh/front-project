@@ -27,7 +27,7 @@ export function useCompany() {
     queryFn: () => TetAllTypeCompany(),
   });
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["companies"],
     queryFn: () => GetAllCompany(),
   });
@@ -134,6 +134,7 @@ export function useCompany() {
     handleOpen,
     handleRegister,
     loadingCreate: mutation.isPending || mutation.isSuccess,
+    isLoading,
     idTypeCompany,
   };
 }
