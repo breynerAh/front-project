@@ -1,11 +1,13 @@
+import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 import { TextField, TextFieldProps } from "@mui/material";
-import { ControlledTextFieldProps } from "./types";
-import { Controller } from "react-hook-form";
 import React, { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Controller } from "react-hook-form";
+import { numberFormate } from "../../../../../../apps/front/src/common/utils";
+import { ControlledTextFieldProps } from "./types";
 
 export const TextFieldUI = React.forwardRef<HTMLInputElement, TextFieldProps>(
   (props: TextFieldProps, ref) => {
+    const { ...otherProps } = props;
     return (
       <TextField
         variant="outlined"
@@ -13,10 +15,61 @@ export const TextFieldUI = React.forwardRef<HTMLInputElement, TextFieldProps>(
         fullWidth
         {...props}
         ref={ref}
+        sx={{
+          ...props.sx,
+          "& .MuiInputLabel-root": {
+            fontSize: "14px",
+            top: "-1px",
+            "&.Mui-focused, &.MuiInputLabel-shrink": {
+              fontSize: "15px",
+            },
+          },
+          "& .MuiInputBase-input": {
+            fontSize: "14px",
+          },
+          "& .MuiInputBase-root": {
+            height: "36px",
+          },
+        }}
+        {...otherProps}
       />
     );
   }
 );
+
+export const TextFieldDateUI = React.forwardRef<
+  HTMLInputElement,
+  TextFieldProps
+>((props: TextFieldProps, ref) => {
+  return (
+    <TextField
+      variant="outlined"
+      size="small"
+      InputLabelProps={{
+        shrink: true,
+      }}
+      sx={{
+        ...props.sx,
+        "& .MuiInputLabel-root": {
+          fontSize: "14px",
+          top: "-1px",
+          "&.Mui-focused, &.MuiInputLabel-shrink": {
+            fontSize: "15px",
+          },
+        },
+        "& .MuiInputBase-input": {
+          fontSize: "14px",
+        },
+        "& .MuiInputBase-root": {
+          height: "36px",
+        },
+      }}
+      fullWidth
+      {...props}
+      ref={ref}
+    />
+  );
+});
 
 export const PasswordFieldUI = React.forwardRef<
   HTMLInputElement,
@@ -34,13 +87,15 @@ export const PasswordFieldUI = React.forwardRef<
       type={showPassword ? "text" : "password"}
       InputProps={{
         endAdornment: !showPassword ? (
-          <Visibility
-            color="primary"
+          <VisibilityOutlined
+            color="disabled"
+            cursor="pointer"
             onClick={() => setShowPassword(!showPassword)}
           />
         ) : (
-          <VisibilityOff
-            color="primary"
+          <VisibilityOffOutlined
+            color="disabled"
+            cursor="pointer"
             onClick={() => setShowPassword(!showPassword)}
           />
         ),
@@ -52,19 +107,47 @@ export const PasswordFieldUI = React.forwardRef<
 export function ControlledTextFieldUI<T>({
   control,
   name,
+  password = false,
+  isNumericPrice = false,
   ...rest
 }: ControlledTextFieldProps<T>) {
   return (
     <Controller
       control={control}
       name={name || ""}
-      render={({ field }) =>
-        rest.type === "password" ? (
+      render={({ field }) => {
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          const { value } = e.target;
+          if (isNumericPrice && isNaN(Number(value))) field?.onChange("");
+          field?.onChange(isNumericPrice ? numberFormate(value) : value);
+        };
+        return password ? (
           <PasswordFieldUI {...rest} {...field} />
         ) : (
-          <TextFieldUI {...rest} {...field} />
-        )
-      }
+          <TextFieldUI
+            {...rest}
+            {...field}
+            onChange={onChange}
+            value={isNumericPrice ? numberFormate(field?.value) : field?.value}
+          />
+        );
+      }}
+    />
+  );
+}
+
+export function ControlledTextFieldDateUI<T>({
+  control,
+  name,
+  ...rest
+}: ControlledTextFieldProps<T>) {
+  return (
+    <Controller
+      control={control}
+      name={name || ""}
+      render={({ field }) => (
+        <TextFieldDateUI type="date" {...rest} {...field} />
+      )}
     />
   );
 }

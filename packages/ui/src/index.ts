@@ -8,6 +8,7 @@ export { toastInvoker } from "./components/atoms/toast/toast";
 export { GridUI } from "./components/atoms/grid/grid";
 export { TableUI } from "./components/atoms/table/table";
 export { ModalUI } from "./components/atoms/modal/modal";
+export { TransitionsModalUI } from "./components/atoms/modal/modal";
 export { PaperUI } from "./components/atoms/paper/paper";
 export { ContentUI } from "./components/atoms/content/content";
 
@@ -62,6 +63,8 @@ export { TransitionsModalAlert } from "./components/molecules/modalCofirm/modalC
 export { TableProUI } from "./components/molecules/tablePro/tablePro";
 export { CustomToolbarUI } from "./components/molecules/customToolbar/customToolbar";
 export { CustomSwitchUI } from "./components/molecules/customSwitch/customSwitch";
+export { QuickSearchToolbar } from "./components/atoms/table/quickSearchToolbar";
+export { StateButton } from "./components/molecules/stateButton/stateButton";
 
 // UTILS
 export { createAutoCompleteOptions } from "./utils";

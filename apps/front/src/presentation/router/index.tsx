@@ -33,6 +33,12 @@ export const router = createBrowserRouter([
               () => import("@/presentation/pages/administration/company")
             ),
           },
+          {
+            path: "user",
+            Component: lazy(
+              () => import("@/presentation/pages/security/users")
+            ),
+          },
         ],
       },
     ],

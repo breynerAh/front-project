@@ -14,6 +14,8 @@ import { PickerValidDate } from "@mui/x-date-pickers/models";
 // TextField
 export type ControlledTextFieldProps<T> = {
   control: Control<FieldValues<T>>;
+  password?: boolean;
+  isNumericPrice?: boolean;
 } & TextFieldProps;
 
 // AutoComplete
@@ -42,6 +44,7 @@ export type ControlledAutoCompleteMultipleProps = {
   error?: boolean;
   name: string;
   label: string;
+  disabled?: boolean;
   key?: string;
   customOnChange?: (
     event: React.SyntheticEvent,
@@ -55,6 +58,7 @@ export type ControlledAutoCompleteProps = {
   options: ValueAutoComplete[];
   helperText?: string;
   error?: boolean;
+  disabled?: boolean;
   name: string;
   label: string;
   key?: string;
@@ -149,7 +153,7 @@ export type DatePickerUIProps = {
 } & DatePickerProps<PickerValidDate, TEnableAccessibleFieldDOMStructure>;
 
 export type ControlledDatePickerUIProps = {
-  control: Control;
+  control: Control<FieldValues<T>>;
 } & DatePickerUIProps;
 
 export type SearchInputProps = {

@@ -3,6 +3,10 @@ export function CommonText() {
     errors: {
       required: "Este campo es requerido",
     },
+    toast: {
+      successCreate: "Creación exitosa",
+      successUpdate: "Actualización exitosa",
+    },
     home: {
       title: "Inicio",
       zustand: "Uso de Zustand (Tienda global)",
