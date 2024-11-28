@@ -23,7 +23,12 @@ export const FormCompany = () => {
   const theme = ThemeColor();
 
   return (
-    <>
+    <div
+      style={{
+        height: "65vh",
+        overflow: "auto",
+      }}
+    >
       <GridUI
         sx={{
           display: "flex",
@@ -420,7 +425,11 @@ export const FormCompany = () => {
         </GridUI>
       </GridUI>
       <BoxUI
-        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "15px" }}
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "15px",
+        }}
       >
         <ButtonActionResponseUI
           onClick={handleRegister}
@@ -437,6 +446,6 @@ export const FormCompany = () => {
           }}
         />
       </BoxUI>
-    </>
+    </div>
   );
 };
