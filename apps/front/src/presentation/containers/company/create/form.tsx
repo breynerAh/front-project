@@ -26,7 +26,7 @@ export const FormCompany = () => {
     handleUpdate,
     loadingCreate,
   } = useCompany();
-  console.log(id);
+
   return (
     <div
       style={{
