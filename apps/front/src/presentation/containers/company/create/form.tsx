@@ -1,5 +1,7 @@
 import { useCompany } from "@/presentation/hooks/administration/company/create";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
+import { useIdStore } from "@/presentation/store/generic";
+import { ModeEditOutlined } from "@mui/icons-material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import {
   BoxUI,
@@ -11,6 +13,9 @@ import {
 } from "@repo/ui";
 
 export const FormCompany = () => {
+  const theme = ThemeColor();
+  const { id } = useIdStore();
+
   const {
     control,
     errors,
@@ -18,10 +23,10 @@ export const FormCompany = () => {
     dataGetAllTypeCompany,
     dataGetAllIdentificationType,
     handleRegister,
+    handleUpdate,
     loadingCreate,
   } = useCompany();
-  const theme = ThemeColor();
-
+  console.log(id);
   return (
     <div
       style={{
@@ -90,7 +95,7 @@ export const FormCompany = () => {
                 };
               })}
               error={!!errors.idIdentificationType}
-              helperText={errors?.idIdentificationType?.message}
+              helperText={errors.idIdentificationType?.message}
             />
           </GridUI>
         )}
@@ -141,8 +146,8 @@ export const FormCompany = () => {
                 inputProps={{
                   maxLength: 50,
                 }}
-                error={!!errors.legalRepresentative?.name}
-                helperText={errors?.legalRepresentative?.name?.message}
+                error={!!errors?.name}
+                helperText={errors?.name?.message}
               />
             </GridUI>
             <GridUI item xs={12} sm={6} md={6} lg={4}>
@@ -153,8 +158,8 @@ export const FormCompany = () => {
                 inputProps={{
                   maxLength: 50,
                 }}
-                error={!!errors.legalRepresentative?.middleName}
-                helperText={errors?.legalRepresentative?.middleName?.message}
+                error={!!errors?.middleName}
+                helperText={errors?.middleName?.message}
               />
             </GridUI>
             <GridUI item xs={12} sm={6} md={6} lg={4}>
@@ -165,8 +170,8 @@ export const FormCompany = () => {
                 inputProps={{
                   maxLength: 50,
                 }}
-                error={!!errors.legalRepresentative?.firstSurname}
-                helperText={errors?.legalRepresentative?.firstSurname?.message}
+                error={!!errors?.firstSurname}
+                helperText={errors?.firstSurname?.message}
               />
             </GridUI>
             <GridUI item xs={12} sm={6} md={6} lg={4}>
@@ -177,8 +182,8 @@ export const FormCompany = () => {
                 inputProps={{
                   maxLength: 50,
                 }}
-                error={!!errors.legalRepresentative?.secondSurname}
-                helperText={errors?.legalRepresentative?.secondSurname?.message}
+                error={!!errors?.secondSurname}
+                helperText={errors?.secondSurname?.message}
               />
             </GridUI>
           </>
@@ -293,7 +298,10 @@ export const FormCompany = () => {
             name="legalRepresentative.idIdentificationType"
             // disabled={disabled}
             label="Tipo de documento"
-            options={[{ id: 1, name: "Chamo" }]?.map((x) => {
+            options={[
+              { id: 1, name: "Chamo" },
+              { id: 2, name: "Menol" },
+            ]?.map((x) => {
               return {
                 value: x?.id,
                 label: x?.name,
@@ -397,7 +405,10 @@ export const FormCompany = () => {
             name="legalRepresentative.idGender"
             // disabled={disabled}
             label="Género"
-            options={[{ id: 1, name: "Chamo" }]?.map((x) => {
+            options={[
+              { id: 1, name: "Chamo" },
+              { id: 2, name: "Menol" },
+            ]?.map((x) => {
               return {
                 value: x?.id,
                 label: x?.name,
@@ -413,7 +424,10 @@ export const FormCompany = () => {
             name="legalRepresentative.idCity"
             // disabled={disabled}
             label="Ciudad"
-            options={[{ id: 1, name: "Chamo" }]?.map((x) => {
+            options={[
+              { id: 1, name: "Chamo" },
+              { id: 2, name: "Menol" },
+            ]?.map((x) => {
               return {
                 value: x?.id,
                 label: x?.name,
@@ -432,9 +446,9 @@ export const FormCompany = () => {
         }}
       >
         <ButtonActionResponseUI
-          onClick={handleRegister}
-          startIcon={<SaveOutlinedIcon />}
-          text="Crear"
+          onClick={id ? handleUpdate : handleRegister}
+          startIcon={id ? <ModeEditOutlined /> : <SaveOutlinedIcon />}
+          text={id ? "Actualizar" : "Crear"}
           disabled={loadingCreate}
           loading={loadingCreate}
           sx={{
