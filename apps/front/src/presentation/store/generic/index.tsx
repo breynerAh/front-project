@@ -37,3 +37,16 @@ export const useOpenStore = create<{
     }));
   },
 }));
+
+export const useIdStore = create<{
+  id: number;
+  setId: (id: number) => void;
+}>()((set) => ({
+  id: 0,
+  setId: (id) => {
+    set((state) => ({
+      ...state,
+      id: id,
+    }));
+  },
+}));

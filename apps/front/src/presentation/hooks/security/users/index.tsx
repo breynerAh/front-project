@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { GetAllCompany } from "@/application/use-cases/administration/company/company.use-case";
+import { GetAllCompany } from "@/application/use-cases/administration/company/getAll.use-case";
 import { GetAllRol } from "@/application/use-cases/security/rol/rol.use-case";
 import { GetAllCargo } from "@/application/use-cases/utilitaria/cargo/cargo.use-case";
 import { GetAllIdentificationType } from "@/application/use-cases/utilitaria/identificationType/identificationType.use-case";
