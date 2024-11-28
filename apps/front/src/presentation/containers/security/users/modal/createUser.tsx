@@ -22,7 +22,12 @@ export default function CreateUser({
   isPending,
 }: TUser) {
   return (
-    <>
+    <div
+      style={{
+        height: "42vh",
+        overflow: "auto",
+      }}
+    >
       <GridUI container columnSpacing="14px" rowGap="14px">
         <GridUI item xs={12} sm={12} md={12} lg={6}>
           <ControlledAutoCompleteUI
@@ -193,6 +198,6 @@ export default function CreateUser({
           }}
         />
       </BoxUI>
-    </>
+    </div>
   );
 }

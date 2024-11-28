@@ -14,7 +14,7 @@ import { toastInvoker } from "@repo/ui";
 import { CommonText } from "@/presentation/locale/commonText";
 import { AxiosError } from "axios";
 
-export default function useUser() {
+export default function useUserList() {
   const theme = ThemeColor();
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -49,25 +49,21 @@ export default function useUser() {
   const { data: dataGetAllCompany } = useQuery({
     queryKey: ["GetAllCompany"],
     queryFn: () => GetAllCompany(),
-    refetchOnWindowFocus: false,
   });
   // Get all roles
   const { data: dataGetAllRol } = useQuery({
     queryKey: ["GetAllRol"],
     queryFn: () => GetAllRol(),
-    refetchOnWindowFocus: false,
   });
   // Get all cargos
   const { data: dataGetAllCargo } = useQuery({
     queryKey: ["GetAllCargo"],
     queryFn: () => GetAllCargo(),
-    refetchOnWindowFocus: false,
   });
   // Get all identificationType
   const { data: dataGetAllIdentificationType } = useQuery({
     queryKey: ["GetAllIdentificationType"],
     queryFn: () => GetAllIdentificationType(),
-    refetchOnWindowFocus: false,
   });
 
   //Mutation
@@ -95,7 +91,6 @@ export default function useUser() {
       middleLastName: dataValues?.middleLastName || undefined,
       dateBirth: new Date(dataValues?.dateBirth),
       phone: dataValues?.phone,
-      idRol: dataValues?.idRol,
     };
     mutation.mutate(data, {
       onSuccess: () => {

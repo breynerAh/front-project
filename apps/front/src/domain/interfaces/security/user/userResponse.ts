@@ -5,6 +5,7 @@ export interface UserRequest extends PersonRequest {
   email: string;
   password?: string;
   idCompany: number;
+  idRol: number;
 }
 
 export interface UserResponse {
