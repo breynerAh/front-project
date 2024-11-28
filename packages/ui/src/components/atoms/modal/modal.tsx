@@ -44,9 +44,9 @@ export const ModalUI = React.forwardRef<HTMLDivElement, ModalUIProps>(
             transform: "translate(-50%, -50%)",
             width: {
               xs: "90%",
-              sm: "80%",
+              sm: "100%",
               md: "70%",
-              lg: "40%",
+              lg: width,
               xl: width || "41%",
             },
             height,
@@ -152,7 +152,6 @@ export const TransitionsModalUI: React.FC<TModal> = ({
             minWidth,
             minHeight,
             p,
-            overflow: "auto",
           }}
         >
           <BoxUI sx={styles.header}>
@@ -183,9 +182,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
               <CloseIcon fontSize="small" />
             </IconButton>
           </BoxUI>
-          <BoxUI>
-            <BoxUI sx={{ ...styles.body, overflow }}>{children}</BoxUI>
-          </BoxUI>
+          <BoxUI sx={{ ...styles.body, overflow }}>{children}</BoxUI>
         </BoxUI>
       </Fade>
     </ModalUI>

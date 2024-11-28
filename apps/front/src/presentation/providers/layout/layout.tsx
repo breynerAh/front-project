@@ -12,7 +12,7 @@ export function Layout() {
       minHeight: "100vh",
     },
     body: {
-      padding: "40px 180px 0px",
+      padding: "5px 180px 0px",
       backgroundColor: theme.system.background,
       flexGrow: 1,
       overflow: "auto",
