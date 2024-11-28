@@ -14,6 +14,8 @@ import { schema } from "./yupSchema";
 import { getOneCompany } from "@/application/use-cases/administration/company/getOne.use-case";
 import { useEffect } from "react";
 import { deleteCompany } from "@/application/use-cases/administration/company/delete.use-case";
+import { GetAllCity } from "@/application/use-cases/utilitaria/city/city.use-case";
+import { GetAllGender } from "@/application/use-cases/utilitaria/gender/gender.use-case";
 
 export function useCompany() {
   const queryClient = useQueryClient();
@@ -24,6 +26,14 @@ export function useCompany() {
   const { data: dataGetAllIdentificationType } = useQuery({
     queryKey: ["GetAllIdentificationType"],
     queryFn: () => GetAllIdentificationType(),
+  });
+  const { data: dataCity } = useQuery({
+    queryKey: ["GetAllCity"],
+    queryFn: () => GetAllCity(),
+  });
+  const { data: dataGender } = useQuery({
+    queryKey: ["GetAllGender"],
+    queryFn: () => GetAllGender(),
   });
 
   // Get all identificationType
@@ -250,6 +260,8 @@ export function useCompany() {
     data,
     dataGetAllTypeCompany,
     dataGetAllIdentificationType,
+    dataCity,
+    dataGender,
     setOpen,
     open,
     handleOpen: () => setOpen(true),
