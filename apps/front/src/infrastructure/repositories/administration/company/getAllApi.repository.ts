@@ -1,4 +1,4 @@
-import { CompanyResponse } from "@/domain/interfaces/administration/company/companyApi";
+import { CompanyResponse } from "@/domain/interfaces/administration/company";
 import { generalAxios } from "@/infrastructure/dataSources/generalAxios.dataSource";
 
 export class GetAllCompanyApiRepository {

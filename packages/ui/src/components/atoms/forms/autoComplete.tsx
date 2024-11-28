@@ -54,18 +54,16 @@ export const AutocompleteUI = ({ label, ...props }: AutocompleteUIProps) => {
  * />
  */
 export function ControlledAutoCompleteUI(props: ControlledAutoCompleteProps) {
-  const { control, options, name, label, key, customOnChange } = props;
+  const { control, options, name, label, key, customOnChange, disabled } =
+    props;
   return (
     <Controller
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       render={({ field: { value, ref, onChange, ...field } }) => (
         <Autocomplete
           {...field}
-          value={
-            value !== null || value !== undefined
-              ? options?.find((x) => x?.value === value)
-              : null
-          }
+          disabled={disabled}
+          value={value ? options?.find((x) => x?.value === value) : null}
           size="small"
           fullWidth
           options={options}
@@ -76,8 +74,8 @@ export function ControlledAutoCompleteUI(props: ControlledAutoCompleteProps) {
               {...field}
               inputRef={ref}
               label={label}
-              error={props.error}
-              helperText={props?.helperText}
+              error={!disabled && props.error}
+              helperText={!disabled && props?.helperText}
             />
           )}
           isOptionEqualToValue={(option, value) =>
