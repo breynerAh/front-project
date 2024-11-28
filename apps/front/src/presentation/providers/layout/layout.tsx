@@ -9,14 +9,16 @@ export function Layout() {
     container: {
       display: "flex",
       flexDirection: "column",
-      height: "100vh",
+      minHeight: "100vh",
     },
     body: {
       padding: "40px 180px 0px",
       backgroundColor: theme.system.background,
-      height: "100%",
+      flexGrow: 1,
+      overflow: "auto",
     },
   };
+
   return (
     <BoxUI sx={style.container}>
       <BoxUI>

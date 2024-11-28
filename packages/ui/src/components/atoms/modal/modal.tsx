@@ -101,7 +101,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       left: "50%",
       transform: "translate(-50%, -50%)",
       backgroundColor: "background.paper",
-      borderRadius: "5px",
+      borderRadius: "10px",
       p,
       border: "none",
       outline: "none",
