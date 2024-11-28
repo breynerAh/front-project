@@ -22,7 +22,7 @@ import { FC } from "react";
 export const ListCompany: FC = () => {
   const theme = ThemeColor();
   const { setId, id } = useIdStore();
-  const { setOpen, open, data, isLoading } = useCompany();
+  const { setOpen, open, data, isLoading, handleDelete } = useCompany();
 
   const columns: GridColDef[] = [
     {
@@ -102,14 +102,19 @@ export const ListCompany: FC = () => {
         />,
         <GridActionsCellItem
           icon={
-            params?.row?.estado ? (
-              <ToggleOnOutlined sx={{ color: theme.success.main }} />
-            ) : (
+            params?.row?.state === "ACTIVO" ? (
               <ToggleOffOutlined sx={{ color: theme.error.main }} />
+            ) : (
+              <ToggleOnOutlined sx={{ color: theme.success.main }} />
             )
           }
-          label={params?.row?.estado ? "Activar" : "Desactivar"}
-          onClick={() => console.log("el chamo")}
+          label={params?.row?.state === "ACTIVO" ? "Desactivar" : "Activar"}
+          onClick={() =>
+            handleDelete(
+              params?.row?.id,
+              params?.row?.state === "ACTIVO" ? 2 : 1
+            )
+          }
           showInMenu={true}
         />,
       ],
