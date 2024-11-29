@@ -24,7 +24,13 @@ const AuthProvider: FC = () => {
         if (token) navigate("/app");
         break;
       default:
-        if (!token) navigate("/login");
+        if (
+          !token &&
+          pathname !== "/recoverPassword" &&
+          !pathname.includes("/recoverPassword")
+          // pathname !== "/selectCompany"
+        )
+          navigate("/login");
         break;
     }
   }, [pathname, navigate, token]);
