@@ -280,7 +280,11 @@ export default function LoginContainer() {
                 </GridUI>
                 <GridUI item xs={12}>
                   <BoxUI
-                    sx={{ textAlign: "center", marginTop: "1rem" }}
+                    sx={{
+                      textAlign: "center",
+                      marginTop: "1rem",
+                      cursor: "pointer",
+                    }}
                     onClick={() => setShowRecovery(true)}
                   >
                     ¿Olvidaste tu contraseña?
