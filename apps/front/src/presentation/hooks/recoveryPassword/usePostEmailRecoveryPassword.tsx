@@ -1,10 +1,10 @@
 // import { postEmailRecoveryPassword } from "@/application/use-cases/recoveryPassword";
+import { postEmailRecoveryPassword } from "@/application/use-cases/recoveryPassword/emailRecoveryPassword.use-case";
 import { resolver, validator } from "@/common/utils";
 import { toastInvoker } from "@repo/ui";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
-import { TError } from "../../../../../../packages/ui/src/utils/types";
 
 export function usePostEmailRecoveryPassword() {
   /**
@@ -34,32 +34,32 @@ export function usePostEmailRecoveryPassword() {
   /**
    * Mutation Para el login
    */
-  // const mutation = useMutation({
-  //   mutationKey: ["request"],
-  //   mutationFn: async (email: string) => await postEmailRecoveryPassword(email),
-  // });
+  const mutation = useMutation({
+    mutationKey: ["request"],
+    mutationFn: async (email: string) => await postEmailRecoveryPassword(email),
+  });
 
   /**
    * Función para ejecutar el login
    */
   const handleSubmit = onSubmit((dataValues) => {
     const { email } = dataValues;
-    // mutation.mutate(email, {
-    //   onError: (error) => {
-    //     if (error instanceof AxiosError) {
-    //       const message = (error as TError)?.response?.data?.message;
-    //       toastInvoker(message, "error");
-    //     }
-    //   },
-    // });
+    mutation.mutate(email, {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          const message = error?.response?.data?.message;
+          toastInvoker(message, "error");
+        }
+      },
+    });
   });
 
   return {
-    // isPending: mutation.isPending,
+    isPending: mutation.isPending,
     control,
     errors,
     dataForm,
     handleSubmit,
-    // messageEmail: mutation.data,
+    messageEmail: mutation.data,
   };
 }
