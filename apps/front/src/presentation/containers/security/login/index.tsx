@@ -18,7 +18,7 @@ export default function LoginContainer() {
   const theme = ThemeColor();
   const { control, errors, handleSubmit } = useLogin();
   const [showRecovery, setShowRecovery] = useState(false);
-  const [recovery, setRecovery] = useState(false);
+
   return (
     <GridUI
       container
@@ -146,7 +146,7 @@ export default function LoginContainer() {
           alignItems: "center",
           padding: "9px",
           overflow: "hidden",
-          boxShadow: "-10px 0 20px rgba(0, 0, 0, 0.1)",
+          // boxShadow: "-10px 0 20px rgba(0, 0, 0, 0.1)",
           flexDirection: "column",
         }}
       >
@@ -164,7 +164,7 @@ export default function LoginContainer() {
           >
             <IconButton
               // disabled={isPending}
-              onClick={() => (setShowRecovery(false), setRecovery(true))}
+              onClick={() => setShowRecovery(false)}
               sx={{
                 padding: 0,
                 "&:hover": {
@@ -188,7 +188,7 @@ export default function LoginContainer() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: "20px",
+            marginBottom: !showRecovery ? "5px" : "20px",
           }}
         >
           <ImageUI
@@ -197,30 +197,24 @@ export default function LoginContainer() {
             style={{ maxWidth: "80%" }}
           />
         </BoxUI>
-        {!showRecovery && (
-          <motion.div
-            initial={{ x: 0, opacity: 1 }} // Estado inicial
-            animate={
-              recovery
-                ? {
-                    x: showRecovery ? "0%" : "-100%",
-                    opacity: showRecovery ? 1 : 0,
-                    // x: "0%",
-                    // opacity: 1,
-                    // x: showRecovery ? "-100%" : 0,
-                    // opacity: showRecovery ? 0 : 1,
-                    // x: "-100%",
-                    // opacity: 0,
-                  }
-                : {
-                    x: showRecovery ? "-100%" : 0,
-                    opacity: showRecovery ? 0 : 1,
-                  }
-            } // Animación
-            exit={{ x: "-100%", opacity: 0 }} // Al salir
-            transition={{ duration: 0.5 }}
-            style={{ width: "100%", height: "auto" }}
-          >
+        <motion.div
+          initial={{ x: 0, opacity: 1 }} // Estado inicial
+          animate={
+            !showRecovery
+              ? {
+                  x: "0%",
+                  opacity: 1,
+                }
+              : {
+                  x: "-100%",
+                  opacity: 0,
+                }
+          } // Animación
+          exit={{ x: "-100%", opacity: 0 }} // Al salir
+          transition={{ duration: 0.5 }}
+          style={{ width: "100%", height: "auto", marginTop: "25px" }}
+        >
+          {!showRecovery && (
             <BoxUI
               sx={{
                 width: "100%",
@@ -287,20 +281,22 @@ export default function LoginContainer() {
                 <GridUI item xs={12}>
                   <BoxUI
                     sx={{ textAlign: "center", marginTop: "1rem" }}
-                    onClick={() => (setShowRecovery(true), setRecovery(false))}
+                    onClick={() => setShowRecovery(true)}
                   >
                     ¿Olvidaste tu contraseña?
                   </BoxUI>
                 </GridUI>
               </GridUI>
             </BoxUI>
-          </motion.div>
-        )}
+          )}
+        </motion.div>
         {showRecovery && (
           <motion.div
             initial={{ x: "100%", opacity: 0 }} // Estado inicial fuera de la pantalla
-            animate={{ x: "0%", opacity: 1 }} // Animación al entrar
-            // exit={{ x: "100%", opacity: 0 }} // Al salir
+            animate={
+              showRecovery ? { x: "0%", opacity: 1 } : { x: "100%", opacity: 0 }
+            } // Animación al entrar y salir
+            exit={{ x: "100%", opacity: 0 }} // Al salir
             transition={{ duration: 0.5 }}
             style={{ width: "100%", height: "80%" }}
           >
