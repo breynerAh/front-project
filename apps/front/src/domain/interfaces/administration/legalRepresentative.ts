@@ -1,4 +1,5 @@
 export interface LegalRepresentativeRequest {
+  id?: number;
   idGender?: number;
   idCity?: number;
   idIdentificationType?: number;

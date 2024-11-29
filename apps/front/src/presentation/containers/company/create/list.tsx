@@ -1,6 +1,7 @@
 import { FormCompany } from "@/presentation/containers/company/create/form";
 import { useCompany } from "@/presentation/hooks/administration/company/create";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
+import { useIdStore } from "@/presentation/store/generic";
 import {
   BusinessOutlined,
   ModeEditOutlined,
@@ -19,14 +20,16 @@ import {
 import { FC } from "react";
 
 export const ListCompany: FC = () => {
-  const { setOpen, open, data, isLoading } = useCompany();
   const theme = ThemeColor();
+  const { setId, id } = useIdStore();
+  const { setOpen, open, data, isLoading, handleDelete } = useCompany();
+
   const columns: GridColDef[] = [
     {
-      field: "idIdentificationType",
+      field: "identificationType",
       headerName: "Tipo de Documento",
-      headerAlign: "left",
-      align: "left",
+      headerAlign: "center",
+      align: "center",
       flex: 2,
     },
     {
@@ -34,7 +37,7 @@ export const ListCompany: FC = () => {
       headerName: "No. Documento",
       headerAlign: "right",
       align: "right",
-      flex: 2,
+      flex: 1.5,
     },
     {
       field: "fullName",
@@ -42,6 +45,13 @@ export const ListCompany: FC = () => {
       headerAlign: "left",
       align: "left",
       flex: 3,
+    },
+    {
+      field: "typeCompany",
+      headerName: "Tipo de empresa",
+      headerAlign: "right",
+      align: "right",
+      flex: 1.5,
     },
     {
       field: "email",
@@ -68,13 +78,13 @@ export const ListCompany: FC = () => {
           }}
         >
           <StateButton
-            state={params?.row?.state === "Activo" ? true : false}
+            state={params?.row?.state === "ACTIVO" ? true : false}
             label={params?.row?.state}
           />
         </div>
       ),
     },
-    // import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+
     {
       field: "actions",
       // headerName: "Acciones",
@@ -87,24 +97,30 @@ export const ListCompany: FC = () => {
         <GridActionsCellItem
           icon={<ModeEditOutlined sx={{ color: theme.primary.main }} />}
           label="Edit"
-          onClick={() => console.log("el chamo")}
+          onClick={() => (setId(params?.row?.id), setOpen(true))}
           showInMenu={true}
         />,
         <GridActionsCellItem
           icon={
-            params?.row?.estado ? (
-              <ToggleOnOutlined sx={{ color: theme.success.main }} />
-            ) : (
+            params?.row?.state === "ACTIVO" ? (
               <ToggleOffOutlined sx={{ color: theme.error.main }} />
+            ) : (
+              <ToggleOnOutlined sx={{ color: theme.success.main }} />
             )
           }
-          label={params?.row?.estado ? "Activar" : "Desactivar"}
-          onClick={() => console.log("el chamo")}
+          label={params?.row?.state === "ACTIVO" ? "Desactivar" : "Activar"}
+          onClick={() =>
+            handleDelete(
+              params?.row?.id,
+              params?.row?.state === "ACTIVO" ? 2 : 1
+            )
+          }
           showInMenu={true}
         />,
       ],
     },
   ];
+
   return (
     <div>
       <GridUI sx={{ height: "700px" }}>
@@ -123,7 +139,7 @@ export const ListCompany: FC = () => {
         overflow="auto"
         iconoTituloModal={BusinessOutlined}
         state={open}
-        title="Nueva empresa"
+        title={id ? "Actualizar empresa" : "Nueva empresa"}
         handleCloseModal={() => setOpen(false)}
       >
         <FormCompany />
