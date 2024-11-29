@@ -1,7 +1,5 @@
 import { useLogin } from "@/presentation/hooks/security/login";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { IconButton } from "@mui/material";
 import {
   BoxUI,
   ButtonUI,
@@ -146,55 +144,25 @@ export default function LoginContainer() {
           alignItems: "center",
           padding: "9px",
           overflow: "hidden",
-          // boxShadow: "-10px 0 20px rgba(0, 0, 0, 0.1)",
           flexDirection: "column",
+          position: "relative",
         }}
       >
-        {showRecovery && (
-          <BoxUI
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-              height: "10%",
-              zIndex: 8,
-            }}
-          >
-            <IconButton
-              // disabled={isPending}
-              onClick={() => setShowRecovery(false)}
-              sx={{
-                padding: 0,
-                "&:hover": {
-                  background: "transparent",
-                },
-              }}
-            >
-              <ArrowBackIcon
-                sx={{
-                  fontSize: 35,
-                  color: theme.primary.main,
-                }}
-              />
-            </IconButton>
-          </BoxUI>
-        )}
         <BoxUI
           sx={{
             width: "100%",
             height: "20%",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: !showRecovery ? "5px" : "20px",
+            marginBottom: "20px",
           }}
         >
           <ImageUI
             src="/images/fondo_aris_dark.svg"
             alt="Logo"
-            style={{ maxWidth: "80%" }}
+            style={{ maxWidth: "80%", marginTop: "40px" }}
           />
         </BoxUI>
         <motion.div
@@ -212,7 +180,7 @@ export default function LoginContainer() {
           } // Animación
           exit={{ x: "-100%", opacity: 0 }} // Al salir
           transition={{ duration: 0.5 }}
-          style={{ width: "100%", height: "auto", marginTop: "25px" }}
+          style={{ width: "100%", height: "80%" }}
         >
           {!showRecovery && (
             <BoxUI
@@ -304,11 +272,12 @@ export default function LoginContainer() {
             transition={{ duration: 0.5 }}
             style={{ width: "100%", height: "80%" }}
           >
-            <EmailRecoveryPasswordContainer />
+            <EmailRecoveryPasswordContainer
+              handleLogin={() => setShowRecovery(false)}
+            />
           </motion.div>
         )}
       </GridUI>
-      {/* <EmailRecoveryPasswordContainer /> */}
 
       {/* Keyframes para animación de bolitas */}
       <style>

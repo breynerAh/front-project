@@ -1,6 +1,7 @@
 import { usePostEmailRecoveryPassword } from "@/presentation/hooks/recoveryPassword/usePostEmailRecoveryPassword";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
 import { CircularProgress } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   BoxUI,
   ButtonUI,
@@ -8,14 +9,21 @@ import {
   GridUI,
   TypographyUI,
 } from "@repo/ui";
+import { FC } from "react";
 
-export const EmailRecoveryPasswordContainer = () => {
+export const EmailRecoveryPasswordContainer: FC<{
+  handleLogin: () => void;
+}> = ({ handleLogin }) => {
   const theme = ThemeColor();
   const { control, dataForm, errors, handleSubmit, isPending, messageEmail } =
     usePostEmailRecoveryPassword();
 
   return (
-    <>
+    <BoxUI
+      sx={{
+        height: "100%",
+      }}
+    >
       <BoxUI
         sx={{
           width: "100%",
@@ -39,7 +47,6 @@ export const EmailRecoveryPasswordContainer = () => {
         >
           Recuperar contraseña
         </TypographyUI>
-
         <BoxUI
           sx={{
             padding: "0 32px 0 32px",
@@ -111,6 +118,19 @@ export const EmailRecoveryPasswordContainer = () => {
           </GridUI>
         ) : null}
       </BoxUI>
-    </>
+      <GridUI item xs={12}>
+        <BoxUI
+          sx={{
+            textAlign: "center",
+            marginTop: "1rem",
+            cursor: "pointer",
+          }}
+          onClick={handleLogin}
+        >
+          <ArrowBackIcon sx={{ width: "20px" }} />
+          Volver al inicio
+        </BoxUI>
+      </GridUI>
+    </BoxUI>
   );
 };
