@@ -1,5 +1,7 @@
 import { useLogin } from "@/presentation/hooks/security/login";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { IconButton } from "@mui/material";
 import {
   BoxUI,
   ButtonUI,
@@ -11,8 +13,6 @@ import {
 import { motion } from "motion/react";
 import { useState } from "react";
 import { EmailRecoveryPasswordContainer } from "../../recoveryPassword/emailRecoveryPasswordContainer";
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function LoginContainer() {
   const theme = ThemeColor();
@@ -300,9 +300,7 @@ export default function LoginContainer() {
             transition={{ duration: 0.5 }}
             style={{ width: "100%", height: "80%" }}
           >
-            <EmailRecoveryPasswordContainer
-              onBackToLogin={() => setShowRecovery(false)}
-            />
+            <EmailRecoveryPasswordContainer />
           </motion.div>
         )}
       </GridUI>

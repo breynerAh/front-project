@@ -6,16 +6,11 @@ import {
   ButtonUI,
   ControlledTextFieldUI,
   GridUI,
-  TypographyUI
+  TypographyUI,
 } from "@repo/ui";
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
 
-export const EmailRecoveryPasswordContainer: FC<{
-  onBackToLogin: () => void;
-}> = ({ onBackToLogin }) => {
+export const EmailRecoveryPasswordContainer = () => {
   const theme = ThemeColor();
-  const navigate = useNavigate();
   const { control, dataForm, errors, handleSubmit, isPending, messageEmail } =
     usePostEmailRecoveryPassword();
 

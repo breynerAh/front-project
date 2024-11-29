@@ -1,13 +1,11 @@
-import { postRecoveryPassword } from "@/application/use-cases/recoveryPassword";
-import { resolver, translate, validator } from "@/common/utils";
-import { RecoveryPasswordRequest } from "@/domain/interfaces/recoveryPassword/recoveryPassword";
+import { postRecoveryPassword } from "@/application/use-cases/recoveryPassword/recoveryPassword.use-case";
+import { resolver, validator } from "@/common/utils";
 import { toastInvoker } from "@repo/ui";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { TError } from "../../../../../../packages/ui/src/utils/types";
-import { AxiosError } from "axios";
 
 type TValidations = {
   case: boolean;
@@ -32,8 +30,8 @@ export function useRecoveryPassword() {
    * Schema
    */
   const schema = validator.object().shape({
-    password: validator.string().required(translate("errors.required")),
-    confirmPassword: validator.string().required(translate("errors.required")),
+    password: validator.string().required("Campo requerido"),
+    confirmPassword: validator.string().required("Campo requerido"),
     viewPassword: validator.boolean().nullable(),
   });
 
@@ -57,7 +55,7 @@ export function useRecoveryPassword() {
    */
   const mutation = useMutation({
     mutationKey: ["request"],
-    mutationFn: async (request: RecoveryPasswordRequest) =>
+    mutationFn: async (request: { id: number; password: string }) =>
       await postRecoveryPassword(token || "", request),
   });
 
@@ -110,15 +108,15 @@ export function useRecoveryPassword() {
   const handleSubmit = onSubmit((dataValues) => {
     const { password } = dataValues;
     mutation.mutate(
-      { id_usuario: Number(id || 0), password },
+      { id: Number(id || 0), password },
       {
         onSuccess: () => {
-          toastInvoker("Contraseña creada exitosamente.", "success");
+          toastInvoker("Contraseña actualizada exitosamente.", "success");
           navigate("/");
         },
         onError: (error) => {
           if (error instanceof AxiosError) {
-            const message = (error as TError)?.response?.data?.message;
+            const message = error?.response?.data?.message;
             toastInvoker(message, "error");
           }
         },
