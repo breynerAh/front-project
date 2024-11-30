@@ -50,6 +50,7 @@ export const TextFieldDateUI = React.forwardRef<
       }}
       sx={{
         ...props.sx,
+        border: "red",
         "& .MuiInputLabel-root": {
           fontSize: "14px",
           top: "-1px",

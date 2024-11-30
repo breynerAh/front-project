@@ -14,6 +14,13 @@ export const router = createBrowserRouter([
         Component: lazy(() => import("@/presentation/pages/security/login")),
       },
       {
+        path: "/recoverPassword/:id/:token",
+        Component: lazy(
+          () =>
+            import("@/presentation/pages/recoveryPassword/recoveryPasswordPage")
+        ),
+      },
+      {
         path: "/app",
         element: <Layout />,
         children: [

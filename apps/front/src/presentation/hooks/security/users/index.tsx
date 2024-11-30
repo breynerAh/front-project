@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { resolver } from "@/common/utils";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -41,7 +41,9 @@ export default function useUser() {
       idIdentificationType: 0,
       documentNumber: "",
       firstName: "",
+      middleName: "",
       firstLastName: "",
+      middleLastName: "",
       dateBirth: "",
       email: "",
       phone: "",

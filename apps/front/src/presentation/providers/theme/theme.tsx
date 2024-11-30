@@ -26,7 +26,8 @@ export const ThemeColor = () => {
       principal: "#272729",
       secondary: "#606066",
       disable: "#A4A4AD",
-      buttoms: "#FFFFFF",
+      lines: "#e8ebef",
+      buttons: "#FFFFFF",
     },
     success: {
       main: "#2DB60B",

@@ -13,6 +13,9 @@ import { useForm } from "react-hook-form";
 import { schema } from "./yupSchema";
 import { getOneCompany } from "@/application/use-cases/administration/company/getOne.use-case";
 import { useEffect } from "react";
+import { deleteCompany } from "@/application/use-cases/administration/company/delete.use-case";
+import { GetAllCity } from "@/application/use-cases/utilitaria/city/city.use-case";
+import { GetAllGender } from "@/application/use-cases/utilitaria/gender/gender.use-case";
 
 export function useCompany() {
   const queryClient = useQueryClient();
@@ -23,6 +26,14 @@ export function useCompany() {
   const { data: dataGetAllIdentificationType } = useQuery({
     queryKey: ["GetAllIdentificationType"],
     queryFn: () => GetAllIdentificationType(),
+  });
+  const { data: dataCity } = useQuery({
+    queryKey: ["GetAllCity"],
+    queryFn: () => GetAllCity(),
+  });
+  const { data: dataGender } = useQuery({
+    queryKey: ["GetAllGender"],
+    queryFn: () => GetAllGender(),
   });
 
   // Get all identificationType
@@ -53,6 +64,13 @@ export function useCompany() {
     mutationKey: ["companiesUpdate"],
     mutationFn: async (request: CompanyRequest) => {
       await updateCompany(request, id);
+    },
+  });
+
+  const mutationDelete = useMutation({
+    mutationKey: ["companies"],
+    mutationFn: async (request: { id: number; state: number }) => {
+      await deleteCompany(request);
     },
   });
 
@@ -215,17 +233,41 @@ export function useCompany() {
     );
   });
 
+  const handleDelete = (id: number, state: number) => {
+    console.log(state);
+    mutationDelete.mutate(
+      { id, state: state },
+      {
+        onSuccess: () => {
+          reset({});
+          toastInvoker("Estado actualizado con éxito", "success");
+          queryClient.invalidateQueries({ queryKey: ["companies"] });
+          setOpen(false);
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            const message = error?.response?.data?.message || "Error interno.";
+            toastInvoker(message, "error");
+          }
+        },
+      }
+    );
+  };
+
   return {
     control,
     errors,
     data,
     dataGetAllTypeCompany,
     dataGetAllIdentificationType,
+    dataCity,
+    dataGender,
     setOpen,
     open,
     handleOpen: () => setOpen(true),
     handleRegister,
     handleUpdate,
+    handleDelete,
     loadingCreate:
       mutation.isPending ||
       mutation.isSuccess ||
