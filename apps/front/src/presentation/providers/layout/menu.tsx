@@ -20,6 +20,8 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useContext } from "react";
 import { AuthContext } from "@/presentation/providers/context/authContext";
+import { useLayoutStore } from "@/presentation/store/layout";
+import { DrawerLayout } from "./drawer";
 
 export function MenuLayout() {
   const { logout } = useContext(AuthContext);
@@ -35,6 +37,7 @@ export function MenuLayout() {
     listOption,
     idPopover,
   } = useLayout();
+  const { media } = useLayoutStore();
 
   return (
     <BoxUI sx={{ width: "100%", height: "100%" }} role="presentation">
@@ -51,38 +54,19 @@ export function MenuLayout() {
         <BoxUI>
           <ImageUI src="/images/Logo_aris.svg" width={90} />
         </BoxUI>
-        <BoxUI
-          sx={{
-            display: "flex",
-            width: "20%",
-            justifyContent: "space-between",
-          }}
-        >
+        {!media && (
           <BoxUI
             sx={{
               display: "flex",
-              color: "white",
-              width: "20%",
+              width: "25%",
+              justifyContent: "space-between",
             }}
           >
-            <TypographyUI
-              sx={{
-                cursor: "pointer",
-                whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-              }}
-            >
-              Principal
-            </TypographyUI>
-          </BoxUI>
-          {arrayMenu?.map((menu) => (
             <BoxUI
-              key={menu?.id_menu}
               sx={{
                 display: "flex",
                 color: "white",
-                width: "30%",
+                width: "20%",
               }}
             >
               <TypographyUI
@@ -92,41 +76,65 @@ export function MenuLayout() {
                   textOverflow: "ellipsis",
                   overflow: "hidden",
                 }}
-                id={menu?.id_menu?.toString()}
-                aria-controls={
-                  anchorEls[menu?.id_menu] ? `menu-${menu?.id_menu}` : undefined
-                }
-                aria-haspopup="true"
-                aria-expanded={anchorEls[menu?.id_menu] ? "true" : undefined}
-                onClick={(e) => handleClickMenu(e, menu?.id_menu)}
               >
-                {menu?.menu}
-                {menu?.submenu && <ExpandMoreIcon />}
+                Principal
               </TypographyUI>
-              {menu?.submenu?.length ? (
-                <Menu
-                  id={`menu-${menu?.id_menu}`}
-                  anchorEl={anchorEls[menu?.id_menu]}
-                  open={Boolean(anchorEls[menu?.id_menu])}
-                  onClose={() => handleClose(menu?.id_menu)}
-                  MenuListProps={{
-                    "aria-labelledby": menu?.id_menu?.toString(),
-                  }}
-                >
-                  {menu?.submenu?.map((submenu) => (
-                    <MenuItem
-                      key={submenu?.id_submenu}
-                      onClick={() => handleClose(menu?.id_menu)}
-                    >
-                      {submenu?.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              ) : null}
             </BoxUI>
-          ))}
-        </BoxUI>
+            {arrayMenu?.map((menu) => (
+              <BoxUI
+                key={menu?.id_menu}
+                sx={{
+                  display: "flex",
+                  color: "white",
+                  width: "30%",
+                }}
+              >
+                <TypographyUI
+                  sx={{
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                  id={menu?.id_menu?.toString()}
+                  aria-controls={
+                    anchorEls[menu?.id_menu]
+                      ? `menu-${menu?.id_menu}`
+                      : undefined
+                  }
+                  aria-haspopup="true"
+                  aria-expanded={anchorEls[menu?.id_menu] ? "true" : undefined}
+                  onClick={(e) => handleClickMenu(e, menu?.id_menu)}
+                >
+                  {menu?.menu}
+                  {menu?.submenu && <ExpandMoreIcon />}
+                </TypographyUI>
+                {menu?.submenu?.length ? (
+                  <Menu
+                    id={`menu-${menu?.id_menu}`}
+                    anchorEl={anchorEls[menu?.id_menu]}
+                    open={Boolean(anchorEls[menu?.id_menu])}
+                    onClose={() => handleClose(menu?.id_menu)}
+                    MenuListProps={{
+                      "aria-labelledby": menu?.id_menu?.toString(),
+                    }}
+                  >
+                    {menu?.submenu?.map((submenu) => (
+                      <MenuItem
+                        key={submenu?.id_submenu}
+                        onClick={() => handleClose(menu?.id_menu)}
+                      >
+                        {submenu?.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                ) : null}
+              </BoxUI>
+            ))}
+          </BoxUI>
+        )}
 
+        {<DrawerLayout />}
         <BoxUI sx={{ width: "50%" }}>
           <ControlledTextFieldUI
             control={control}

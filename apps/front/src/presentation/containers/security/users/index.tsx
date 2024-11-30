@@ -2,7 +2,7 @@ import useUser from "@/presentation/hooks/security/users";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import { BoxUI, ContentUI, TransitionsModalUI } from "@repo/ui";
+import { BoxUI, CardUI, ContentUI, TransitionsModalUI } from "@repo/ui";
 import UserList from "./list";
 import CreateUser from "./modal/createUser";
 
@@ -15,15 +15,18 @@ export default function UserContainer() {
     control,
     errors,
     handleSubmit,
+    handleUpdate,
     dataGetAllCompany,
     dataGetAllRol,
     dataGetAllCargo,
     dataGetAllIdentificationType,
     isPending,
+    isPendingUpdate,
+    userId,
   } = useUser();
 
   return (
-    <BoxUI sx={{ height: "100%" }}>
+    <BoxUI sx={{ height: "100%", minWidth: "350px" }}>
       <ContentUI
         icono={PeopleAltOutlinedIcon}
         titulo="Usuarios y roles"
@@ -32,28 +35,42 @@ export default function UserContainer() {
         iconoBoton={AddOutlinedIcon}
         backgroundColorBoton={theme.secondary.main}
         hoverColorBoton={theme.secondary.dark}
-        children={<UserList />}
+        children={
+          <CardUI
+            sx={{
+              paddingTop: "10px",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              borderRadius: "10px",
+            }}
+          >
+            <UserList />
+          </CardUI>
+        }
         onClick={handleOpen}
       />
       <TransitionsModalUI
         state={open}
-        title="Nuevo usuario"
+        title={!userId ? "Nuevo usuario" : "Editar usuario"}
         iconoTituloModal={PersonAddAltOutlinedIcon}
         handleCloseModal={() => setOpen(false)}
         width="30vw"
         minWidth="300px"
-        height="490px"
+        height="auto"
+        overflow="auto"
       >
         <CreateUser
           control={control}
           errors={errors}
           handleSubmit={handleSubmit}
+          handleUpdate={handleUpdate}
           theme={theme}
           dataGetAllCompany={dataGetAllCompany}
           dataGetAllRol={dataGetAllRol}
           dataGetAllCargo={dataGetAllCargo}
           dataGetAllIdentificationType={dataGetAllIdentificationType}
           isPending={isPending}
+          isPendingUpdate={isPendingUpdate}
+          userId={userId}
         />
       </TransitionsModalUI>
     </BoxUI>

@@ -9,6 +9,6 @@ import { UserRepository } from "@/infrastructure/repositories/security/user.repo
  * @returns Promise<UserResponse>
  */
 export async function CreateUser(request: UserRequest): Promise<UserResponse> {
-  const responde = await UserRepository.User(request);
-  return responde;
+  const response = await UserRepository.CreateUser(request);
+  return response;
 }

@@ -23,6 +23,7 @@ export const schema = validator.object().shape({
   middleName: validator
     .string()
     .optional()
+    .nullable()
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
     .matches(regex.trim.execute, regex.trim.message),
   firstLastName: validator
@@ -33,6 +34,7 @@ export const schema = validator.object().shape({
   middleLastName: validator
     .string()
     .optional()
+    .nullable()
     .matches(regex.onlyLetters.execute, regex.onlyLetters.message)
     .matches(regex.trim.execute, regex.trim.message),
   dateBirth: validator.string().required(message.errors.required),
