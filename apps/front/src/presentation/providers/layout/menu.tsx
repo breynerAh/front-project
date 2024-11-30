@@ -71,6 +71,7 @@ export function MenuLayout() {
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
                 overflow: "hidden",
+                fontSize: "14px",
               }}
             >
               Principal
@@ -91,6 +92,7 @@ export function MenuLayout() {
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
                   overflow: "hidden",
+                  fontSize: "14px",
                 }}
                 id={menu?.id_menu?.toString()}
                 aria-controls={
