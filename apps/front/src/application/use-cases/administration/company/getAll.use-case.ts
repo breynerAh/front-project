@@ -14,6 +14,5 @@ export async function getAllCompany(): Promise<CompanyMapResponse[]> {
       state: x.state?.name,
     })
   );
-  console.log(response);
   return response;
 }

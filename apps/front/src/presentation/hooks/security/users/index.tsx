@@ -1,24 +1,31 @@
 import { resolver } from "@/common/utils";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { schema } from "./schema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { GetAllCompany } from "@/application/use-cases/administration/company/getAll.use-case";
+import { getAllCompany } from "@/application/use-cases/administration/company/getAll.use-case";
 import { GetAllRol } from "@/application/use-cases/security/rol/rol.use-case";
 import { GetAllCargo } from "@/application/use-cases/utilitaria/cargo/cargo.use-case";
 import { GetAllIdentificationType } from "@/application/use-cases/utilitaria/identificationType/identificationType.use-case";
-import { CreateUser } from "@/application/use-cases/security/user/user.use-case";
-import { UserRequest } from "@/domain/interfaces/security/user/userResponse";
+import { CreateUser } from "@/application/use-cases/security/user/createUser.use-case";
+import {
+  UpdateUserRequest,
+  UserRequest,
+} from "@/domain/interfaces/security/user/userResponse";
 import { toastInvoker } from "@repo/ui";
 import { CommonText } from "@/presentation/locale/commonText";
 import { AxiosError } from "axios";
+import { GetByIdUser } from "@/application/use-cases/security/user/getByIdUser.use-case";
+import { useUserStore } from "@/presentation/store/security/user";
+import { UpdateUser } from "@/application/use-cases/security/user/updateUser.use-case";
 
 export default function useUser() {
   const theme = ThemeColor();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean | undefined>(undefined);
   const queryClient = useQueryClient();
   const message = CommonText();
+  const { userId, updateUserId } = useUserStore();
 
   const {
     control,
@@ -48,7 +55,7 @@ export default function useUser() {
   // Get all companies
   const { data: dataGetAllCompany } = useQuery({
     queryKey: ["GetAllCompany"],
-    queryFn: () => GetAllCompany(),
+    queryFn: () => getAllCompany(),
     refetchOnWindowFocus: false,
   });
   // Get all roles
@@ -70,10 +77,22 @@ export default function useUser() {
     refetchOnWindowFocus: false,
   });
 
+  // Get by id user
+  const { data: dataGetByIdUser } = useQuery({
+    queryKey: ["GetByIdUser", userId],
+    queryFn: () => (userId !== undefined ? GetByIdUser(userId) : null),
+    refetchOnWindowFocus: false,
+  });
+
   //Mutation
   const mutation = useMutation({
     mutationKey: ["createUser"],
     mutationFn: async (request: UserRequest) => await CreateUser(request),
+  });
+  const mutationUpdate = useMutation({
+    mutationKey: ["updateUser"],
+    mutationFn: async (request: UpdateUserRequest) =>
+      await UpdateUser(userId || 0, request),
   });
 
   const handleOpen = () => {
@@ -112,8 +131,11 @@ export default function useUser() {
         queryClient.invalidateQueries({
           queryKey: ["GetAllIdentificationType"],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllUserList"],
+        });
         reset({});
-        setOpen(!open);
+        setOpen(false);
       },
       onError: (error) => {
         if (error instanceof AxiosError) {
@@ -124,6 +146,81 @@ export default function useUser() {
     });
   });
 
+  const handleUpdate = onSubmit((dataValues) => {
+    const data = {
+      id: dataGetByIdUser?.id,
+      userName: dataValues?.userName,
+      email: dataValues?.email,
+      idCompany: dataValues?.idCompany,
+      idIdentificationType: dataValues?.idIdentificationType,
+      idCargo: dataValues?.idCargo,
+      documentNumber: dataValues?.documentNumber,
+      firstName: dataValues?.firstName,
+      middleName: dataValues?.middleName || undefined,
+      firstLastName: dataValues?.firstLastName,
+      middleLastName: dataValues?.middleLastName || undefined,
+      dateBirth: new Date(dataValues?.dateBirth),
+      phone: dataValues?.phone,
+      idRol: dataValues?.idRol,
+    };
+    mutationUpdate.mutate(data, {
+      onSuccess: () => {
+        toastInvoker(message.toast.successUpdate, "success");
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllCompany"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllRol"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllCargo"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllIdentificationType"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["GetAllUserList"],
+        });
+        reset({});
+        setOpen(false);
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          const message = error?.response?.data?.message || "Error interno.";
+          toastInvoker(message, "error");
+        }
+      },
+    });
+  });
+
+  useEffect(() => {
+    if (!open) {
+      updateUserId(undefined);
+      reset({});
+    }
+  }, [open, updateUserId, reset]);
+
+  useEffect(() => {
+    if (dataGetByIdUser?.id) {
+      setOpen(true);
+      reset({
+        idIdentificationType: dataGetByIdUser?.persons?.idIdentificationType,
+        documentNumber: dataGetByIdUser?.persons?.documentNumber,
+        firstName: dataGetByIdUser?.persons?.firstName,
+        middleName: dataGetByIdUser?.persons?.middleName,
+        firstLastName: dataGetByIdUser?.persons?.firstLastName,
+        middleLastName: dataGetByIdUser?.persons?.middleLastName,
+        dateBirth: dataGetByIdUser?.persons?.dateBirth?.toString(),
+        email: dataGetByIdUser?.persons?.email,
+        phone: dataGetByIdUser?.persons?.phone,
+        userName: dataGetByIdUser?.userName,
+        idCargo: dataGetByIdUser?.persons?.idCargo,
+        idRol: dataGetByIdUser?.userRole?.[0]?.idRole,
+        idCompany: dataGetByIdUser?.persons?.companyPerson?.[0]?.idCompany,
+      });
+    }
+  }, [dataGetByIdUser, reset]);
+
   return {
     theme,
     open,
@@ -132,10 +229,13 @@ export default function useUser() {
     control,
     errors,
     isPending: mutation.isPending,
+    isPendingUpdate: mutationUpdate.isPending,
     handleSubmit,
+    handleUpdate,
     dataGetAllCompany,
     dataGetAllRol,
     dataGetAllCargo,
     dataGetAllIdentificationType,
+    userId,
   };
 }

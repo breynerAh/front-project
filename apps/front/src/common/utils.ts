@@ -23,4 +23,15 @@ const numberFormate = (value: string | number): string => {
     .join("");
 };
 
-export { resolver, validator, numberFormate };
+/**
+ * @param value
+ * @returns Retorna la cadena de texto con el primer carácter en mayúscula.
+ */
+const capitalizedFirst = (value: string): string =>
+  value &&
+  `${
+    String(value)?.charAt(0)?.toUpperCase() +
+    String(value)?.slice(1)?.toLocaleLowerCase()
+  }`;
+
+export { resolver, validator, numberFormate, capitalizedFirst };

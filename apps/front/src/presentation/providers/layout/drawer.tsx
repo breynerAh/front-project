@@ -18,7 +18,7 @@ export function DrawerLayout() {
         <List>
           {arrayMenu?.map((option, index) => {
             return (
-              <ListItem>
+              <ListItem key={`key-${index + 1}`}>
                 <ListItemButton>
                   <ListItemIcon>{iconMenu(index)}</ListItemIcon>
                   <ListItemText primary={option?.menu} />

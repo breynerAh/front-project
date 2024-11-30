@@ -14,7 +14,7 @@ interface ModalUIProps extends ModalProps {
 }
 
 export type TModal = {
-  state: boolean;
+  state: boolean | undefined;
   title?: string;
   children: ReactNode;
   width?: string;
@@ -120,7 +120,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       width: "100%",
       height: "auto",
       borderTop: `1px ${theme.system.hover} solid`,
-      padding: "20px",
+      padding: "10px 20px",
     },
     iconButton: {
       color: "gray",

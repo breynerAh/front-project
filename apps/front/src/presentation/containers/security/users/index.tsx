@@ -15,11 +15,14 @@ export default function UserContainer() {
     control,
     errors,
     handleSubmit,
+    handleUpdate,
     dataGetAllCompany,
     dataGetAllRol,
     dataGetAllCargo,
     dataGetAllIdentificationType,
     isPending,
+    isPendingUpdate,
+    userId,
   } = useUser();
 
   return (
@@ -47,7 +50,7 @@ export default function UserContainer() {
       />
       <TransitionsModalUI
         state={open}
-        title="Nuevo usuario"
+        title={!userId ? "Nuevo usuario" : "Editar usuario"}
         iconoTituloModal={PersonAddAltOutlinedIcon}
         handleCloseModal={() => setOpen(false)}
         width="30vw"
@@ -59,12 +62,15 @@ export default function UserContainer() {
           control={control}
           errors={errors}
           handleSubmit={handleSubmit}
+          handleUpdate={handleUpdate}
           theme={theme}
           dataGetAllCompany={dataGetAllCompany}
           dataGetAllRol={dataGetAllRol}
           dataGetAllCargo={dataGetAllCargo}
           dataGetAllIdentificationType={dataGetAllIdentificationType}
           isPending={isPending}
+          isPendingUpdate={isPendingUpdate}
+          userId={userId}
         />
       </TransitionsModalUI>
     </BoxUI>

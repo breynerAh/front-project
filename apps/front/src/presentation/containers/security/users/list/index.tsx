@@ -1,3 +1,11 @@
+import useUserList from "@/presentation/hooks/security/users/list";
+import { ThemeColor } from "@/presentation/providers/theme/theme";
+import {
+  ModeEditOutlined,
+  ToggleOffOutlined,
+  ToggleOnOutlined,
+} from "@mui/icons-material";
+import { Chip, Stack } from "@mui/material";
 import { GridActionsCellItem, GridRenderCellParams } from "@mui/x-data-grid";
 import {
   GridColDef,
@@ -6,25 +14,20 @@ import {
   StateButton,
   TableUI,
 } from "@repo/ui";
-import {
-  ModeEditOutlined,
-  ToggleOffOutlined,
-  ToggleOnOutlined,
-} from "@mui/icons-material";
-import { ThemeColor } from "@/presentation/providers/theme/theme";
-
 export default function UserList() {
   const theme = ThemeColor();
+  const { dataGetAllUser, isLoading, editUser } = useUserList();
+
   const columns: GridColDef[] = [
     {
-      field: "idIdentificationType",
+      field: "identificationType",
       headerName: "Tipo de Documento",
       headerAlign: "left",
       align: "left",
       flex: 2,
     },
     {
-      field: "identificationNumber",
+      field: "document",
       headerName: "No. Documento",
       headerAlign: "right",
       align: "right",
@@ -38,7 +41,7 @@ export default function UserList() {
       flex: 3,
     },
     {
-      field: "email",
+      field: "position",
       headerName: "Cargo",
       headerAlign: "center",
       align: "center",
@@ -46,12 +49,29 @@ export default function UserList() {
       flex: 3,
     },
     {
-      field: "email",
+      field: "rol",
       headerName: "Rol",
       headerAlign: "center",
       align: "center",
       sortable: true,
       flex: 3,
+      renderCell: (params) => {
+        return (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Stack direction="row" spacing={1}>
+              {params.value.map((tag: string) => (
+                <Chip key={tag} label={tag} size="small" />
+              ))}
+            </Stack>
+          </div>
+        );
+      },
     },
     {
       field: "estado",
@@ -76,7 +96,6 @@ export default function UserList() {
         </div>
       ),
     },
-    // import ToggleOffIcon from '@mui/icons-material/ToggleOff';
     {
       field: "actions",
       // headerName: "Acciones",
@@ -85,26 +104,32 @@ export default function UserList() {
       type: "actions",
       sortable: true,
       flex: 0.5,
-      getActions: (params) => [
-        <GridActionsCellItem
-          icon={<ModeEditOutlined sx={{ color: theme.primary.main }} />}
-          label="Edit"
-          onClick={() => console.log("el chamo")}
-          showInMenu={true}
-        />,
-        <GridActionsCellItem
-          icon={
-            params?.row?.estado ? (
-              <ToggleOnOutlined sx={{ color: theme.success.main }} />
-            ) : (
-              <ToggleOffOutlined sx={{ color: theme.error.main }} />
-            )
-          }
-          label={params?.row?.estado ? "Activar" : "Desactivar"}
-          onClick={() => console.log("el chamo")}
-          showInMenu={true}
-        />,
-      ],
+      getActions: (params) => {
+        return [
+          <GridActionsCellItem
+            icon={<ModeEditOutlined sx={{ color: theme.primary.main }} />}
+            label="Editar"
+            onClick={() => editUser(params?.row?.id)}
+            showInMenu={true}
+          />,
+          <GridActionsCellItem
+            icon={
+              params?.row?.state?.toLowerCase() !== "activo" ? (
+                <ToggleOnOutlined sx={{ color: theme.success.main }} />
+              ) : (
+                <ToggleOffOutlined sx={{ color: theme.error.main }} />
+              )
+            }
+            label={
+              params?.row?.state?.toLowerCase() !== "activo"
+                ? "Activar"
+                : "Desactivar"
+            }
+            onClick={() => console.log("el chamo")}
+            showInMenu={true}
+          />,
+        ];
+      },
     },
   ];
 
@@ -113,9 +138,9 @@ export default function UserList() {
       <GridUI sx={{ height: "700px" }}>
         <TableUI
           columns={columns}
-          // getRowId={(row) => row?.id}
-          rows={[]}
-          // loading={isLoading}
+          getRowId={(row) => row?.id}
+          rows={dataGetAllUser || []}
+          loading={isLoading}
           slots={{ toolbar: QuickSearchToolbar }}
           // checkboxSelection
         />
