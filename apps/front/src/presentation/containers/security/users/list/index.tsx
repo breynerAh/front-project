@@ -43,10 +43,10 @@ export default function UserList() {
     {
       field: "position",
       headerName: "Cargo",
-      headerAlign: "center",
-      align: "center",
+      headerAlign: "left",
+      align: "left",
       sortable: true,
-      flex: 3,
+      flex: 2,
     },
     {
       field: "rol",
@@ -54,17 +54,20 @@ export default function UserList() {
       headerAlign: "center",
       align: "center",
       sortable: true,
-      flex: 3,
+      flex: 2,
       renderCell: (params) => {
         return (
           <div
             style={{
+              width: "100%",
+
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               height: "100%",
             }}
           >
-            <Stack direction="row" spacing={1}>
+            <Stack spacing={1}>
               {params.value.map((tag: string) => (
                 <Chip key={tag} label={tag} size="small" />
               ))}

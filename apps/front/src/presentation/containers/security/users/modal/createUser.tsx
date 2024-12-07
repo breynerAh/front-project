@@ -185,10 +185,10 @@ export default function CreateUser({
         <ButtonActionResponseUI
           onClick={!userId ? handleSubmit : handleUpdate}
           startIcon={
-            !isPending || isPendingUpdate ? (
-              <SaveOutlinedIcon />
-            ) : (
+            isPending || isPendingUpdate ? (
               <CircularProgress size={20} sx={{ color: "white" }} />
+            ) : (
+              <SaveOutlinedIcon />
             )
           }
           text={!userId ? "Crear" : "Actualizar"}
