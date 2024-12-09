@@ -134,7 +134,7 @@ export const ListCompany: FC = () => {
         />
       </GridUI>
       <TransitionsModalUI
-        width="70%"
+        width="auto"
         height="auto"
         overflow="auto"
         iconoTituloModal={BusinessOutlined}

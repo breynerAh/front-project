@@ -8,7 +8,6 @@ export async function updateCompany(
   request: CompanyRequest,
   id: number
 ): Promise<CompanyResponse> {
-  console.log(id, "👻👻👻👻👻👻");
   const response = await UpdateCompanyApiRepository.updateCompany(request, id);
   return response;
 }
