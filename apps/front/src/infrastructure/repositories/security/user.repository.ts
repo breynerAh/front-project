@@ -24,7 +24,7 @@ export class UserRepository {
 
   /**
    * Get all User
-   * @returns Promise<RolResponse>
+   * @returns Promise<UserResponse>
    */
   static async GetAllUser(): Promise<UserResponse[]> {
     const response = await generalAxios().get<UserResponse[]>("/users");
@@ -33,7 +33,7 @@ export class UserRepository {
 
   /**
    * Get by id User
-   * @returns Promise<RolResponse>
+   * @returns Promise<UserResponse>
    */
   static async GetByIdUser(id: number): Promise<UserResponse> {
     const response = await generalAxios().get<UserResponse>(`/users/${id}`);
@@ -42,7 +42,7 @@ export class UserRepository {
 
   /**
    * Put User
-   * @returns Promise<RolResponse>
+   * @returns Promise<UserResponse>
    */
   static async UpdateUser(
     id: number,
@@ -52,6 +52,21 @@ export class UserRepository {
       `/users/${id}`,
       request
     );
+    return response;
+  }
+
+  /**
+   * Delete User
+   * @returns Promise<UserResponse>
+   */
+  static async DeleteUser(request: {
+    id: number;
+    state: boolean;
+  }): Promise<UserResponse> {
+    const response = await generalAxios().put<
+      UserResponse,
+      { id: number; state: boolean }
+    >(`/users/delete`, request);
     return response;
   }
 }

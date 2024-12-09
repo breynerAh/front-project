@@ -23,6 +23,7 @@ export default function UserContainer() {
     isPending,
     isPendingUpdate,
     userId,
+    handleDelete,
   } = useUser();
 
   return (
@@ -43,7 +44,7 @@ export default function UserContainer() {
               borderRadius: "10px",
             }}
           >
-            <UserList />
+            <UserList handleDelete={handleDelete} />
           </CardUI>
         }
         onClick={handleOpen}

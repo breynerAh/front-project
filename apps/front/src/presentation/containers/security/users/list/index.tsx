@@ -14,7 +14,9 @@ import {
   StateButton,
   TableUI,
 } from "@repo/ui";
-export default function UserList() {
+import { TUserList } from "./types.d";
+
+export default function UserList({ handleDelete }: TUserList) {
   const theme = ThemeColor();
   const { dataGetAllUser, isLoading, editUser } = useUserList();
 
@@ -128,7 +130,12 @@ export default function UserList() {
                 ? "Activar"
                 : "Desactivar"
             }
-            onClick={() => console.log("el chamo")}
+            onClick={() =>
+              handleDelete(
+                params?.row?.id,
+                params?.row?.state?.toLowerCase() === "activo" ? false : true
+              )
+            }
             showInMenu={true}
           />,
         ];
