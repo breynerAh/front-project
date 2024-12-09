@@ -14,7 +14,6 @@ const AuthProvider: FC = () => {
   const { token, setToken } = useLoginStore();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  console.log(token);
 
   /**
    * Query

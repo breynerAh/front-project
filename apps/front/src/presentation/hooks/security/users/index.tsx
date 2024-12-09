@@ -19,6 +19,7 @@ import { AxiosError } from "axios";
 import { GetByIdUser } from "@/application/use-cases/security/user/getByIdUser.use-case";
 import { useUserStore } from "@/presentation/store/security/user";
 import { UpdateUser } from "@/application/use-cases/security/user/updateUser.use-case";
+import { deleteUser } from "@/application/use-cases/security/user/deleteUser.use-case";
 
 export default function useUser() {
   const theme = ThemeColor();
@@ -95,6 +96,12 @@ export default function useUser() {
     mutationKey: ["updateUser"],
     mutationFn: async (request: UpdateUserRequest) =>
       await UpdateUser(userId || 0, request),
+  });
+  const mutationDelete = useMutation({
+    mutationKey: ["deleteUser"],
+    mutationFn: async (request: { id: number; state: boolean }) => {
+      await deleteUser(request);
+    },
   });
 
   const handleOpen = () => {
@@ -195,6 +202,26 @@ export default function useUser() {
     });
   });
 
+  const handleDelete = (id: number, state: boolean) => {
+    mutationDelete.mutate(
+      { id, state },
+      {
+        onSuccess: () => {
+          reset({});
+          toastInvoker("Estado actualizado con éxito", "success");
+          queryClient.invalidateQueries({ queryKey: ["GetAllUserList"] });
+          setOpen(false);
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            const message = error?.response?.data?.message || "Error interno.";
+            toastInvoker(message, "error");
+          }
+        },
+      }
+    );
+  };
+
   useEffect(() => {
     if (!open) {
       updateUserId(undefined);
@@ -239,5 +266,6 @@ export default function useUser() {
     dataGetAllCargo,
     dataGetAllIdentificationType,
     userId,
+    handleDelete,
   };
 }
