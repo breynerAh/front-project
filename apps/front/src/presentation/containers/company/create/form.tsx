@@ -30,10 +30,14 @@ export const FormCompany = () => {
   } = useCompany();
 
   return (
-    <BoxUI>
+    <BoxUI sx={{
+      // height: "64vh",
+      // width: "70%",
+    }}>
       <div
         style={{
           height: "64vh",
+          width: "50vw",
           overflow: "auto",
         }}
       >
