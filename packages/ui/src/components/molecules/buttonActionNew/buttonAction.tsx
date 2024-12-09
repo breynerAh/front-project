@@ -75,6 +75,9 @@ export function ButtonActionResponseUI(props: ButtonActionProps) {
               fontWeight: 500,
               display: isMediaQuery ? "none" : "block",
               color: textColor,
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
             },
           }}
         >

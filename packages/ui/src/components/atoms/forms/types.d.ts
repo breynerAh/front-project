@@ -73,6 +73,7 @@ export type ControlledAutoCompleteProps = {
 export type LabelledCheckboxUIProps = {
   label: string;
   checked?: boolean;
+  disabled?: boolean;
   customOnChange?: (checked: React.ChangeEvent<HTMLInputElement>) => void;
   checkboxProps?: CheckboxProps;
 };

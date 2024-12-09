@@ -46,25 +46,31 @@ export const CheckboxUI = forwardRef<HTMLButtonElement, CheckboxProps>(
 export const LabelledCheckboxUI = forwardRef<
   HTMLButtonElement,
   LabelledCheckboxUIProps
->(({ checkboxProps, label, customOnChange, checked }, ref) => {
-  return (
-    <FormControlLabel
-      ref={ref}
-      control={
-        <CheckboxUI
-          checked={checked}
-          onChange={(e) => {
-            if (customOnChange) {
-              customOnChange(e);
-            }
-          }}
-          {...checkboxProps}
-        />
-      }
-      label={label}
-    />
-  );
-});
+>(
+  (
+    { checkboxProps, label, customOnChange, checked, disabled = false },
+    ref
+  ) => {
+    return (
+      <FormControlLabel
+        ref={ref}
+        control={
+          <CheckboxUI
+            checked={checked}
+            disabled={disabled}
+            onChange={(e) => {
+              if (customOnChange) {
+                customOnChange(e);
+              }
+            }}
+            {...checkboxProps}
+          />
+        }
+        label={label}
+      />
+    );
+  }
+);
 
 /**
  * ControlledCheckboxUI component.

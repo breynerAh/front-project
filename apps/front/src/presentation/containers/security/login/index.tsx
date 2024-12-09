@@ -6,15 +6,25 @@ import {
   ControlledTextFieldUI,
   GridUI,
   ImageUI,
+  LabelledCheckboxUI,
   TypographyUI,
 } from "@repo/ui";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { EmailRecoveryPasswordContainer } from "../../recoveryPassword/emailRecoveryPasswordContainer";
+import { CircularProgress } from "@mui/material";
 
 export default function LoginContainer() {
   const theme = ThemeColor();
-  const { control, errors, handleSubmit } = useLogin();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    disabled,
+    dataForm,
+    isPending,
+    setValue,
+  } = useLogin();
   const [showRecovery, setShowRecovery] = useState(false);
 
   return (
@@ -226,15 +236,26 @@ export default function LoginContainer() {
                   <ControlledTextFieldUI
                     name="password"
                     label="password"
-                    type="password"
+                    type={dataForm?.viewPassword ? "text" : "password"}
                     error={!!errors?.password}
                     helperText={errors?.password?.message}
                     control={control}
                   />
                 </GridUI>
+                <GridUI item xs={2} sm={8} md={9} lg={11}>
+                  <LabelledCheckboxUI
+                    label="Mostrar contraseña"
+                    checked={!!dataForm?.viewPassword}
+                    disabled={isPending}
+                    customOnChange={() =>
+                      setValue("viewPassword", !dataForm?.viewPassword)
+                    }
+                  />
+                </GridUI>
                 <GridUI item xs={11}>
                   <ButtonUI
                     onClick={handleSubmit}
+                    disabled={disabled || isPending}
                     sx={{
                       backgroundColor: "#00b6e2",
                       color: "white",
@@ -243,7 +264,11 @@ export default function LoginContainer() {
                       },
                     }}
                   >
-                    Iniciar sesión
+                    {isPending ? (
+                      <CircularProgress size={24} sx={{ color: "white" }} />
+                    ) : (
+                      "Iniciar sesión"
+                    )}
                   </ButtonUI>
                 </GridUI>
                 <GridUI item xs={12}>

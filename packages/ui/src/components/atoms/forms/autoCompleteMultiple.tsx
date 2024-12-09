@@ -61,6 +61,11 @@ export function ControlAutoCompleteMultiple(
                 label={label}
                 error={props?.error}
                 helperText={props?.helperText}
+                sx={{
+                  "& .MuiInputBase-root": {
+                    height: "auto",
+                  },
+                }}
               />
             )}
             isOptionEqualToValue={(option, value) =>
@@ -71,10 +76,7 @@ export function ControlAutoCompleteMultiple(
                 datas?.length ? datas?.map((data) => data?.value) : null
               );
               if (customOnChange) {
-                customOnChange(
-                  _,
-                  datas
-                );
+                customOnChange(_, datas);
               }
             }}
           />
