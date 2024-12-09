@@ -1,4 +1,4 @@
-import { CompanyResponse } from "@/domain/interfaces/administration/company";
+import { CompanyMapResponse } from "@/domain/interfaces/administration/company";
 import { RolResponse } from "@/domain/interfaces/security/rol/rolResponse";
 import { CargoResponse } from "@/domain/interfaces/utilitaria/cargo/cargoResponse";
 import { IdentificationTypeResponse } from "@/domain/interfaces/utilitaria/identificationType/identificationTypeResponse";
@@ -21,10 +21,13 @@ export type TUser = {
   control: Control<CreateUser>;
   errors: FieldErrors<CreateUser>;
   handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  handleUpdate: (e?: React.BaseSyntheticEvent) => Promise<void>;
   theme;
-  dataGetAllCompany?: CompanyResponse[];
+  dataGetAllCompany?: CompanyMapResponse[];
   dataGetAllRol?: RolResponse[];
   dataGetAllCargo?: CargoResponse[];
   dataGetAllIdentificationType?: IdentificationTypeResponse[];
   isPending: boolean;
+  isPendingUpdate: boolean;
+  userId: number | undefined;
 };

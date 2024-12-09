@@ -14,15 +14,24 @@ export default function CreateUser({
   control,
   errors,
   handleSubmit,
+  handleUpdate,
   theme,
   dataGetAllCompany,
   dataGetAllRol,
   dataGetAllCargo,
   dataGetAllIdentificationType,
   isPending,
+  isPendingUpdate,
+  userId,
 }: TUser) {
   return (
-    <>
+    <div
+      style={{
+        height: "43vh",
+        overflow: "auto",
+        padding: "10px 0px",
+      }}
+    >
       <GridUI container columnSpacing="14px" rowGap="14px">
         <GridUI item xs={12} sm={12} md={12} lg={6}>
           <ControlledAutoCompleteUI
@@ -174,16 +183,16 @@ export default function CreateUser({
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "15px" }}
       >
         <ButtonActionResponseUI
-          onClick={handleSubmit}
+          onClick={!userId ? handleSubmit : handleUpdate}
           startIcon={
-            !isPending ? (
-              <SaveOutlinedIcon />
-            ) : (
+            isPending || isPendingUpdate ? (
               <CircularProgress size={20} sx={{ color: "white" }} />
+            ) : (
+              <SaveOutlinedIcon />
             )
           }
-          text="Crear"
-          disabled={isPending}
+          text={!userId ? "Crear" : "Actualizar"}
+          disabled={isPending || isPendingUpdate}
           sx={{
             backgroundColor: theme.secondary.main,
             color: "white",
@@ -193,6 +202,6 @@ export default function CreateUser({
           }}
         />
       </BoxUI>
-    </>
+    </div>
   );
 }
