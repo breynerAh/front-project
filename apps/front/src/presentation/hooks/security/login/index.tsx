@@ -20,18 +20,24 @@ export function useLogin() {
       .email("El email no es válido")
       .required(message?.errors?.required),
     password: validator.string().required(message?.errors?.required),
+    viewPassword: validator.boolean().nullable(),
   });
+
   const {
     control,
     handleSubmit: onSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm({
     resolver: resolver(schema),
     values: {
       email: "",
       password: "",
+      viewPassword: false,
     },
   });
+  const dataForm = watch();
 
   const mutation = useMutation({
     mutationKey: ["login"],
@@ -39,18 +45,29 @@ export function useLogin() {
   });
 
   const handleSubmit = onSubmit((data) => {
-    mutation.mutate(data, {
-      onSuccess: (response) => {
-        setToken(response.token);
-      },
-      onError: (error) => {
-        if (error instanceof AxiosError) {
-          const message = error?.response?.data?.message || "Error interno.";
-          toastInvoker(message, "error");
-        }
-      },
-    });
+    mutation.mutate(
+      { email: data?.email, password: data?.password },
+      {
+        onSuccess: (response) => {
+          setToken(response.token);
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            const message = error?.response?.data?.message || "Error interno.";
+            toastInvoker(message, "error");
+          }
+        },
+      }
+    );
   });
 
-  return { handleSubmit, errors, control };
+  return {
+    handleSubmit,
+    errors,
+    control,
+    isPending: mutation.isPending,
+    disabled: !dataForm?.email || !dataForm?.password,
+    dataForm,
+    setValue,
+  };
 }
