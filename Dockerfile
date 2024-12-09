@@ -10,7 +10,6 @@ RUN pnpm install
 
 ENV NODE_ENV=production
 
-
 RUN pnpm run build
 
 # Etapa de producción
