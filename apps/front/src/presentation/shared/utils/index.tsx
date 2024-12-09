@@ -28,14 +28,14 @@ export const brandVars = {
     bk: "http://localhost:3001/api",
   },
   stage: {
-    bk: "https://arisqa.www.com/api",
+    bk: "https://biblioteca-production-2a1d.up.railway.app/api",
   },
 };
 
 export const selectBackendEnvironment = (): string => {
   const environment = window.location.host;
 
-  if (environment?.includes("qa")) return brandVars?.stage?.bk;
+  if (!environment?.includes("localhost")) return brandVars?.stage?.bk;
 
   return brandVars?.local?.bk;
 };
