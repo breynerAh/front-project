@@ -20,7 +20,7 @@ import { GetAllGender } from "@/application/use-cases/utilitaria/gender/gender.u
 export function useCompany() {
   const queryClient = useQueryClient();
   const { setOpen, open } = useOpenStore();
-  const { id } = useIdStore();
+  const { id, setId } = useIdStore();
 
   // Get all identificationType
   const { data: dataGetAllIdentificationType } = useQuery({
@@ -263,7 +263,19 @@ export function useCompany() {
     dataGender,
     setOpen,
     open,
-    handleOpen: () => setOpen(true),
+    handleOpen: () => (
+      setOpen(true),
+      reset({
+        idIdentificationType: 0,
+        idTypeCompany: 0,
+        legalRepresentative: {
+          idCity: 0,
+          idGender: 0,
+          idIdentificationType: 0,
+        },
+      }),
+      setId(0)
+    ),
     handleRegister,
     handleUpdate,
     handleDelete,
