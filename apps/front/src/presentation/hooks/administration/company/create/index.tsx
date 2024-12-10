@@ -234,7 +234,6 @@ export function useCompany() {
   });
 
   const handleDelete = (id: number, state: number) => {
-    console.log(state);
     mutationDelete.mutate(
       { id, state: state },
       {

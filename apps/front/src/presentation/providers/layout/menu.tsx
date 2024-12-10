@@ -1,43 +1,58 @@
 import { useLayout } from "@/presentation/hooks/layout";
+import { useLayoutStore } from "@/presentation/store/layout";
+import { ArrowForwardIosOutlined } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  Avatar,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  Popover,
-} from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { BoxUI, ControlledTextFieldUI, TypographyUI } from "@repo/ui";
 import { ImageUI } from "../../../../../../packages/ui/src/components/atoms/img/img";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { useContext } from "react";
-import { AuthContext } from "@/presentation/providers/context/authContext";
-import { useLayoutStore } from "@/presentation/store/layout";
+import { AvatarComponent, ListOptions } from "./containerProfile";
 import { DrawerLayout } from "./drawer";
-
 export function MenuLayout() {
-  const { logout } = useContext(AuthContext);
+  const { media } = useLayoutStore();
   const {
     control,
     anchorEls,
     handleClickMenu,
     handleClose,
-    arrayMenu,
+    // arrayMenu,
     handleClickListOption,
     handleCloseListOption,
     openListOption,
     listOption,
     idPopover,
   } = useLayout();
-  const { media } = useLayoutStore();
+
+  const arrayMenu = [
+    {
+      id_menu: 2,
+      menu: "Biblioteca",
+      submenu: [
+        {
+          id_submenu: 1,
+          id_menu: 2,
+          name: "Opción 1",
+          topics: ["Gestión empresarial", "Plan de negocios", "ChatGPT"],
+        },
+        {
+          id_submenu: 2,
+          id_menu: 2,
+          name: "Opción 2",
+          topics: ["Estrategia de negocios", "Negocios en línea", "Liderazgo"],
+        },
+        { id_submenu: 3, id_menu: 2, name: "Opción 3" },
+      ],
+    },
+    {
+      id_menu: 3,
+      menu: "Cursos",
+      submenu: [
+        { id_submenu: 1, id_menu: 3, name: "Curso 1" },
+        { id_submenu: 2, id_menu: 3, name: "Curso 2" },
+        { id_submenu: 3, id_menu: 3, name: "Curso 3" },
+      ],
+    },
+  ];
 
   return (
     <BoxUI sx={{ width: "100%", height: "100%" }} role="presentation">
@@ -75,6 +90,7 @@ export function MenuLayout() {
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
                   overflow: "hidden",
+                  fontSize: "14px",
                 }}
               >
                 Principal
@@ -118,13 +134,26 @@ export function MenuLayout() {
                     MenuListProps={{
                       "aria-labelledby": menu?.id_menu?.toString(),
                     }}
+                    sx={{
+                      "& .MuiMenu-paper": {
+                        width: "200px",
+                        minHeight: "500px",
+                      },
+                    }}
                   >
                     {menu?.submenu?.map((submenu) => (
                       <MenuItem
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
                         key={submenu?.id_submenu}
                         onClick={() => handleClose(menu?.id_menu)}
                       >
                         {submenu?.name}
+                        <ArrowForwardIosOutlined
+                          sx={{ width: "15px", color: "gray" }}
+                        />
                       </MenuItem>
                     ))}
                   </Menu>
@@ -144,91 +173,17 @@ export function MenuLayout() {
           />
         </BoxUI>
 
-        <BoxUI>
-          <IconButton
-            onClick={handleClickListOption}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={openListOption ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={openListOption ? "true" : undefined}
-          >
-            <Avatar sx={{ width: 40, height: 40 }}>M</Avatar>
-          </IconButton>
-        </BoxUI>
-        <Popover
-          id={idPopover}
-          open={openListOption}
-          anchorEl={listOption}
-          onClose={handleCloseListOption}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-        >
-          <List sx={{ width: 250, height: "auto" }}>
-            <ListItem
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-              }}
-            >
-              <BoxUI
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-              >
-                <Avatar sx={{ width: 120, height: 120 }}>M</Avatar>
-                <ModeEditOutlineOutlinedIcon
-                  sx={{ fontSize: "20px", position: "relative", right: "20px" }}
-                />
-              </BoxUI>
-              <TypographyUI>User</TypographyUI>
-              <TypographyUI>Email</TypographyUI>
-            </ListItem>
-            <Divider component="li" />
+        <AvatarComponent
+          handleClickListOption={handleClickListOption}
+          openListOption={openListOption}
+        />
 
-            <ListItem sx={{ margin: "5px 0" }}>
-              <SchoolOutlinedIcon />
-              <TypographyUI sx={{ marginLeft: "10px" }}>
-                Mi aprendizaje
-              </TypographyUI>
-            </ListItem>
-            <ListItem sx={{ margin: "5px 0" }}>
-              <CollectionsBookmarkOutlinedIcon />
-              <TypographyUI sx={{ marginLeft: "10px" }}>
-                Mi biblioteca
-              </TypographyUI>
-            </ListItem>
-            <ListItem sx={{ margin: "5px 0" }}>
-              <FavoriteBorderOutlinedIcon />
-              <TypographyUI sx={{ marginLeft: "10px" }}>Favoritos</TypographyUI>
-            </ListItem>
-            <Divider component="li" />
-
-            <ListItem sx={{ margin: "5px 0" }}>
-              <ManageAccountsOutlinedIcon />
-              <TypographyUI sx={{ marginLeft: "10px" }}>
-                Configuraciones
-              </TypographyUI>
-            </ListItem>
-            <Divider component="li" />
-
-            <ListItem
-              sx={{ margin: "5px 0", cursor: "pointer" }}
-              onClick={() => logout()}
-            >
-              <LogoutOutlinedIcon />
-              <TypographyUI sx={{ marginLeft: "10px" }}>
-                Cerrar sesión
-              </TypographyUI>
-            </ListItem>
-          </List>
-        </Popover>
+        <ListOptions
+          handleCloseListOption={handleCloseListOption}
+          openListOption={openListOption}
+          listOption={listOption}
+          idPopover={idPopover}
+        />
       </BoxUI>
     </BoxUI>
   );
