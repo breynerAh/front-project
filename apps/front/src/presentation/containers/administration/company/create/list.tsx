@@ -1,4 +1,4 @@
-import { FormCompany } from "@/presentation/containers/company/create/form";
+import { FormCompany } from "@/presentation/containers/administration/company/create/form";
 import { useCompany } from "@/presentation/hooks/administration/company/create";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
 import { useIdStore } from "@/presentation/store/generic";

@@ -111,6 +111,7 @@ export function MenuLayout() {
                     whiteSpace: "nowrap",
                     textOverflow: "ellipsis",
                     overflow: "hidden",
+                    fontSize: "14px",
                   }}
                   id={menu?.id_menu?.toString()}
                   aria-controls={
@@ -146,6 +147,7 @@ export function MenuLayout() {
                         sx={{
                           display: "flex",
                           justifyContent: "space-between",
+                          fontSize: "14px",
                         }}
                         key={submenu?.id_submenu}
                         onClick={() => handleClose(menu?.id_menu)}
