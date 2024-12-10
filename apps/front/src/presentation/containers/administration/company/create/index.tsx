@@ -1,4 +1,4 @@
-import { ListCompany } from "@/presentation/containers/company/create/list";
+import { ListCompany } from "@/presentation/containers/administration/company/create/list";
 import { useCompany } from "@/presentation/hooks/administration/company/create";
 import { AddOutlined, GroupOutlined } from "@mui/icons-material";
 import { useMediaQuery } from "@mui/material";
