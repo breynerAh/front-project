@@ -15,7 +15,12 @@ export function useDrawer() {
       id_menu: 2,
       menu: "Biblioteca",
       submenu: [
-        { id_submenu: 1, id_menu: 2, name: "Opción 1" },
+        {
+          id_submenu: 1,
+          id_menu: 2,
+          name: "Opción 1",
+          topics: ["Gestión empresarial", "Plan de negocios", "ChatGPT"],
+        },
         { id_submenu: 2, id_menu: 2, name: "Opción 2" },
         { id_submenu: 3, id_menu: 2, name: "Opción 3" },
       ],
