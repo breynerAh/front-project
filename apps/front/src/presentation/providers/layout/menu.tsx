@@ -8,6 +8,7 @@ import { BoxUI, ControlledTextFieldUI, TypographyUI } from "@repo/ui";
 import { ImageUI } from "../../../../../../packages/ui/src/components/atoms/img/img";
 import { AvatarComponent, ListOptions } from "./containerProfile";
 import { DrawerLayout } from "./drawer";
+import { Link } from "react-router-dom";
 export function MenuLayout() {
   const { media } = useLayoutStore();
   const {
@@ -92,17 +93,21 @@ export function MenuLayout() {
                 width: "20%",
               }}
             >
-              <TypographyUI
-                sx={{
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  fontSize: "14px",
-                }}
-              >
-                Principal
-              </TypographyUI>
+              <Link to="/app">
+                <BoxUI sx={{ padding: "5px" }}>
+                  <TypographyUI
+                    sx={{
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Principal
+                  </TypographyUI>
+                </BoxUI>
+              </Link>
             </BoxUI>
             {arrayMenu?.map((menu) => (
               <BoxUI
@@ -111,6 +116,7 @@ export function MenuLayout() {
                   display: "flex",
                   color: "white",
                   width: "30%",
+                  padding: "5px",
                 }}
               >
                 <TypographyUI
