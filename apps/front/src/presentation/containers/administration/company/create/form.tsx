@@ -1,5 +1,6 @@
 import { useCompany } from "@/presentation/hooks/administration/company/create";
 import { ThemeColor } from "@/presentation/providers/theme/theme";
+import { useConfigurationStore } from "@/presentation/store/administration/configurations";
 import { useIdStore } from "@/presentation/store/generic";
 import { ModeEditOutlined } from "@mui/icons-material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
@@ -15,6 +16,7 @@ import {
 export const FormCompany = () => {
   const theme = ThemeColor();
   const { id } = useIdStore();
+  const { state } = useConfigurationStore();
 
   const {
     control,
@@ -30,14 +32,18 @@ export const FormCompany = () => {
   } = useCompany();
 
   return (
-    <BoxUI sx={{
-      // height: "64vh",
-      // width: "70%",
-    }}>
+    <BoxUI
+      sx={
+        {
+          // height: "64vh",
+          // width: "70%",
+        }
+      }
+    >
       <div
         style={{
           height: "64vh",
-          width: "50vw",
+          width: state !== 1 ? "50vw" : "none",
           overflow: "auto",
         }}
       >
@@ -46,7 +52,8 @@ export const FormCompany = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "0px 10px 10px",
+            // padding: "0px 10px 10px",
+            padding: "14px 0px 10px",
           }}
         >
           <TypographyUI
@@ -59,14 +66,7 @@ export const FormCompany = () => {
             Información general de la empresa
           </TypographyUI>
         </GridUI>
-        <GridUI
-          container
-          columnSpacing="14px"
-          rowGap="14px"
-          sx={{
-            padding: "0px 10px 5px",
-          }}
-        >
+        <GridUI container columnSpacing="14px" rowGap="14px">
           <GridUI item xs={12} sm={6} md={6} lg={4}>
             <ControlledAutoCompleteUI
               control={control}
@@ -203,7 +203,7 @@ export const FormCompany = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "5px 10px 10px",
+            padding: "5px 0px 10px",
             borderTop: `1px solid ${theme.text.lines}`,
             marginTop: "10px",
           }}
@@ -218,14 +218,7 @@ export const FormCompany = () => {
             Datos contacto
           </TypographyUI>
         </GridUI>
-        <GridUI
-          container
-          columnSpacing="14px"
-          rowGap="14px"
-          sx={{
-            padding: "0px 10px 5px",
-          }}
-        >
+        <GridUI container columnSpacing="14px" rowGap="14px">
           <GridUI item xs={12} sm={6} md={6} lg={4}>
             <ControlledTextFieldUI
               control={control}
@@ -281,7 +274,7 @@ export const FormCompany = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "5px 10px 10px",
+            padding: "5px 0px 10px",
             borderTop: `1px solid ${theme.text.lines}`,
             marginTop: "10px",
           }}
@@ -296,14 +289,7 @@ export const FormCompany = () => {
             Representante legal
           </TypographyUI>
         </GridUI>
-        <GridUI
-          container
-          columnSpacing="14px"
-          rowGap="14px"
-          sx={{
-            padding: "0px 10px 5px",
-          }}
-        >
+        <GridUI container columnSpacing="14px" rowGap="14px">
           <GridUI item xs={12} sm={6} md={6} lg={4}>
             <ControlledAutoCompleteUI
               control={control}
@@ -449,7 +435,7 @@ export const FormCompany = () => {
         <ButtonActionResponseUI
           onClick={id ? handleUpdate : handleRegister}
           startIcon={id ? <ModeEditOutlined /> : <SaveOutlinedIcon />}
-          text={id ? "Actualizar" : "Crear"}
+          text={id || state === 1 ? "Actualizar" : "Crear"}
           disabled={loadingCreate}
           loading={loadingCreate}
           sx={{

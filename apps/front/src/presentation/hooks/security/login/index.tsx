@@ -2,7 +2,10 @@ import { Login } from "@/application/use-cases/security";
 import { resolver, validator } from "@/common/utils";
 import { LoginRequest } from "@/domain/interfaces/security/login/loginApiResponses";
 import { CommonText } from "@/presentation/locale/commonText";
-import { useLoginStore } from "@/presentation/store/security/loginStore";
+import {
+  useLoginStore,
+  useUserLoginStore,
+} from "@/presentation/store/security/loginStore";
 import { toastInvoker } from "@repo/ui";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -11,6 +14,7 @@ import { useForm } from "react-hook-form";
 export function useLogin() {
   const message = CommonText();
   const { setToken } = useLoginStore();
+  const { setUser } = useUserLoginStore();
 
   const schema = validator.object().shape({
     // email: validator.string().required(message?.errors?.required),
@@ -50,6 +54,7 @@ export function useLogin() {
       {
         onSuccess: (response) => {
           setToken(response.token);
+          setUser(response?.id);
         },
         onError: (error) => {
           if (error instanceof AxiosError) {
