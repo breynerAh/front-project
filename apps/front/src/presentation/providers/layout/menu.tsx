@@ -40,7 +40,15 @@ export function MenuLayout() {
   const { media } = useLayoutStore();
 
   return (
-    <BoxUI sx={{ width: "100%", height: "100%" }} role="presentation">
+    <BoxUI
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+      }}
+      role="presentation"
+    >
+      {<DrawerLayout />}
       <BoxUI
         sx={{
           display: "flex",
@@ -51,7 +59,7 @@ export function MenuLayout() {
           padding: "0 180px",
         }}
       >
-        <BoxUI>
+        <BoxUI sx={{ minWidth: "40px", marginRight: "10px" }}>
           <ImageUI src="/images/Logo_aris.svg" width={90} />
         </BoxUI>
         {!media && (
@@ -134,8 +142,7 @@ export function MenuLayout() {
           </BoxUI>
         )}
 
-        {<DrawerLayout />}
-        <BoxUI sx={{ width: "50%" }}>
+        <BoxUI sx={{ width: "50%", minWidth: "220px" }}>
           <ControlledTextFieldUI
             control={control}
             name="search"

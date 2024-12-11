@@ -57,5 +57,6 @@ export function useDrawer() {
     setOpen,
     open,
     iconMenu,
+    media,
   };
 }
