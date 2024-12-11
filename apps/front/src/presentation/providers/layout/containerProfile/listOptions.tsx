@@ -11,6 +11,7 @@ import { Avatar, Divider, List, ListItem, Popover } from "@mui/material";
 import { BoxUI, TypographyUI } from "@repo/ui";
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
+import { ThemeColor } from "../../theme/theme";
 
 export const ListOptions: FC<{
   idPopover?: string;
@@ -19,6 +20,7 @@ export const ListOptions: FC<{
   handleCloseListOption: () => void;
 }> = ({ idPopover, openListOption, listOption, handleCloseListOption }) => {
   const { logout } = useContext(AuthContext);
+  const theme = ThemeColor();
 
   return (
     <Popover
@@ -49,7 +51,12 @@ export const ListOptions: FC<{
           >
             <Avatar sx={{ width: 120, height: 120 }}>M</Avatar>
             <ModeEditOutlineOutlined
-              sx={{ fontSize: "20px", position: "relative", right: "20px" }}
+              sx={{
+                fontSize: "20px",
+                position: "relative",
+                right: "20px",
+                color: theme.secondary.main,
+              }}
             />
           </BoxUI>
           <TypographyUI>User</TypographyUI>
@@ -57,23 +64,48 @@ export const ListOptions: FC<{
         </ListItem>
         <Divider component="li" />
 
-        <ListItem sx={{ margin: "5px 0" }}>
+        <ListItem
+          sx={{
+            margin: "5px 0",
+            cursor: "pointer",
+            ":hover": { background: theme.text.lines },
+          }}
+        >
           <SchoolOutlined />
           <TypographyUI sx={{ marginLeft: "10px" }}>
             Mi aprendizaje
           </TypographyUI>
         </ListItem>
-        <ListItem sx={{ margin: "5px 0" }}>
+        <ListItem
+          sx={{
+            margin: "5px 0",
+            cursor: "pointer",
+            ":hover": { background: theme.text.lines },
+          }}
+        >
           <CollectionsBookmarkOutlined />
           <TypographyUI sx={{ marginLeft: "10px" }}>Mi biblioteca</TypographyUI>
         </ListItem>
-        <ListItem sx={{ margin: "5px 0" }}>
+        <ListItem
+          sx={{
+            margin: "5px 0",
+            cursor: "pointer",
+            ":hover": { background: theme.text.lines },
+          }}
+        >
           <FavoriteBorderOutlined />
           <TypographyUI sx={{ marginLeft: "10px" }}>Favoritos</TypographyUI>
         </ListItem>
         <Divider component="li" />
 
-        <ListItem sx={{ margin: "5px 0" }}>
+        <ListItem
+          sx={{
+            margin: "5px 0",
+            cursor: "pointer",
+            ":hover": { background: theme.text.lines },
+          }}
+          onClick={() => handleCloseListOption()}
+        >
           <ManageAccountsOutlined />
           <Link to="configuration">
             <TypographyUI sx={{ marginLeft: "10px" }}>
@@ -84,7 +116,11 @@ export const ListOptions: FC<{
         <Divider component="li" />
 
         <ListItem
-          sx={{ margin: "5px 0", cursor: "pointer" }}
+          sx={{
+            margin: "5px 0",
+            cursor: "pointer",
+            ":hover": { background: theme.text.lines },
+          }}
           onClick={() => logout()}
         >
           <LogoutOutlined />

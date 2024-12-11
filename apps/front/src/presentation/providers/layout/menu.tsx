@@ -8,6 +8,7 @@ import { BoxUI, ControlledTextFieldUI, TypographyUI } from "@repo/ui";
 import { ImageUI } from "../../../../../../packages/ui/src/components/atoms/img/img";
 import { AvatarComponent, ListOptions } from "./containerProfile";
 import { DrawerLayout } from "./drawer";
+import { Link } from "react-router-dom";
 export function MenuLayout() {
   const { media } = useLayoutStore();
   const {
@@ -55,7 +56,15 @@ export function MenuLayout() {
   ];
 
   return (
-    <BoxUI sx={{ width: "100%", height: "100%" }} role="presentation">
+    <BoxUI
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+      }}
+      role="presentation"
+    >
+      {<DrawerLayout />}
       <BoxUI
         sx={{
           display: "flex",
@@ -66,7 +75,7 @@ export function MenuLayout() {
           padding: "0 180px",
         }}
       >
-        <BoxUI>
+        <BoxUI sx={{ minWidth: "40px", marginRight: "10px" }}>
           <ImageUI src="/images/Logo_aris.svg" width={90} />
         </BoxUI>
         {!media && (
@@ -84,17 +93,21 @@ export function MenuLayout() {
                 width: "20%",
               }}
             >
-              <TypographyUI
-                sx={{
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  fontSize: "14px",
-                }}
-              >
-                Principal
-              </TypographyUI>
+              <Link to="/app">
+                <BoxUI sx={{ padding: "5px" }}>
+                  <TypographyUI
+                    sx={{
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Principal
+                  </TypographyUI>
+                </BoxUI>
+              </Link>
             </BoxUI>
             {arrayMenu?.map((menu) => (
               <BoxUI
@@ -103,6 +116,7 @@ export function MenuLayout() {
                   display: "flex",
                   color: "white",
                   width: "30%",
+                  padding: "5px",
                 }}
               >
                 <TypographyUI
@@ -165,13 +179,12 @@ export function MenuLayout() {
           </BoxUI>
         )}
 
-        {<DrawerLayout />}
-        <BoxUI sx={{ width: "50%" }}>
+        <BoxUI sx={{ width: "50%", minWidth: "220px" }}>
           <ControlledTextFieldUI
             control={control}
             name="search"
             placeholder="Descubre algo nuevo hoy"
-            sx={{ color: "red", background: "white", borderRadius: "5px" }}
+            sx={{ background: "white", borderRadius: "5px" }}
           />
         </BoxUI>
 

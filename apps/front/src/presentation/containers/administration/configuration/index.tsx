@@ -3,6 +3,7 @@ import { OptionList } from "@/presentation/containers/administration/configurati
 import { TapConfiguration } from "@/presentation/containers/administration/configuration/tab";
 import { useConfigurationStore } from "@/presentation/store/administration/configurations";
 import { BoxUI, GridUI } from "@repo/ui";
+import UserContainer from "../../security/users";
 
 export const ConfigurationContainer = () => {
   const { state } = useConfigurationStore();
@@ -15,6 +16,8 @@ export const ConfigurationContainer = () => {
           <TapConfiguration />
         ) : state === 2 ? (
           <CompanyContainer />
+        ) : state === 3 ? (
+          <UserContainer />
         ) : null}
       </GridUI>
     </BoxUI>
