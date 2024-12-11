@@ -9,7 +9,7 @@ import { ThemeColor } from "../../../../../../apps/front/src/presentation/provid
 
 type ContentUIProps = {
   titulo: string;
-  tituloBoton: string;
+  tituloBoton?: string;
   subtitulo: string;
   icono: SvgIconComponent;
   iconoBoton: SvgIconComponent;
