@@ -178,7 +178,7 @@ export function MenuLayout() {
             control={control}
             name="search"
             placeholder="Descubre algo nuevo hoy"
-            sx={{ color: "red", background: "white", borderRadius: "5px" }}
+            sx={{ background: "white", borderRadius: "5px" }}
           />
         </BoxUI>
 
