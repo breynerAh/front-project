@@ -16,11 +16,13 @@ import { useEffect } from "react";
 import { deleteCompany } from "@/application/use-cases/administration/company/delete.use-case";
 import { GetAllCity } from "@/application/use-cases/utilitaria/city/city.use-case";
 import { GetAllGender } from "@/application/use-cases/utilitaria/gender/gender.use-case";
+import { useConfigurationStore } from "@/presentation/store/administration/configurations";
 
 export function useCompany() {
   const queryClient = useQueryClient();
   const { setOpen, open } = useOpenStore();
   const { id, setId } = useIdStore();
+  const { state: stateConfig } = useConfigurationStore();
 
   // Get all identificationType
   const { data: dataGetAllIdentificationType } = useQuery({
@@ -196,7 +198,7 @@ export function useCompany() {
     mutationUpdate.mutate(
       {
         ...data,
-        idState: 1,
+        idState: dataOne?.idState,
         identificationNumber: Number(data?.identificationNumber),
         idIdentificationType:
           idTypeCompany === 1 ? 2 : data?.idIdentificationType || undefined,
@@ -210,15 +212,17 @@ export function useCompany() {
       },
       {
         onSuccess: () => {
-          reset({
-            idIdentificationType: 0,
-            idTypeCompany: 0,
-            legalRepresentative: {
-              idCity: 0,
-              idGender: 0,
+          if (stateConfig !== 1) {
+            reset({
               idIdentificationType: 0,
-            },
-          });
+              idTypeCompany: 0,
+              legalRepresentative: {
+                idCity: 0,
+                idGender: 0,
+                idIdentificationType: 0,
+              },
+            });
+          }
           toastInvoker("Empresa actualizada con éxito", "success");
           queryClient.invalidateQueries({ queryKey: ["companies"] });
           setOpen(false);
@@ -283,7 +287,6 @@ export function useCompany() {
       mutation.isPending ||
       mutation.isSuccess ||
       mutationUpdate.isPending ||
-      mutationUpdate.isSuccess ||
       isLoadingData,
     isLoading,
     idTypeCompany,

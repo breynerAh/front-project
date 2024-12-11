@@ -123,14 +123,13 @@ export const ListCompany: FC = () => {
 
   return (
     <div>
-      <GridUI sx={{ height: "700px" }}>
+      <GridUI sx={{ height: "68vh" }}>
         <TableUI
           columns={columns}
           getRowId={(row) => row?.id}
           rows={data || []}
           loading={isLoading}
           slots={{ toolbar: QuickSearchToolbar }}
-          // checkboxSelection
         />
       </GridUI>
       <TransitionsModalUI

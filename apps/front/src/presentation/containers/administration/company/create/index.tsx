@@ -20,6 +20,7 @@ export function CompanyContainer() {
           paddingTop: "10px",
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
           borderRadius: "10px",
+          height: "70vh",
         }}
       >
         <ListCompany />

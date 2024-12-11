@@ -1,3 +1,4 @@
+import { CompanyPersonResponse } from "@/domain/interfaces/administration/companyPerson/companyPersonResponse";
 import {
   PersonRequest,
   PersonResponse,
@@ -31,4 +32,5 @@ export interface UserResponse {
   state: string;
   persons: PersonResponse;
   userRole: UserRoleResponse[];
+  companyPerson: CompanyPersonResponse;
 }

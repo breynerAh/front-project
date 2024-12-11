@@ -75,7 +75,7 @@ export const ListOptions: FC<{
 
         <ListItem sx={{ margin: "5px 0" }}>
           <ManageAccountsOutlined />
-          <Link to="create/company">
+          <Link to="configuration">
             <TypographyUI sx={{ marginLeft: "10px" }}>
               Configuraciones
             </TypographyUI>
