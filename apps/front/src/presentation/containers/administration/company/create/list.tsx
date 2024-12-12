@@ -123,7 +123,7 @@ export const ListCompany: FC = () => {
 
   return (
     <div>
-      <GridUI>
+      <GridUI sx={{ height: "68vh" }}>
         <TableUI
           columns={columns}
           getRowId={(row) => row?.id}

@@ -1,6 +1,7 @@
 import { FormCompany } from "@/presentation/containers/administration/company/create/form";
 import { PersonalInformation } from "@/presentation/containers/administration/configuration/tab/Content/personalInformation";
 import { useTabConfigurationStore } from "@/presentation/store/administration/configurations";
+import { useUserLoginStore } from "@/presentation/store/security/loginStore";
 import { AddOutlined, GroupOutlined } from "@mui/icons-material";
 import { Box, Tab, Tabs } from "@mui/material";
 import { BoxUI, CardUI, ContentUI } from "@repo/ui";
@@ -8,6 +9,7 @@ import React, { FC } from "react";
 
 export const TapConfiguration: FC = () => {
   const { setValues, values } = useTabConfigurationStore();
+  const { data } = useUserLoginStore();
 
   function a11yProps(index: number) {
     return {
@@ -50,7 +52,13 @@ export const TapConfiguration: FC = () => {
               aria-label="basic tabs example"
             >
               <Tab label="Información general" {...a11yProps(0)} />
-              <Tab label="Información de la empresa" {...a11yProps(1)} />
+              <Tab
+                label="Información de la empresa"
+                {...a11yProps(1)}
+                sx={{
+                  display: data?.idRol === 2 ? "block" : "none",
+                }}
+              />
             </Tabs>
             <BoxUI
               sx={{

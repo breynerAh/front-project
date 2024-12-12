@@ -6,7 +6,6 @@ export const useLoginStore = create(
   persist<LoginStore>(
     (set) => ({
       token: "",
-      id: 0,
       setToken: (token: string | undefined) => set({ token }),
     }),
     {
@@ -19,12 +18,18 @@ export const useLoginStore = create(
 
 export const useUserLoginStore = create(
   persist<{
-    idUser: number;
-    setUser: (idUser: number) => void;
+    data: {
+      idUser: number;
+      idRol: number;
+    };
+    setUser: (data: { idUser: number; idRol: number }) => void;
   }>(
     (set) => ({
-      idUser: 0,
-      setUser: (idUser: number) => set({ idUser }),
+      data: {
+        idUser: 0,
+        idRol: 0,
+      },
+      setUser: (data: { idUser: number; idRol: number }) => set({ data }),
     }),
     {
       name: "user",

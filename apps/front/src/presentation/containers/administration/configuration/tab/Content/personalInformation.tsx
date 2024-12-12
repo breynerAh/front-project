@@ -55,12 +55,12 @@ export const PersonalInformation = () => {
         container
         columnSpacing="14px"
         rowGap="14px"
-        sx={{
-          padding: "0px 0px 10px",
-          height: "40%",
-        }}
+        // sx={{
+        //   padding: "0px 0px 10px",
+        //   height: "40%",
+        // }}
       >
-        <GridUI item xs={12} sm={6} md={6} lg={4}>
+        <GridUI item xs={12} sm={12} md={6} lg={4}>
           <ControlledAutoCompleteUI
             control={control}
             name="idIdentificationType"
@@ -212,16 +212,7 @@ export const PersonalInformation = () => {
           />
         </GridUI>
       </GridUI>
-      {/* <FormCompany /> */}
-      <BoxUI
-        sx={{
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "end",
-          marginTop: "15px",
-          height: "50%",
-        }}
-      >
+      <BoxUI width="100%" display="flex" justifyContent="flex-end" mt="20px">
         <ButtonActionResponseUI
           onClick={handleUpdate}
           startIcon={
@@ -235,13 +226,14 @@ export const PersonalInformation = () => {
           disabled={isPending}
           sx={{
             backgroundColor: theme.secondary.main,
-            color: "white",
+            coloBoxUIr: "white",
             "&:hover": {
               backgroundColor: theme.secondary.dark,
             },
           }}
         />
       </BoxUI>
+      {/* <FormCompany /> */}
     </BoxUI>
   );
 };

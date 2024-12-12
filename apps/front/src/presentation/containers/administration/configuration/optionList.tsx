@@ -13,6 +13,7 @@ import { GridUI, TypographyUI } from "@repo/ui";
 export const OptionList = () => {
   const { state, setState } = useConfigurationStore();
   const { dataGetByIdUser } = useUserConfiguration();
+  console.log(dataGetByIdUser);
   return (
     <Paper
       style={{
@@ -100,6 +101,18 @@ export const OptionList = () => {
               />
             </>
           )}
+          {dataGetByIdUser?.userRole?.[0]?.idRole === 2 ||
+            (dataGetByIdUser?.userRole?.[0]?.idRole === 3 && (
+              <>
+                <ItemList
+                  onClick={() => setState(3)}
+                  icono={PeopleAltOutlined}
+                  index={3}
+                  state={state}
+                  title="Lista de usuarios"
+                />
+              </>
+            ))}
         </List>
       </GridUI>
     </Paper>
