@@ -72,7 +72,13 @@ export function MenuLayout() {
           width: "100%",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 180px",
+          padding: {
+            xs: "0 64px", // Padding para pantallas pequeñas
+            sm: "0 64px", // Padding para pantallas medianas
+            md: "0 64px", // Padding para pantallas grandes
+            lg: "0 120px", // Padding para pantallas más grandes
+            xl: "0 180px", // Padding máximo para pantallas muy grandes
+          },
         }}
       >
         <BoxUI sx={{ minWidth: "40px", marginRight: "10px" }}>

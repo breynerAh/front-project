@@ -12,7 +12,13 @@ export function Layout() {
       minHeight: "100vh",
     },
     body: {
-      padding: "5px 180px 0px",
+      padding: {
+        xs: "5px 20px 0px", // Padding para pantallas pequeñas
+        sm: "5px 64px 0px", // Padding para pantallas medianas
+        md: "5px 64px 0px", // Padding para pantallas grandes
+        lg: "5px 120px 0px", // Padding para pantallas más grandes
+        xl: "5px 180px 0px", // Padding máximo para pantallas muy grandes
+      },
       backgroundColor: theme.system.background,
       flexGrow: 1,
       overflow: "auto",
