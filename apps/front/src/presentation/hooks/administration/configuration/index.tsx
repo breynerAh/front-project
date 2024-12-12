@@ -139,5 +139,6 @@ export const useUserConfiguration = () => {
     dataGetAllCargo,
     dataGetAllCompany,
     dataGetAllRol,
+    dataGetByIdUser,
   };
 };

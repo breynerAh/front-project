@@ -144,17 +144,15 @@ export default function UserList({ handleDelete }: TUserList) {
   ];
 
   return (
-    <>
-      <GridUI sx={{ height: "700px" }}>
-        <TableUI
-          columns={columns}
-          getRowId={(row) => row?.id}
-          rows={dataGetAllUser || []}
-          loading={isLoading}
-          slots={{ toolbar: QuickSearchToolbar }}
-          // checkboxSelection
-        />
-      </GridUI>
-    </>
+    <GridUI>
+      <TableUI
+        columns={columns}
+        getRowId={(row) => row?.id}
+        rows={dataGetAllUser || []}
+        loading={isLoading}
+        slots={{ toolbar: QuickSearchToolbar }}
+        // checkboxSelection
+      />
+    </GridUI>
   );
 }

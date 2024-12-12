@@ -9,9 +9,18 @@ export const ConfigurationContainer = () => {
   const { state } = useConfigurationStore();
 
   return (
-    <BoxUI sx={{ width: "100%", height: "100%", display: "flex" }}>
+    <BoxUI
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
+      {/* <GridUI sx={{ height: "100%" }}> */}
       <OptionList />
-      <GridUI sx={{ width: "80%", height: "100%", marginLeft: "10px" }}>
+      {/* </GridUI> */}
+      <GridUI sx={{ width: "100%", height: "68vh" }}>
         {state === 1 ? (
           <TapConfiguration />
         ) : state === 2 ? (

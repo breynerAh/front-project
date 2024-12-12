@@ -76,6 +76,9 @@ export const ContentUI = (props: ContentUIProps) => {
               paddingLeft: "35px",
               paddingBottom: "10px",
               color: theme?.text.secondary,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
             {subtitulo}

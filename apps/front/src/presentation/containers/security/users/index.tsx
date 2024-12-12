@@ -27,7 +27,7 @@ export default function UserContainer() {
   } = useUser();
 
   return (
-    <BoxUI sx={{ height: "100%", minWidth: "350px" }}>
+    <BoxUI sx={{ minWidth: "350px" }}>
       <ContentUI
         icono={PeopleAltOutlinedIcon}
         titulo="Usuarios y roles"
@@ -42,6 +42,7 @@ export default function UserContainer() {
               paddingTop: "10px",
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               borderRadius: "10px",
+              height: "70vh",
             }}
           >
             <UserList handleDelete={handleDelete} />
