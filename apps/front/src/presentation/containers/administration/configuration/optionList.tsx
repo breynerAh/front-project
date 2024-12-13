@@ -13,7 +13,7 @@ import { GridUI, TypographyUI } from "@repo/ui";
 export const OptionList = () => {
   const { state, setState } = useConfigurationStore();
   const { dataGetByIdUser } = useUserConfiguration();
-  console.log(dataGetByIdUser);
+
   return (
     <Paper
       style={{
