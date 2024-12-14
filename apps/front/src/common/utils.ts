@@ -34,4 +34,25 @@ const capitalizedFirst = (value: string): string =>
     String(value)?.slice(1)?.toLocaleLowerCase()
   }`;
 
-export { resolver, validator, numberFormate, capitalizedFirst };
+const convertToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      resolve(result);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+};
+
+export {
+  resolver,
+  validator,
+  numberFormate,
+  capitalizedFirst,
+  convertToBase64,
+};

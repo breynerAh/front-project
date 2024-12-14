@@ -146,8 +146,8 @@ export function DrawerLayout() {
         <List sx={{ padding: 0 }}>
           {arrayMenu?.map((option, index) => {
             return (
-              <>
-                <ListItem key={`key-${index + 1}`} sx={{ padding: "5px 10px" }}>
+              <React.Fragment key={`key-${index + 1}`}>
+                <ListItem sx={{ padding: "5px 10px" }}>
                   <ListItemButton
                     onClick={() => handleClick(option?.id_menu)}
                     sx={{
@@ -173,6 +173,7 @@ export function DrawerLayout() {
                 {option?.submenu?.map((submenu) => {
                   return (
                     <Collapse
+                      key={`key-${submenu?.id_submenu}`}
                       in={openSubMenu[option?.id_menu]}
                       timeout="auto"
                       unmountOnExit
@@ -188,7 +189,7 @@ export function DrawerLayout() {
                     </Collapse>
                   );
                 })}
-              </>
+              </React.Fragment>
             );
           })}
         </List>

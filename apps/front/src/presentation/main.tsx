@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThinLineLoading } from "./components/ui/loading/thinLineLoading";
 import { CustomThemeProvider } from "./providers/theme";
 import { router } from "./router";
+import { Worker } from "@react-pdf-viewer/core";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ToastContainer />
       <CustomThemeProvider>
         <Suspense fallback={<ThinLineLoading />}>
-          <RouterProvider router={router} />
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <RouterProvider router={router} />
+          </Worker>
         </Suspense>
       </CustomThemeProvider>
     </QueryClientProvider>
