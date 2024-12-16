@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export const useUserConfiguration = () => {
-  const { idUser } = useUserLoginStore();
+  const { data } = useUserLoginStore();
   const { setId } = useIdStore();
 
   // Get all identificationType
@@ -27,8 +27,9 @@ export const useUserConfiguration = () => {
   });
   // Get by id user
   const { data: dataGetByIdUser, refetch } = useQuery({
-    queryKey: ["GetByIdUser", idUser],
-    queryFn: () => (idUser !== undefined ? GetByIdUser(idUser) : null),
+    queryKey: ["GetByIdUser", data?.idUser],
+    queryFn: () =>
+      data?.idUser !== undefined ? GetByIdUser(data?.idUser) : null,
     refetchOnWindowFocus: false,
   });
 
@@ -56,7 +57,7 @@ export const useUserConfiguration = () => {
   const mutationUpdate = useMutation({
     mutationKey: ["updateUser"],
     mutationFn: async (request: UpdateUserRequest) =>
-      await UpdateUser(idUser || 0, request),
+      await UpdateUser(data?.idUser || 0, request),
   });
 
   const {
