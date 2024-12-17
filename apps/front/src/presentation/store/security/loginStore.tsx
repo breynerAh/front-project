@@ -21,15 +21,29 @@ export const useUserLoginStore = create(
     data: {
       idUser: number;
       idRol: number;
+      userName?: string;
+      email?: string;
     };
-    setUser: (data: { idUser: number; idRol: number }) => void;
+    setUser: (data: {
+      idUser: number;
+      idRol: number;
+      userName?: string;
+      email?: string;
+    }) => void;
   }>(
     (set) => ({
       data: {
         idUser: 0,
         idRol: 0,
+        userName: "string",
+        email: "string",
       },
-      setUser: (data: { idUser: number; idRol: number }) => set({ data }),
+      setUser: (data: {
+        idUser: number;
+        idRol: number;
+        userName?: string;
+        email?: string;
+      }) => set({ data }),
     }),
     {
       name: "user",

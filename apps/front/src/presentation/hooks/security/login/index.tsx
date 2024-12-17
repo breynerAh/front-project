@@ -54,7 +54,12 @@ export function useLogin() {
       {
         onSuccess: (response) => {
           setToken(response.token);
-          setUser({ idUser: response?.id, idRol: response?.idRol });
+          setUser({
+            idUser: response?.id,
+            idRol: response?.idRol,
+            userName: response?.userName,
+            email: response?.email,
+          });
         },
         onError: (error) => {
           if (error instanceof AxiosError) {

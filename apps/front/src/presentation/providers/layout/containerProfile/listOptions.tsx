@@ -12,6 +12,8 @@ import { BoxUI, TypographyUI } from "@repo/ui";
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeColor } from "../../theme/theme";
+import { useUserLoginStore } from "@/presentation/store/security/loginStore";
+import { capitalizedFirst } from "@/common/utils";
 
 export const ListOptions: FC<{
   idPopover?: string;
@@ -19,6 +21,7 @@ export const ListOptions: FC<{
   listOption: HTMLElement | null;
   handleCloseListOption: () => void;
 }> = ({ idPopover, openListOption, listOption, handleCloseListOption }) => {
+  const { data } = useUserLoginStore();
   const { logout } = useContext(AuthContext);
   const theme = ThemeColor();
 
@@ -59,8 +62,8 @@ export const ListOptions: FC<{
               }}
             />
           </BoxUI>
-          <TypographyUI>User</TypographyUI>
-          <TypographyUI>Email</TypographyUI>
+          <TypographyUI>{capitalizedFirst(data?.userName || "")}</TypographyUI>
+          <TypographyUI>{capitalizedFirst(data?.email || "")}</TypographyUI>
         </ListItem>
         <Divider component="li" />
 

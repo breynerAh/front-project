@@ -20,8 +20,16 @@ export default function useUpload() {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    console.log(event, "🥲🥲");
     const file = event.target.files?.[0];
+
     if (file) {
+      const fileSizeInBytes = file.size; // Tamaño en bytes
+      // const fileSizeInMB = fileSizeInBytes / (1024 * 1024); // Tamaño en megabytes
+      const fileSizeInMB_Decimal = fileSizeInBytes / 1000000; // Escala decimal
+
+      console.log("😈", fileSizeInBytes);
+      console.log("😈😈", fileSizeInMB_Decimal);
       setNameDocument(file?.name);
       const base64String = await convertToBase64(file);
       setImagePreview(base64String);
@@ -35,8 +43,8 @@ export default function useUpload() {
       mutation.mutate(
         {
           base64: imagePreview,
-          folder: "documents",
-          type: "raw",
+          folder: "videos",
+          type: "video",
           name: nameDocument,
         },
         {
@@ -44,6 +52,7 @@ export default function useUpload() {
             toastInvoker("Archivo subido correctamente", "success");
           },
           onError: (error) => {
+            console.log(error, 88);
             if (error instanceof AxiosError) {
               const message = (error as TError)?.response?.data?.message;
               toastInvoker(message, "error");
