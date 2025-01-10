@@ -35,6 +35,12 @@ export const router = createBrowserRouter([
             Component: lazy(() => import("@/presentation/pages/todo/TodoPage")),
           },
           {
+            path: "",
+            Component: lazy(
+              () => import("@/presentation/pages/library/productPage")
+            ),
+          },
+          {
             path: "configuration",
             Component: lazy(
               () => import("@/presentation/pages/administration/configuration")
