@@ -5,6 +5,9 @@ import { ThemeColor } from "../../../../../../apps/front/src/presentation/provid
 import { TypographyUI } from "../typography/typography";
 import CloseIcon from "@mui/icons-material/Close";
 import { SvgIconComponent } from "@mui/icons-material";
+import { ButtonActionResponseUI } from "../../molecules/buttonActionNew/buttonAction";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 interface ModalUIProps extends ModalProps {
   variant?: "sm" | "md" | "lg" | "xl";
@@ -30,6 +33,8 @@ export type TModal = {
   borderRadius?: number | "none";
   handleCloseModal: (value: boolean) => void;
   iconoTituloModal: SvgIconComponent;
+  footer?: boolean;
+  paddingChildren?: string;
 };
 
 export const ModalUI = React.forwardRef<HTMLDivElement, ModalUIProps>(
@@ -76,6 +81,8 @@ export const TransitionsModalUI: React.FC<TModal> = ({
   handleCloseModal,
   componentTitle,
   iconoTituloModal: IconTitle,
+  footer = false,
+  paddingChildren = "",
 }) => {
   const theme = ThemeColor();
   const [open, setOpen] = useState(state);
@@ -120,7 +127,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
       width: "100%",
       height: "auto",
       borderTop: `1px ${theme.system.hover} solid`,
-      padding: "10px 20px",
+      padding: paddingChildren ? paddingChildren : "10px 20px",
     },
     iconButton: {
       color: "gray",
@@ -183,6 +190,48 @@ export const TransitionsModalUI: React.FC<TModal> = ({
             </IconButton>
           </BoxUI>
           <BoxUI sx={{ ...styles.body, overflow }}>{children}</BoxUI>
+          {footer && (
+            <BoxUI
+              sx={{
+                borderTop: `1px ${theme.system.hover} solid`,
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+                padding: "10px",
+              }}
+            >
+              <ButtonActionResponseUI
+                onClick={() => {}}
+                startIcon={<CloseOutlinedIcon />}
+                textColor={theme.primary.main}
+                text="Cancelar"
+                // disabled={isPending || isPendingUpdate}
+                sx={{
+                  backgroundColor: theme.primary.lighter,
+                  color: theme.primary.main,
+                  height: "30px",
+                  "&:hover": {
+                    backgroundColor: theme.secondary.dark,
+                  },
+                  marginRight: "10px",
+                }}
+              />
+              <ButtonActionResponseUI
+                onClick={() => {}}
+                startIcon={<SaveOutlinedIcon />}
+                text="Guardar"
+                // disabled={isPending || isPendingUpdate}
+                sx={{
+                  backgroundColor: theme.secondary.main,
+                  color: "white",
+                  height: "30px",
+                  "&:hover": {
+                    backgroundColor: theme.secondary.dark,
+                  },
+                }}
+              />
+            </BoxUI>
+          )}
         </BoxUI>
       </Fade>
     </ModalUI>
