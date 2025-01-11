@@ -11,6 +11,7 @@ export { ModalUI } from "./components/atoms/modal/modal";
 export { TransitionsModalUI } from "./components/atoms/modal/modal";
 export { PaperUI } from "./components/atoms/paper/paper";
 export { ContentUI } from "./components/atoms/content/content";
+export { CarouselUI } from "./components/atoms/carousel";
 
 //forms
 export {
