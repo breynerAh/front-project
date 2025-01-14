@@ -5,9 +5,6 @@ import { ThemeColor } from "../../../../../../apps/front/src/presentation/provid
 import { TypographyUI } from "../typography/typography";
 import CloseIcon from "@mui/icons-material/Close";
 import { SvgIconComponent } from "@mui/icons-material";
-import { ButtonActionResponseUI } from "../../molecules/buttonActionNew/buttonAction";
-import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 interface ModalUIProps extends ModalProps {
   variant?: "sm" | "md" | "lg" | "xl";
@@ -35,6 +32,7 @@ export type TModal = {
   iconoTituloModal: SvgIconComponent;
   footer?: boolean;
   paddingChildren?: string;
+  childrenFooter?: ReactNode;
 };
 
 export const ModalUI = React.forwardRef<HTMLDivElement, ModalUIProps>(
@@ -83,6 +81,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
   iconoTituloModal: IconTitle,
   footer = false,
   paddingChildren = "",
+  childrenFooter,
 }) => {
   const theme = ThemeColor();
   const [open, setOpen] = useState(state);
@@ -200,36 +199,7 @@ export const TransitionsModalUI: React.FC<TModal> = ({
                 padding: "10px",
               }}
             >
-              <ButtonActionResponseUI
-                onClick={() => {}}
-                startIcon={<CloseOutlinedIcon />}
-                textColor={theme.primary.main}
-                text="Cancelar"
-                // disabled={isPending || isPendingUpdate}
-                sx={{
-                  backgroundColor: theme.primary.lighter,
-                  color: theme.primary.main,
-                  height: "30px",
-                  "&:hover": {
-                    backgroundColor: theme.secondary.dark,
-                  },
-                  marginRight: "10px",
-                }}
-              />
-              <ButtonActionResponseUI
-                onClick={() => {}}
-                startIcon={<SaveOutlinedIcon />}
-                text="Guardar"
-                // disabled={isPending || isPendingUpdate}
-                sx={{
-                  backgroundColor: theme.secondary.main,
-                  color: "white",
-                  height: "30px",
-                  "&:hover": {
-                    backgroundColor: theme.secondary.dark,
-                  },
-                }}
-              />
+              {childrenFooter}
             </BoxUI>
           )}
         </BoxUI>

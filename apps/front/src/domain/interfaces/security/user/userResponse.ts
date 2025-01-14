@@ -5,6 +5,7 @@ import {
   UpdatePersonRequest,
 } from "../../administration/person/personResponse";
 import { UserRoleResponse } from "../userRole/userRoleResponse";
+import { UploadRequest } from "../../utilitaria/upload/upload.response";
 
 export interface UserRequest extends PersonRequest {
   userName: string;
@@ -15,11 +16,13 @@ export interface UserRequest extends PersonRequest {
 }
 
 export interface UpdateUserRequest extends UpdatePersonRequest {
+  id?: number,
   userName?: string;
   email?: string;
   password?: string;
   idCompany?: number;
   idRol?: number;
+  upload?: UploadRequest
 }
 
 export interface UserResponse {

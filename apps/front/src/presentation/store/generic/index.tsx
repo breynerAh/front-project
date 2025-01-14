@@ -50,3 +50,32 @@ export const useIdStore = create<{
     }));
   },
 }));
+
+export const useFileUploadButtonStore = create<{
+  preview: string;
+  updatePreview: (preview: string) => void;
+}>()((set) => ({
+  preview: "",
+  updatePreview: (preview) => {
+    set((state) => ({
+      ...state,
+      preview: preview,
+    }));
+  },
+}));
+
+export const useDataImageStore = create<{
+  imageData: { nameDocument: string; imagePreview: string };
+  updateData: (imageData: {
+    nameDocument: string;
+    imagePreview: string;
+  }) => void;
+}>()((set) => ({
+  imageData: { nameDocument: "", imagePreview: "" },
+  updateData: (imageData) => {
+    set((state) => ({
+      ...state,
+      imageData: imageData,
+    }));
+  },
+}));

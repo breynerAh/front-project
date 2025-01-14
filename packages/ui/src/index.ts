@@ -66,6 +66,7 @@ export { CustomToolbarUI } from "./components/molecules/customToolbar/customTool
 export { CustomSwitchUI } from "./components/molecules/customSwitch/customSwitch";
 export { QuickSearchToolbar } from "./components/atoms/table/quickSearchToolbar";
 export { StateButton } from "./components/molecules/stateButton/stateButton";
+export { FileUploadButtonUI } from "./components/molecules/fileUploadButton";
 
 // UTILS
 export { createAutoCompleteOptions } from "./utils";

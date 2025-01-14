@@ -1,4 +1,6 @@
+import { capitalizedFirst } from "@/common/utils";
 import { AuthContext } from "@/presentation/providers/context/authContext";
+import { useUserLoginStore } from "@/presentation/store/security/loginStore";
 import {
   CollectionsBookmarkOutlined,
   FavoriteBorderOutlined,
@@ -7,20 +9,22 @@ import {
   ModeEditOutlineOutlined,
   SchoolOutlined,
 } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import { Avatar, Divider, List, ListItem, Popover } from "@mui/material";
 import {
   BoxUI,
   ButtonActionResponseUI,
+  FileUploadButtonUI,
   TransitionsModalUI,
   TypographyUI,
 } from "@repo/ui";
 import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ThemeColor } from "../../theme/theme";
-import { useUserLoginStore } from "@/presentation/store/security/loginStore";
-import { capitalizedFirst } from "@/common/utils";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import { useListOptions } from "@/presentation/hooks/layout/listOptions";
 
 export const ListOptions: FC<{
   idPopover?: string;
@@ -28,9 +32,10 @@ export const ListOptions: FC<{
   listOption: HTMLElement | null;
   handleCloseListOption: () => void;
 }> = ({ idPopover, openListOption, listOption, handleCloseListOption }) => {
+  const theme = ThemeColor();
   const { data } = useUserLoginStore();
   const { logout } = useContext(AuthContext);
-  const theme = ThemeColor();
+  const { preview, clearImage, handleUpload } = useListOptions();
 
   const [open, setOpen] = useState<boolean | undefined>(undefined);
   const handleOpen = () => {
@@ -164,17 +169,66 @@ export const ListOptions: FC<{
         overflow="auto"
         paddingChildren="0px"
         footer
+        childrenFooter={
+          <>
+            {preview !== "" && (
+              <ButtonActionResponseUI
+                onClick={() => {
+                  clearImage();
+                }}
+                startIcon={<CloseOutlinedIcon />}
+                textColor={theme.primary.main}
+                text="Cancelar"
+                sx={{
+                  backgroundColor: theme.primary.lighter,
+                  color: theme.primary.main,
+                  height: "30px",
+                  "&:hover": {
+                    backgroundColor: theme.info.light,
+                  },
+                  marginRight: "10px",
+                }}
+              />
+            )}
+            <ButtonActionResponseUI
+              onClick={() => handleUpload()}
+              startIcon={<SaveOutlinedIcon />}
+              text="Guardar"
+              disabled={preview === ""}
+              sx={{
+                backgroundColor:
+                  preview === "" ? theme.text.disable : theme.secondary.main,
+                color: "white",
+                height: "30px",
+                "&:hover": {
+                  backgroundColor: theme.secondary.dark,
+                },
+              }}
+            />
+          </>
+        }
       >
         <BoxUI
           height="300px"
           sx={{
             background: theme.text.lines,
+            backgroundImage: `url(${preview})`,
+            backgroundSize: "cover", // Ajusta la imagen para cubrir todo el div
+            backgroundPosition: "center", // Centra la imagen
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <ButtonActionResponseUI
+          {preview === "" && (
+            <FileUploadButtonUI
+              text="Subir imagen"
+              icon={<FileUploadOutlinedIcon fontSize="small" />}
+              name="photo"
+              disabledForm={false}
+            />
+          )}
+          {/* <ButtonActionResponseUI
             onClick={() => {}}
             startIcon={<FileUploadOutlinedIcon />}
             text="Subir imagen"
@@ -187,7 +241,7 @@ export const ListOptions: FC<{
                 backgroundColor: theme.secondary.dark,
               },
             }}
-          />
+          /> */}
         </BoxUI>
       </TransitionsModalUI>
     </>
