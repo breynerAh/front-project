@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { DataGrid, DataGridProps } from "@mui/x-data-grid";
 import { esES } from "@mui/x-data-grid/locales";
 import { forwardRef, useEffect, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+// import { useDebouncedCallback } from "use-debounce";
 
 interface TableUIProps extends DataGridProps {
   pageSize?: number;
@@ -28,14 +28,14 @@ export const CustomNoRowsOverlay = () => {
 
 export const TableUI = forwardRef<HTMLDivElement, TableUIProps>(
   ({ pageSize = 20, ...props }, ref) => {
-    const [filterValue, setFilterValue] = useState("");
+    // const [filterValue, setFilterValue] = useState("");
     const [debouncedFilterValue, setDebouncedFilterValue] = useState("");
     const [filteredRows, setFilteredRows] = useState(props.rows || []);
 
     // Callback debounced para manejar el cambio en el filtro
-    const filterTimeValue = useDebouncedCallback((value: string) => {
-      setDebouncedFilterValue(!filterValue ? filterValue : value);
-    }, 500);
+    // const filterTimeValue = useDebouncedCallback((value: string) => {
+    //   setDebouncedFilterValue(!filterValue ? filterValue : value);
+    // }, 500);
 
     const removeAccents = (value: string) => {
       return value
@@ -44,15 +44,15 @@ export const TableUI = forwardRef<HTMLDivElement, TableUIProps>(
         .replace(/\./g, "");
     };
 
-    const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event?.target?.value || "";
-      setFilterValue(value);
-      if (value) {
-        filterTimeValue(value);
-      } else {
-        setDebouncedFilterValue("");
-      }
-    };
+    // const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   const value = event?.target?.value || "";
+    //   setFilterValue(value);
+    //   if (value) {
+    //     filterTimeValue(value);
+    //   } else {
+    //     setDebouncedFilterValue("");
+    //   }
+    // };
 
     // Filtrar las filas cuando debouncedFilterValue cambia
     useEffect(() => {
@@ -95,8 +95,7 @@ export const TableUI = forwardRef<HTMLDivElement, TableUIProps>(
           ...props?.slotProps,
           toolbar: {
             ...props?.slotProps?.toolbar,
-            handleFilterChange,
-            filterValue,
+            // handleFilterChange,
           },
         }}
         sx={{

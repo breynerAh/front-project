@@ -10,7 +10,20 @@ import {
 import { BoxUI } from "../box/box";
 
 export const QuickSearchToolbar: React.JSXElementConstructor<
-  GridToolbarProps & ToolbarPropsOverrides
+  GridToolbarProps &
+    ToolbarPropsOverrides & {
+      selectedRows?: { id: number; [key: string]: string | number | boolean }[];
+      handleDelete?: () => void;
+      disabledPower?: boolean;
+      name?: string;
+      handleEdit?: () => void;
+      detail?: boolean;
+      doNotShowIconPowerSetting?: boolean;
+      handleFilterChange?: (value: string) => void;
+      filterValue?: string;
+      notViewOrEdit?: boolean;
+      disabled?: boolean;
+    }
 > = ({
   handleDelete,
   selectedRows,
@@ -41,7 +54,8 @@ export const QuickSearchToolbar: React.JSXElementConstructor<
                 <IconButton
                   aria-label="Actualizar"
                   disabled={
-                    selectedRows?.length === 0 || selectedRows?.length >= 2
+                    (selectedRows?.length ?? 0) === 0 ||
+                    (selectedRows?.length ?? 0) >= 2
                   }
                   onClick={handleEdit}
                 >
@@ -77,13 +91,13 @@ export const QuickSearchToolbar: React.JSXElementConstructor<
         <GridToolbarQuickFilter
           size="small"
           placeholder="Buscar"
-          onChange={handleFilterChange}
+          onChange={(event) => handleFilterChange?.(event.target.value)}
           value={filterValue}
           InputProps={{
             endAdornment: (
               <IconButton
                 disabled={!filterValue}
-                onClick={() => handleFilterChange("")}
+                onClick={() => handleFilterChange?.("")}
                 size="small"
                 sx={{ width: "30px" }}
               >
